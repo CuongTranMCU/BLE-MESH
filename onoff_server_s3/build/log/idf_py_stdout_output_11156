@@ -1,0 +1,8 @@
+esptool.py v4.7.0
+Serial port COM10
+
+A fatal error occurred: Could not open COM10, the port is busy or doesn't exist.
+(could not open port 'COM10': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2))
+
+Hint: Check if the port is correct and ESP connected
+
