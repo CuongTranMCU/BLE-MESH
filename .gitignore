@@ -1,19 +1,8 @@
-Bai18_Series_BLE_Mesh/Test01_OnOff_Server/build
-Bai18_Series_BLE_Mesh/Test01_OnOff_Server/.vscode
-Bai18_Series_BLE_Mesh/Test01_OnOff_Server/.devcontainer
+Bai18_Series_BLE_Mesh/custom_client/build
+Bai18_Series_BLE_Mesh/custom_client/.vscode
+Bai18_Series_BLE_Mesh/custom_client/.devcontainer
 
-Bai18_Series_BLE_Mesh/Test02_OnOff_Client/build
-Bai18_Series_BLE_Mesh/Test02_OnOff_Client/.vscode
-Bai18_Series_BLE_Mesh/Test02_OnOff_Client/.devcontainer
+Bai18_Series_BLE_Mesh/custom_server/build
+Bai18_Series_BLE_Mesh/custom_server/.vscode
+Bai18_Series_BLE_Mesh/custom_server/.devcontainer
 
-Bai18_Series_BLE_Mesh/Test03_Ble_Mesh_WiFi_Coexist/build
-Bai18_Series_BLE_Mesh/Test03_Ble_Mesh_WiFi_Coexist/.vscode
-Bai18_Series_BLE_Mesh/Test03_Ble_Mesh_WiFi_Coexist/.devcontainer
-
-Bai18_Series_BLE_Mesh/Test04__Custom_Sensor_Client/build
-Bai18_Series_BLE_Mesh/Test04__Custom_Sensor_Client/.vscode
-Bai18_Series_BLE_Mesh/Test04__Custom_Sensor_Client/.devcontainer
-
-Bai18_Series_BLE_Mesh/Test05__Custom_SenSor_Server/build
-Bai18_Series_BLE_Mesh/Test05__Custom_SenSor_Server/.vscode
-Bai18_Series_BLE_Mesh/Test05__Custom_SenSor_Server/.devcontainer
