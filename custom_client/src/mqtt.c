@@ -48,7 +48,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
         printf("DATA=%.*s\r\n", event->data_len, event->data);
         event->data[event->data_len] = '\0';
-        mqtt_data_pt((uint8_t *)event->data, event->data_len);
+        mqtt_data_pt(event->data, event->data_len);
         break;
 
     case MQTT_EVENT_ERROR:
@@ -89,11 +89,11 @@ void mqtt_data_pt_set_callback(void *cb)
 
 void mqtt_data_publish_callback(char *data)
 {
-    msg_id = esp_mqtt_client_publish(global_client, "/topic/qos1", "data_3", 0, 1, 0);
+    esp_mqtt_client_publish(global_client, "/topic/qos1", "data_3", 0, 1, 0);
     ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 }
 
-char *convert_to_json(model_sensor_data_t *received_data)
+char *convert_model_sensor_to_json(model_sensor_data_t *received_data)
 {
     // parse the JSON data
     char buffer[1024];

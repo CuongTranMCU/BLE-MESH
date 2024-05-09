@@ -7,5 +7,5 @@ set(EXTRA_COMPONENT_DIRS $ENV{IDF_PATH}/examples/bluetooth/esp_ble_mesh/common_c
                          $ENV{IDF_PATH}/examples/bluetooth/esp_ble_mesh/common_components/example_nvs)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-project(onoff_client)
+project(custom_client)
 target_compile_options(${lib} PRIVATE -Wno-error=format)

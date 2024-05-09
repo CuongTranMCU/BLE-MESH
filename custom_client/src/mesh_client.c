@@ -277,7 +277,7 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
 
             model_sensor_data_t received_data;
             parse_received_data(param, &received_data);
-            char *json = convert_to_json(&received_data);
+            char *json = convert_model_sensor_to_json(&received_data);
             mqtt_data_publish_callback(json);
 
             break;
@@ -478,7 +478,7 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_get(void)
     return err;
 }
 
-void mqtt_data_callback(uint8_t *data, uint16_t length)
+void mqtt_data_callback(char *data, uint16_t length)
 {
     char *pt = (char *)data;
     // {"addr":"0x005b","state":0}
@@ -518,5 +518,35 @@ void mqtt_data_callback(uint8_t *data, uint16_t length)
     }
 
     printf("Send -> 0x%04x, %d\n", address_des, value);
+
+    cJSON *json = cJSON_Parse(data);
+    if (json == NULL)
+    {
+        const char *error_ptr = cJSON_GetErrorPtr();
+        if (error_ptr != NULL)
+        {
+            printf("Error: %s\n", error_ptr);
+        }
+        cJSON_Delete(json);
+        return 1;
+    }
+
+    // // access the JSON data
+    // cJSON *addr = cJSON_GetObjectItemCaseSensitive(json, "addr");
+    // if (cJSON_IsString(addr) && (addr->valuestring != NULL))
+    // {
+    //     printf("Name: %s\n", addr->valuestring);
+    // }
+
+    // // cJSON *status = cJSON_GetObjectItemCaseSensitive(json, "addr");
+    // // if (cJSON_IsString(status) && (name->valuestring != NULL))
+    // // {
+    // //     printf("Name: %s\n", status->valuestring);
+    // // }
+
+    // // delete the JSON object
+    // cJSON_Delete(json);
+    return 0;
+
     ble_mesh_custom_sensor_client_model_message_get();
 }
