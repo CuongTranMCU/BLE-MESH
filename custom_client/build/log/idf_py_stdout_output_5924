@@ -1,0 +1,291 @@
+(POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_droot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (58) boot: Partition Table:[0m
+[0;32mI (62ets Jun  8 2016 00:22:57
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7084
+ho 0 tail 12 room 4
+load:0x40078000,len:15584
+load:0x40080400,len:4
+load:0x40080404,len:3876
+entry 0x4008064c
+[0;32mI (31) boot: ESP-IDF v5.1.2-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 14 2024 21:40:13[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (35) boot: chip revision: v1.0[0m
+[0;32mI (39) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (48) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (58) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (84) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=2fabch (195260) map[0m
+[0;32mI (175) esp_image: segment 1: paddr=0003fae4 vaddr=3ffbdb60 size=00534h (  1332) load[0m
+[0;32mI (176) esp_image: segment 2: paddr=00040020 vaddr=400d0020 size=af3e4h (717796) map[0m
+[0;32mI (440) esp_image: segment 3: paddr=000ef40c vaddr=3ffbe094 size=04d38h ( 19768) load[0m
+[0;32mI (448) esp_image: segment 4: paddr=000f414c vaddr=40080000 size=187f4h (100340) load[0m
+[0;32mI (502) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (502) boot: Disabling RNG early entropy source...[0m
+[0;32mI (514) cpu_start: Multicore app[0m
+[0;32mI (514) cpu_start: Pro cpu up.[0m
+[0;32mI (514) cpu_start: Starting app cpu, entry point is 0x4008137c[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (534) cpu_start: Pro cpu start user code[0m
+[0;32mI (534) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (534) cpu_start: Application information:[0m
+[0;32mI (539) cpu_start: Project name:     onoff_client[0m
+[0;32mI (544) cpu_start: App version:      2fdf035-dirty[0m
+[0;32mI (550) cpu_start: Compile time:     Apr 14 2024 22:06:29[0m
+[0;32mI (556) cpu_start: ELF file SHA256:  514f994e3d3d7893...[0m
+[0;32mI (562) cpu_start: ESP-IDF:          v5.1.2-dirty[0m
+[0;32mI (567) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (572) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (577) cpu_start: Chip rev:         v1.0[0m
+[0;32mI (582) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (589) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (595) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (601) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (607) heap_init: At 3FFCAB48 len 000154B8 (85 KiB): DRAM[0m
+[0;32mI (613) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (620) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (626) heap_init: At 400987F4 len 0000780C (30 KiB): IRAM[0m
+[0;32mI (634) spi_flash: detected chip: generic[0m
+[0;32mI (637) spi_flash: flash io: dio[0m
+[0;33mW (641) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (655) coexist: coex firmware version: b6d5e8c[0m
+[0;32mI (660) app_start: Starting scheduler on CPU0[0m
+[0;32[0;32mI (664) app_start: Starting scheduler on CPU1[0m
+mI (664) main_task: Started on CPU0[0m
+[0;32mI (674) main_task: Calling app_main()[0m
+[0;32mI (674) MAIN: Initializing...[0m
+[0;32mI (704) BTDM_INIT: BT controller compile version [ec4ac65][0m
+[0;32mI (704) BTDM_INIT: Bluetooth MAC: a4:e5:7c:f7:c2:fe[0m
+[0;32mI (714) phy_init: phy_version 4780,16b31a7,Sep 22 2023,20:42:16[0m
+[0;33mW (1214) BLE_MESH: bt_mesh_proxy_server_prov_disable, Already[0m
+[0;32mI (1244) MESH_CLIENT: ESP_BLE_MESH_NODE_PROV_COMPLETE_EVT[0m
+[0;32mI (1244) MESH_CLIENT: net_idx: 0x0000, addr: 0x0005[0m
+[0;32mI (1244) MESH_CLIENT: flags: 0x00, iv_index: 0x00000000[0m
+[0;32mI (1254) MESH_CLIENT: Device provisioned[0m
+[0;32mI (1254) MESH_CLIENT: ESP_BLE_MESH_PROV_REGISTER_COMP_EVT, err_code 0[0m
+[0;32mI (1264) MESH_CLIENT: ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT, Name: ESP-CLIENT MESH, err_code 0[0m
+[0;33mW (1274) BLE_MESH: bt_mesh_prov_enable, Already[0m
+[0;32mI (1274) MESH_CLIENT: ESP_BLE_MESH_NODE_PROV_ENABLE_COMP_EVT, err_code -120[0m
+[0;32mI (1284) MESH_CLIENT: BLE Mesh Node initialized[0m
+[0;32mI (1294) MAIN: SGP30 main task initializing...[0m
+[0;32mI (1294) MAIN: BASELINES - TVOC: 36,  eCO2: 18[0m
+[0;32mI (1304) MAIN: SGP30 main task is running...[0m
+[0;32mI (1304) main_task: Returned from app_main()[0m
+[0;32mI (7304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (7404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (13304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (13404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (19304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (19544) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (25304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (25404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (31304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (31404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (37304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (37544) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (43304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (43404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (49304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (49404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (55304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (55554) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (61304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (61404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (67304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (67404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (73304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (73554) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (79304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (79404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (85304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (85414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (91304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (91554) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (97304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (97404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (103304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (103404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (109304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (109404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (115304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (115404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (121304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (121414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (127304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (127414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (133304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (133544) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (139304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (139414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (145304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (145404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (151304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (151554) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (157304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (157404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (163304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (163404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (169304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (169474) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (175304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (175404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (181304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (181404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (187304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (187404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (193304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (193524) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (199304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (199404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (205304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (205414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (211304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (211554) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (217304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (217404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (223304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (223404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (229304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (229534) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (235304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (235414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (241304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (241414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (247304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (247574) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (253304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (253404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (259304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (259414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (265304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (265474) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (271304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (271424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (277304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (277424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (283304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (283424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (289304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (289564) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (295304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (295424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (301304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (301414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (307304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (307524) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (313304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (313424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (319304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (319424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (325304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (325564) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (331304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (331424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (337304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (337424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (343304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (343544) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (349304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (349414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (355304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (355424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (361304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (361574) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (367304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (367424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (373304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (373404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (379304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (379474) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (385304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (385424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (391304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (391424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (397304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (397424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (403304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (403564) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (409304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (409414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (415304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (415424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (421304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (421564) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (427304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (427424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (433304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (433424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (439304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (439554) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (445304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (445414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (451304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (451414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (457304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (457564) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (463304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (463424) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (469304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (469414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (475304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (475474) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (481304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (481414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (487304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (487404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (493304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (493404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (499304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (499544) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (505304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (505414) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (511304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (511404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (517304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (517554) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (523304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (523404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (529304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (529404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (535304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (535554) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (541304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (541404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (547304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (547404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (553304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (553544) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (559304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (559404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (565304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (565404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (571304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (571544) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (577304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (577404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (583304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (583404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (589304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (589494) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (595304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (595404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (601304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (601404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (607304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (607404) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (613304) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (613554) MESH_CLIENT: Send message opcode 0xc102e5 success![0m

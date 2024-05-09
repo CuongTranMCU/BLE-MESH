@@ -1,0 +1,516 @@
+ (POWERON_Rz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) �ets Jun  8 2016 00:22:57
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7084
+ho 0 tail 12 room 4
+load:0x40078000,len:15584
+load:0x40080400,len:4
+load:0x40080404,len:3876
+entry 0x4008064c
+[0;32mI (31) boot: ESP-IDF v5.1.2-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 14 2024 21:40:13[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v1.0[0m
+[0;32mI (40) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (70) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (85) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=2fabch (195260) map[0m
+[0;32mI (175) esp_image: segment 1: paddr=0003fae4 vaddr=3ffbdb60 size=00534h (  1332) load[0m
+[0;32mI (176) esp_image: segment 2: paddr=00040020 vaddr=400d0020 size=af3e8h (717800) map[0m
+[0;32mI (440) esp_image: segment 3: paddr=000ef410 vaddr=3ffbe094 size=04d38h ( 19768) load[0m
+[0;32mI (448) esp_image: segment 4: paddr=000f4150 vaddr=40080000 size=187f4h (100340) load[0m
+[0;32mI (503) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (503) boot: Disabling RNG early entropy source...[0m
+[0;32mI (514) cpu_start: Multicore app[0m
+[0;32mI (515) cpu_start: Pro cpu up.[0m
+[0;32mI (515) cpu_start: Starting app cpu, entry point is 0x4008137c[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (535) cpu_start: Pro cpu start user code[0m
+[0;32mI (535) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (535) cpu_start: Application information:[0m
+[0;32mI (539) cpu_start: Project name:     onoff_client[0m
+[0;32mI (545) cpu_start: App version:      2fdf035-dirty[0m
+[0;32mI (550) cpu_start: Compile time:     Apr 14 2024 22:06:29[0m
+[0;32mI (556) cpu_start: ELF file SHA256:  da4ac2c7c616a41e...[0m
+[0;32mI (562) cpu_start: ESP-IDF:          v5.1.2-dirty[0m
+[0;32mI (568) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (572) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (577) cpu_start: Chip rev:         v1.0[0m
+[0;32mI (582) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (589) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (595) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (601) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (608) heap_init: At 3FFCAB48 len 000154B8 (85 KiB): DRAM[0m
+[0;32mI (614) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (620) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (626) heap_init: At 400987F4 len 0000780C (30 KiB): IRAM[0m
+[0;32mI (634) spi_flash: detected chip: generic[0m
+[0;32mI (637) spi_flash: flash io: dio[0m
+[0;33mW (641) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (655) coexist: coex firmware version: b6d5e8c[0m
+[0;32mI (660) app_start: Starting scheduler on CPU0[0m
+[0;32[0;32mI (665) app_start: Starting scheduler on CPU1[0m
+mI (665) main_task: Started on CPU0[0m
+[0;32mI (675) main_task: Calling app_main()[0m
+[0;32mI (675) MAIN: Initializing...[0m
+[0;32mI (695) BTDM_INIT: BT controller compile version [ec4ac65][0m
+[0;32mI (695) BTDM_INIT: Bluetooth MAC: a4:e5:7c:f7:c2:fe[0m
+[0;32mI (695) phy_init: phy_version 4780,16b31a7,Sep 22 2023,20:42:16[0m
+[0;33mW (695) phy_init: failed to load RF calibration data (0x1102), falling back to full calibration[0m
+[0;32mI (1225) MESH_CLIENT: ESP_BLE_MESH_PROV_REGISTER_COMP_EVT, err_code 0[0m
+[0;32mI (1225) MESH_CLIENT: ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT, Name: ESP-CLIENT MESH, err_code 0[0m
+[0;32mI (1235) MESH_CLIENT: BLE Mesh Node initialized[0m
+[0;32mI (1235) MAIN: SGP30 main task initializing...[0m
+[0;32mI (1245) MAIN: BASELINES - TVOC: 36,  eCO2: 18[0m
+[0;32mI (1245) MAIN: SGP30 main task is running...[0m
+[0;32mI (1255) MESH_CLIENT: ESP_BLE_MESH_NODE_PROV_ENABLE_COMP_EVT, err_code 0[0m
+[0;32mI (1255) main_task: Returned from app_main()[0m
+[0;32mI (8865) MESH_CLIENT: ESP_BLE_MESH_NODE_PROV_LINK_OPEN_EVT, bearer PB-GATT[0m
+[0;33mW (12125) BLE_MESH: No Health Server context provided[0m
+[0;33mW (16135) BLE_MESH: No Health Server context provided[0m
+[0;32mI (16165) MESH_CLIENT: ESP_BLE_MESH_NODE_PROV_LINK_CLOSE_EVT, bearer PB-GATT[0m
+[0;32mI (16165) MESH_CLIENT: ESP_BLE_MESH_NODE_PROV_COMPLETE_EVT[0m
+[0;32mI (16165) MESH_CLIENT: net_idx: 0x0000, addr: 0x000e[0m
+[0;32mI (16175) MESH_CLIENT: flags: 0x00, iv_index: 0x00000000[0m
+[0;32mI (16175) MESH_CLIENT: Device provisioned[0m
+[0;32mI (16255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (16255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (16255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (16255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;33mW (17295) BT_APPL: gattc_conn_cb: if=4 st=0 id=4 rsn=0x13[0m
+[0;33mW (17295) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;32mI (22255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (22255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (22255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (22255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;33mW (23105) BLE_MESH: No matching TX context for ack[0m
+[0;32mI (26635) MESH_CLIENT: ESP_BLE_MESH_MODEL_OP_APP_KEY_ADD[0m
+[0;32mI (26635) MESH_CLIENT: net_idx 0x0000, app_idx 0x0000[0m
+[0;32mI (26635) AppKey: 36 09 b9 aa fb 09 83 59 68 5c 85 5d 8b c7 f5 99 [0m
+[0;32mI (28255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (28255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (28255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (28255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (34255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (34255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (34255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (34255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (40255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (40255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (40255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (40255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (46255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (46255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (46255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (46255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (52255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (52255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (52255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (52255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (58255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (58255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (58255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (58255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (64255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (64255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (64255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (64255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (70255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (70255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (70255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (70255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (76255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (76255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (76255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (76255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (82255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (82255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (82255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (82255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (88255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (88255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (88255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (88255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (94255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (94255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (94255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (94255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (100255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (100255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (100255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (100255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (106255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (106255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (106255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (106265) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (112255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (112255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (112255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (112255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (118255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (118255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (118255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (118255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (124255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (124255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (124255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (124255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (130255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (130255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (130255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (130255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (136255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (136255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (136255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (136255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (142255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (142255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (142255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (142255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (148255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (148255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (148255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (148255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (154255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (154255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (154255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (154255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (160255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (160255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (160255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (160255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (166255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (166255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (166255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (166255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (172255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (172255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (172255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (172255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (178255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (178255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (178255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (178255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (184255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (184255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (184255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (184255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (190255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (190255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (190255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (190255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (196255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (196255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (196255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (196255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (202255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (202255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (202255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (202255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (208255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (208255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (208255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (208255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (214255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (214255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (214255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (214255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (220255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (220255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (220255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (220255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (226255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (226255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (226255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (226255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (232255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (232255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (232255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (232255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (238255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (238255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (238255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (238255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (244255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (244255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (244255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (244255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (250255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (250255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (250255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (250255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (256255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (256255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (256255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (256255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (262255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (262255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (262255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (262255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (268255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (268255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (268255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (268255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (274255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (274255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (274255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (274255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (280255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (280255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (280255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (280255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (286255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (286255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (286255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (286255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (292255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (292255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (292255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (292255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (298255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (298255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (298255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (298255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (304255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (304255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (304255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (304255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (310255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (310255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (310255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (310255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (316255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (316255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (316255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (316255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (322255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (322255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (322255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (322255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (328255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (328255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (328255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (328255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (334255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (334255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (334255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (334255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (340255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (340255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (340255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (340255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (346255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (346255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (346255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (346255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (352255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (352255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (352255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (352255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (358255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (358255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (358255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (358255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (364255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (364255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (364255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (364255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (370255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (370255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (370255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (370255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (376255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (376255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (376255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (376255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (382255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (382255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (382255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (382255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (388255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (388255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (388255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (388255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (394255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (394255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (394255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (394255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (400255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (400255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (400255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (400255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (406255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (406255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (406255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (406255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (412255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (412255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (412255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (412255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (418255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;31mE (418255) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (418255) BLE_MESH: Failed to send client message 0x00c102e5[0m
+[0;31mE (418255) MESH_CLIENT: Failed to send message 0xc102e5[0m
+[0;32mI (423795) MESH_CLIENT: ESP_BLE_MESH_MODEL_OP_MODEL_APP_BIND[0m
+[0;32mI (423795) MESH_CLIENT: elem_addr 0x000e, app_idx 0x0000, cid 0x02e5, mod_id 0x1415[0m
+[0;32mI (424255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (424315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (430255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (430325) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (436255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (436315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (442255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (442315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;33mW (446935) BLE_MESH: No matching TX context for ack[0m
+[0;32mI (448255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (448315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;33mW (453255) BT_APPL: gattc_conn_cb: if=4 st=0 id=4 rsn=0x13[0m
+[0;33mW (453255) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;32mI (454255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (454325) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (460255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (460315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (466255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (466315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (472255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (472315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (478255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (478315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (484255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (484435) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (490255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (490315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (496255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (496315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (502255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (502425) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (508255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (508315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (514255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (514315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (520255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (520425) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (526255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (526315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (532255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (532315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (538255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (538425) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (544255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (544315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (550255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (550315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (556255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (556425) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (562255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (562315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (568255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (568315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (574255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (574425) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (580255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (580325) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (586255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (586315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (592255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (592355) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (598255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (598315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+[0;32mI (604255) MAIN: TVOC: 36,  eCO2: 18[0m
+[0;32mI (604315) MESH_CLIENT: Send message opcode 0xc102e5 success![0m
+ets Jun  8 2016 00:22:57
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7084
+ho 0 tail 12 room 4
+load:0x40078000,len:15584
+load:0x40080400,len:4
+load:0x40080404,len:3876
+entry 0x4008064c
+[0;32mI (31) boot: ESP-IDF v5.1.2-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 14 2024 21:40:13[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (35) boot: chip revision: v1.0[0m
+[0;32mI (39) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (48) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (58) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (84) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=2fabch (195260) map[0m
+[0;32mI (175) esp_image: segment 1: paddr=0003fae4 vaddr=3ffbdb60 size=00534h (  1332) load[0m
+[0;32mI (176) esp_image: segment 2: paddr=00040020 vaddr=400d0020 size=af3e8h (717800) map[0m
+[0;32mI (440) esp_image: segment 3: paddr=000ef410 vaddr=3ffbe094 size=04d38h ( 19768) load[0m
+[0;32mI (448) esp_image: segment 4: paddr=000f4150 vaddr=40080000 size=187f4h (100340) load[0m
+[0;32mI (502) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (502) boot: Disabling RNG early entropy source...[0m
+[0;32mI (514) cpu_start: Multicore app[0m
+[0;32mI (514) cpu_start: Pro cpu up.[0m
+[0;32mI (514) cpu_start: Starting app cpu, entry point is 0x4008137c[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (534) cpu_start: Pro cpu start user code[0m
+[0;32mI (534) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (534) cpu_start: Application information:[0m
+[0;32mI (539) cpu_start: Project name:     onoff_client[0m
+[0;32mI (544) cpu_start: App version:      2fdf035-dirty[0m
+[0;32mI (550) cpu_start: Compile time:     Apr 14 2024 22:06:29[0m
+[0;32mI (556) cpu_start: ELF file SHA256:  da4ac2c7c616a41e...[0m
+[0;32mI (562) cpu_start: ESP-IDF:          v5.1.2-dirty[0m
+[0;32mI (567) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (572) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (577) cpu_start: Chip rev:         v1.0[0m
+[0;32mI (582) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (589) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (595) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (601) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (607) heap_init: At 3FFCAB48 len 000154B8 (85 KiB): DRAM[0m
+[0;32mI (613) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (620) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (626) heap_init: At 400987F4 len 0000780C (30 KiB): IRAM[0m
+[0;32mI (634) spi_flash: detected chip: generic[0m
+[0;32mI (637) spi_flash: flash io: dio[0m
+[0;33mW (641) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (655) coexist: coex firmware version: b6d5e8c[0m
+[0;32mI (660) app_start: Starting scheduler on CPU0[0m
+[0;32[0;32mI (664) app_start: Starting scheduler on CPU1[0m
+mI (664) main_task: Started on CPU0[0m
+[0;32mI (674) main_task: Calling app_main()[0m
+[0;32mI (674) MAIN: Initializing...[0m
+[0;32mI (704) BTDM_INIT: BT controller compile version [ec4ac65][0m
+[0;32mI (704) BTDM_INIT: Bluetooth MAC: a4:e5:7c:f7:c2:fe[0m
+[0;32mI (714) phy_init: phy_version 4780,16b31a7,Sep 22 2023,20:42:16[0m
+[0;33mW (1214) BLE_MESH: bt_mesh_proxy_server_prov_disable, Already[0m
+[0;32mI (1244) MESH_CLIENT: ESP_BLE_MESH_NODE_PROV_COMPLETE_EVT[0m
+[0;32mI (1244) MESH_CLIENT: net_idx: 0x0000, addr: 0x000e[0m
+[0;32mI (1244) MESH_CLIENT: flags: 0x00, iv_index: 0x00000000[0m
+[0;32mI (1244) MESH_CLIENT: Device provisioned[0m
+[0;32mI (1254) MESH_CLIENT: ESP_BLE_MESH_PROV_REGISTER_COMP_EVT, err_code 0[0m
+[0;32mI (1264) MESH_CLIENT: ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT, Name: ESP-CLIENT MESH, err_code 0[0m
+[0;33mW (1274) BLE_MESH: bt_mesh_prov_enable, Already[0m
+[0;32mI (1274) MESH_CLIENT: ESP_BLE_MESH_NODE_PROV_ENABLE_COMP_EVT, err_code -120[0m
+[0;32mI (1284) MESH_CLIENT: BLE Mesh Node initialized[0m
+[0;32mI (1294) MAIN: SGP30 main task initializing...[0m
+[0;32mI (1294) MAIN: BASELINES - TVOC: 36,  eCO2: 18[0m
+[0;32mI (1294) MAIN: SGP30 main task is running...[0m
+[0;32mI (1304) main_task: Returned from app_main()[0m

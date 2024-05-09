@@ -1,0 +1,604 @@
+1 (POWERON_R+j5
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entr�ets Jun  8 2016 00:22:57
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7084
+ho 0 tail 12 room 4
+load:0x40078000,len:15584
+load:0x40080400,len:4
+load:0x40080404,len:3876
+entry 0x4008064c
+[0;32mI (31) boot: ESP-IDF v5.1.2-dirty 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Apr 14 2024 21:40:13[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (36) boot: chip revision: v1.0[0m
+[0;32mI (39) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (49) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (59) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (84) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=2fb0ch (195340) map[0m
+[0;32mI (175) esp_image: segment 1: paddr=0003fb34 vaddr=3ffbdb60 size=004e4h (  1252) load[0m
+[0;32mI (176) esp_image: segment 2: paddr=00040020 vaddr=400d0020 size=af400h (717824) map[0m
+[0;32mI (440) esp_image: segment 3: paddr=000ef428 vaddr=3ffbe044 size=04d88h ( 19848) load[0m
+[0;32mI (448) esp_image: segment 4: paddr=000f41b8 vaddr=40080000 size=187f4h (100340) load[0m
+[0;32mI (502) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (503) boot: Disabling RNG early entropy source...[0m
+[0;32mI (514) cpu_start: Multicore app[0m
+[0;32mI (514) cpu_start: Pro cpu up.[0m
+[0;32mI (515) cpu_start: Starting app cpu, entry point is 0x4008137c[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (535) cpu_start: Pro cpu start user code[0m
+[0;32mI (535) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (535) cpu_start: Application information:[0m
+[0;32mI (539) cpu_start: Project name:     onoff_client[0m
+[0;32mI (545) cpu_start: App version:      5f19aab[0m
+[0;32mI (550) cpu_start: Compile time:     Apr 26 2024 22:47:26[0m
+[0;32mI (556) cpu_start: ELF file SHA256:  01b5dc3d8276433f...[0m
+[0;32mI (562) cpu_start: ESP-IDF:          v5.1.2-dirty[0m
+[0;32mI (567) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (572) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (577) cpu_start: Chip rev:         v1.0[0m
+[0;32mI (582) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (589) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (595) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (601) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (607) heap_init: At 3FFCAB48 len 000154B8 (85 KiB): DRAM[0m
+[0;32mI (613) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (619) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (626) heap_init: At 400987F4 len 0000780C (30 KiB): IRAM[0m
+[0;32mI (634) spi_flash: detected chip: generic[0m
+[0;32mI (637) spi_flash: flash io: dio[0m
+[0;33mW (641) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (655) coexist: coex firmware version: b6d5e8c[0m
+[0;32mI (660) app_start: Starting scheduler on CPU0[0m
+[0;32[0;32mI (664) app_start: Starting scheduler on CPU1[0m
+mI (664) main_task: Started on CPU0[0m
+[0;32mI (674) main_task: Calling app_main()[0m
+[0;32mI (674) MAIN: Initializing...[0m
+[0;32mI (694) BTDM_INIT: BT controller compile version [ec4ac65][0m
+[0;32mI (694) BTDM_INIT: Bluetooth MAC: a4:e5:7c:f7:c2:fe[0m
+[0;32mI (694) phy_init: phy_version 4780,16b31a7,Sep 22 2023,20:42:16[0m
+[0;32mI (1224) MESH_CLIENT: ESP_BLE_MESH_PROV_REGISTER_COMP_EVT, err_code 0[0m
+[0;32mI (1224) MESH_CLIENT: ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT, Name: ESP-CLIENT MESH, err_code 0[0m
+[0;32mI (1234) MESH_CLIENT: BLE Mesh Node initialized[0m
+[0;32mI (1234) MAIN: SGP30 main task initializing...[0m
+[0;32mI (1244) MAIN: BASELINES - TVOC: 18,  eCO2: 36[0m
+[0;32mI (1244) MAIN: SGP30 main task is running...[0m
+[0;32mI (1244) MESH_CLIENT: ESP_BLE_MESH_NODE_PROV_ENABLE_COMP_EVT, err_code 0[0m
+[0;32mI (1254) main_task: Returned from app_main()[0m
+[0;33mW (21384) BT_APPL: gattc_conn_cb: if=4 st=0 id=4 rsn=0x13[0m
+[0;33mW (21384) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;32mI (56524) MESH_CLIENT: ESP_BLE_MESH_NODE_PROV_LINK_OPEN_EVT, bearer PB-GATT[0m
+[0;33mW (56914) BLE_MESH: No Health Server context provided[0m
+[0;33mW (60064) BLE_MESH: No Health Server context provided[0m
+[0;32mI (60094) MESH_CLIENT: ESP_BLE_MESH_NODE_PROV_LINK_CLOSE_EVT, bearer PB-GATT[0m
+[0;32mI (60094) MESH_CLIENT: ESP_BLE_MESH_NODE_PROV_COMPLETE_EVT[0m
+[0;32mI (60104) MESH_CLIENT: net_idx: 0x0000, addr: 0x0009[0m
+[0;32mI (60104) MESH_CLIENT: flags: 0x00, iv_index: 0x00000000[0m
+[0;32mI (60114) MESH_CLIENT: Device provisioned[0m
+[0;33mW (60184) BT_APPL: gattc_conn_cb: if=4 st=0 id=4 rsn=0x13[0m
+[0;33mW (60184) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;32mI (60244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (60244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;31mE (60244) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (60244) BLE_MESH: Failed to send client message 0x00c002e5[0m
+[0;31mE (60254) MESH_CLIENT: Failed to send message 0xc002e5[0m
+[0;33mW (63434) BT_APPL: gattc_conn_cb: if=4 st=0 id=4 rsn=0x13[0m
+[0;33mW (63434) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;32mI (66244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (66244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;31mE (66244) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (66244) BLE_MESH: Failed to send client message 0x00c002e5[0m
+[0;31mE (66254) MESH_CLIENT: Failed to send message 0xc002e5[0m
+[0;32mI (72244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (72244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;31mE (72244) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (72244) BLE_MESH: Failed to send client message 0x00c002e5[0m
+[0;31mE (72254) MESH_CLIENT: Failed to send message 0xc002e5[0m
+[0;32mI (78244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (78244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;31mE (78244) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (78244) BLE_MESH: Failed to send client message 0x00c002e5[0m
+[0;31mE (78254) MESH_CLIENT: Failed to send message 0xc002e5[0m
+[0;32mI (84244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (84244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;31mE (84244) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (84244) BLE_MESH: Failed to send client message 0x00c002e5[0m
+[0;31mE (84254) MESH_CLIENT: Failed to send message 0xc002e5[0m
+[0;32mI (90244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (90244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;31mE (90244) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (90244) BLE_MESH: Failed to send client message 0x00c002e5[0m
+[0;31mE (90254) MESH_CLIENT: Failed to send message 0xc002e5[0m
+[0;32mI (96244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (96244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;31mE (96244) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (96244) BLE_MESH: Failed to send client message 0x00c002e5[0m
+[0;31mE (96254) MESH_CLIENT: Failed to send message 0xc002e5[0m
+[0;32mI (102244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (102244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;31mE (102244) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (102244) BLE_MESH: Failed to send client message 0x00c002e5[0m
+[0;31mE (102254) MESH_CLIENT: Failed to send message 0xc002e5[0m
+[0;32mI (105694) MESH_CLIENT: ESP_BLE_MESH_MODEL_OP_APP_KEY_ADD[0m
+[0;32mI (105694) MESH_CLIENT: net_idx 0x0000, app_idx 0x0000[0m
+[0;32mI (105694) AppKey: a1 c2 3c 7e dc 60 1d a6 df 99 0a 61 f7 83 f0 6b [0m
+[0;32mI (108244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (108244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;31mE (108244) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (108244) BLE_MESH: Failed to send client message 0x00c002e5[0m
+[0;31mE (108254) MESH_CLIENT: Failed to send message 0xc002e5[0m
+[0;32mI (114244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (114244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;31mE (114244) BLE_MESH: Model not bound to AppKey 0x0000[0m
+[0;31mE (114244) BLE_MESH: Failed to send client message 0x00c002e5[0m
+[0;31mE (114254) MESH_CLIENT: Failed to send message 0xc002e5[0m
+[0;32mI (117434) MESH_CLIENT: ESP_BLE_MESH_MODEL_OP_MODEL_APP_BIND[0m
+[0;32mI (117434) MESH_CLIENT: elem_addr 0x0009, app_idx 0x0000, cid 0x02e5, mod_id 0x1415[0m
+[0;32mI (120244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (120244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (120264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (126244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (126244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (126264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (132244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (132244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (132264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (138244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (138244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (138264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (144244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (144244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (144264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (150244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (150244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (150264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (156244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (156244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (156264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (162244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (162244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (162264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (168244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (168244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (168264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (174244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (174244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (174264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (180244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (180244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (180264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (186244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (186244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (186264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (192244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (192244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (192264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (198244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (198244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (198264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (204244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (204244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (204254) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (210244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (210244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (210264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (216244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (216244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (216264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;33mW (218454) BT_APPL: gattc_conn_cb: if=4 st=0 id=4 rsn=0x13[0m
+[0;33mW (218454) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;32mI (222244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (222244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (222264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (228244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (228244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (228264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (234244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (234244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (234264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (240244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (240244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (240264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (246244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (246244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (246264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (252244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (252244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (252264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (258244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (258244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (258264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (264244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (264244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (264264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (270244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (270244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (270264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (276244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (276244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (276264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (282244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (282244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (282264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (288244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (288244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (288264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (294244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (294244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (294264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (300244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (300244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (300264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (306244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (306244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (306264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (312244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (312244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (312264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (318244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (318244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (318264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (324244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (324244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (324264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (330244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (330244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (330264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (336244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (336244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (336264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (342244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (342244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (342264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (348244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (348244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (348264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (354244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (354244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (354264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (360244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (360244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (360264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (366244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (366244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (366264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (372244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (372244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (372264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (378244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (378244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (378264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (384244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (384244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (384264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (390244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (390244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (390264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (396244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (396244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (396264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (402244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (402244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (402264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (408244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (408244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (408264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (414244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (414244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (414264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (420244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (420244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (420264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (426244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (426244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (426264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (432244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (432244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (432264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (438244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (438244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (438264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (444244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (444244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (444264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (450244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (450244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (450264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (456244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (456244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (456264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (462244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (462244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (462264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (468244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (468244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (468264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (474244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (474244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (474264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (480244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (480244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (480264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (486244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (486244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (486264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (492244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (492244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (492264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (498244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (498244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (498264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (504244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (504244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (504264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (510244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (510244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (510264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (516244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (516244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (516264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (522244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (522244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (522264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (528244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (528244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (528264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (534244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (534244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (534264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (540244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (540244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (540264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (540764) MESH_CLIENT: OP_STATUS -- Message received: 0xc202e5[0m
+[0;32mI (540764) MESH_CLIENT: src: 0x000a, dst: 0xc001[0m
+[0;32mI (540774) MESH_CLIENT: 65 73 70 5f 31 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (540774) MESH_CLIENT: 00 00 00 00 1f 85 ab 3f 52 b8 0e 40 00 00 00 00 [0m
+[0;32mI (540784) MESH_CLIENT: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (540794) MESH_CLIENT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;33mW (540794) PARSED_DATA: Device Name = esp_1[0m
+[0;33mW (540804) PARSED_DATA: Temperature = 1.340000[0m
+[0;33mW (540804) PARSED_DATA: Pressure    = 2.230000[0m
+[0;33mW (540814) PARSED_DATA: Humidity    = 0.000000[0m
+[0;33mW (540814) PARSED_DATA: TVOC        = 3[0m
+[0;33mW (540824) PARSED_DATA: eCO2        = 0[0m
+[0;33mW (540824) PARSED_DATA: Noise       = 0[0m
+[0;33mW (540834) PARSED_DATA: Red         = 0.000000[0m
+[0;33mW (540834) PARSED_DATA: Orange      = 0.000000[0m
+[0;33mW (540844) PARSED_DATA: Yellow      = 0.000000[0m
+[0;33mW (540844) PARSED_DATA: Green       = 0.000000[0m
+[0;33mW (540854) PARSED_DATA: Blue        = 0.000000[0m
+[0;33mW (540854) PARSED_DATA: Violet      = 0.000000[0m
+[0;32mI (546244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (546244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (546264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (546774) MESH_CLIENT: OP_STATUS -- Message received: 0xc202e5[0m
+[0;32mI (546774) MESH_CLIENT: src: 0x000a, dst: 0xc001[0m
+[0;32mI (546774) MESH_CLIENT: 65 73 70 5f 31 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (546784) MESH_CLIENT: 00 00 00 00 1f 85 ab 3f 52 b8 0e 40 00 00 00 00 [0m
+[0;32mI (546794) MESH_CLIENT: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (546794) MESH_CLIENT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;33mW (546804) PARSED_DATA: Device Name = esp_1[0m
+[0;33mW (546814) PARSED_DATA: Temperature = 1.340000[0m
+[0;33mW (546814) PARSED_DATA: Pressure    = 2.230000[0m
+[0;33mW (546824) PARSED_DATA: Humidity    = 0.000000[0m
+[0;33mW (546824) PARSED_DATA: TVOC        = 3[0m
+[0;33mW (546834) PARSED_DATA: eCO2        = 0[0m
+[0;33mW (546834) PARSED_DATA: Noise       = 0[0m
+[0;33mW (546844) PARSED_DATA: Red         = 0.000000[0m
+[0;33mW (546844) PARSED_DATA: Orange      = 0.000000[0m
+[0;33mW (546854) PARSED_DATA: Yellow      = 0.000000[0m
+[0;33mW (546854) PARSED_DATA: Green       = 0.000000[0m
+[0;33mW (546864) PARSED_DATA: Blue        = 0.000000[0m
+[0;33mW (546864) PARSED_DATA: Violet      = 0.000000[0m
+[0;32mI (552244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (552244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (552264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (552814) MESH_CLIENT: OP_STATUS -- Message received: 0xc202e5[0m
+[0;32mI (552814) MESH_CLIENT: src: 0x000a, dst: 0xc001[0m
+[0;32mI (552814) MESH_CLIENT: 65 73 70 5f 31 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (552824) MESH_CLIENT: 00 00 00 00 1f 85 ab 3f 52 b8 0e 40 00 00 00 00 [0m
+[0;32mI (552834) MESH_CLIENT: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (552834) MESH_CLIENT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;33mW (552844) PARSED_DATA: Device Name = esp_1[0m
+[0;33mW (552854) PARSED_DATA: Temperature = 1.340000[0m
+[0;33mW (552854) PARSED_DATA: Pressure    = 2.230000[0m
+[0;33mW (552864) PARSED_DATA: Humidity    = 0.000000[0m
+[0;33mW (552864) PARSED_DATA: TVOC        = 3[0m
+[0;33mW (552874) PARSED_DATA: eCO2        = 0[0m
+[0;33mW (552874) PARSED_DATA: Noise       = 0[0m
+[0;33mW (552884) PARSED_DATA: Red         = 0.000000[0m
+[0;33mW (552884) PARSED_DATA: Orange      = 0.000000[0m
+[0;33mW (552894) PARSED_DATA: Yellow      = 0.000000[0m
+[0;33mW (552894) PARSED_DATA: Green       = 0.000000[0m
+[0;33mW (552904) PARSED_DATA: Blue        = 0.000000[0m
+[0;33mW (552904) PARSED_DATA: Violet      = 0.000000[0m
+[0;32mI (558244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (558244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (558264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (558774) MESH_CLIENT: OP_STATUS -- Message received: 0xc202e5[0m
+[0;32mI (558774) MESH_CLIENT: src: 0x000a, dst: 0xc001[0m
+[0;32mI (558774) MESH_CLIENT: 65 73 70 5f 31 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (558784) MESH_CLIENT: 00 00 00 00 1f 85 ab 3f 52 b8 0e 40 00 00 00 00 [0m
+[0;32mI (558794) MESH_CLIENT: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (558794) MESH_CLIENT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;33mW (558804) PARSED_DATA: Device Name = esp_1[0m
+[0;33mW (558814) PARSED_DATA: Temperature = 1.340000[0m
+[0;33mW (558814) PARSED_DATA: Pressure    = 2.230000[0m
+[0;33mW (558824) PARSED_DATA: Humidity    = 0.000000[0m
+[0;33mW (558824) PARSED_DATA: TVOC        = 3[0m
+[0;33mW (558834) PARSED_DATA: eCO2        = 0[0m
+[0;33mW (558834) PARSED_DATA: Noise       = 0[0m
+[0;33mW (558844) PARSED_DATA: Red         = 0.000000[0m
+[0;33mW (558844) PARSED_DATA: Orange      = 0.000000[0m
+[0;33mW (558854) PARSED_DATA: Yellow      = 0.000000[0m
+[0;33mW (558854) PARSED_DATA: Green       = 0.000000[0m
+[0;33mW (558864) PARSED_DATA: Blue        = 0.000000[0m
+[0;33mW (558864) PARSED_DATA: Violet      = 0.000000[0m
+[0;32mI (564244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (564244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (564264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (564774) MESH_CLIENT: OP_STATUS -- Message received: 0xc202e5[0m
+[0;32mI (564774) MESH_CLIENT: src: 0x000a, dst: 0xc001[0m
+[0;32mI (564774) MESH_CLIENT: 65 73 70 5f 31 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (564784) MESH_CLIENT: 00 00 00 00 1f 85 ab 3f 52 b8 0e 40 00 00 00 00 [0m
+[0;32mI (564794) MESH_CLIENT: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (564794) MESH_CLIENT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;33mW (564804) PARSED_DATA: Device Name = esp_1[0m
+[0;33mW (564814) PARSED_DATA: Temperature = 1.340000[0m
+[0;33mW (564814) PARSED_DATA: Pressure    = 2.230000[0m
+[0;33mW (564824) PARSED_DATA: Humidity    = 0.000000[0m
+[0;33mW (564824) PARSED_DATA: TVOC        = 3[0m
+[0;33mW (564834) PARSED_DATA: eCO2        = 0[0m
+[0;33mW (564834) PARSED_DATA: Noise       = 0[0m
+[0;33mW (564844) PARSED_DATA: Red         = 0.000000[0m
+[0;33mW (564844) PARSED_DATA: Orange      = 0.000000[0m
+[0;33mW (564854) PARSED_DATA: Yellow      = 0.000000[0m
+[0;33mW (564854) PARSED_DATA: Green       = 0.000000[0m
+[0;33mW (564864) PARSED_DATA: Blue        = 0.000000[0m
+[0;33mW (564864) PARSED_DATA: Violet      = 0.000000[0m
+[0;32mI (570244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (570244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (570264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (570774) MESH_CLIENT: OP_STATUS -- Message received: 0xc202e5[0m
+[0;32mI (570774) MESH_CLIENT: src: 0x000a, dst: 0xc001[0m
+[0;32mI (570774) MESH_CLIENT: 65 73 70 5f 31 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (570784) MESH_CLIENT: 00 00 00 00 1f 85 ab 3f 52 b8 0e 40 00 00 00 00 [0m
+[0;32mI (570794) MESH_CLIENT: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (570794) MESH_CLIENT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;33mW (570804) PARSED_DATA: Device Name = esp_1[0m
+[0;33mW (570814) PARSED_DATA: Temperature = 1.340000[0m
+[0;33mW (570814) PARSED_DATA: Pressure    = 2.230000[0m
+[0;33mW (570824) PARSED_DATA: Humidity    = 0.000000[0m
+[0;33mW (570824) PARSED_DATA: TVOC        = 3[0m
+[0;33mW (570834) PARSED_DATA: eCO2        = 0[0m
+[0;33mW (570834) PARSED_DATA: Noise       = 0[0m
+[0;33mW (570844) PARSED_DATA: Red         = 0.000000[0m
+[0;33mW (570844) PARSED_DATA: Orange      = 0.000000[0m
+[0;33mW (570854) PARSED_DATA: Yellow      = 0.000000[0m
+[0;33mW (570854) PARSED_DATA: Green       = 0.000000[0m
+[0;33mW (570864) PARSED_DATA: Blue        = 0.000000[0m
+[0;33mW (570864) PARSED_DATA: Violet      = 0.000000[0m
+[0;32mI (576244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (576244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (576264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (576754) MESH_CLIENT: OP_STATUS -- Message received: 0xc202e5[0m
+[0;32mI (576754) MESH_CLIENT: src: 0x000a, dst: 0xc001[0m
+[0;32mI (576754) MESH_CLIENT: 65 73 70 5f 31 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (576764) MESH_CLIENT: 00 00 00 00 1f 85 ab 3f 52 b8 0e 40 00 00 00 00 [0m
+[0;32mI (576774) MESH_CLIENT: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (576774) MESH_CLIENT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;33mW (576784) PARSED_DATA: Device Name = esp_1[0m
+[0;33mW (576794) PARSED_DATA: Temperature = 1.340000[0m
+[0;33mW (576794) PARSED_DATA: Pressure    = 2.230000[0m
+[0;33mW (576804) PARSED_DATA: Humidity    = 0.000000[0m
+[0;33mW (576804) PARSED_DATA: TVOC        = 3[0m
+[0;33mW (576814) PARSED_DATA: eCO2        = 0[0m
+[0;33mW (576814) PARSED_DATA: Noise       = 0[0m
+[0;33mW (576824) PARSED_DATA: Red         = 0.000000[0m
+[0;33mW (576824) PARSED_DATA: Orange      = 0.000000[0m
+[0;33mW (576834) PARSED_DATA: Yellow      = 0.000000[0m
+[0;33mW (576834) PARSED_DATA: Green       = 0.000000[0m
+[0;33mW (576844) PARSED_DATA: Blue        = 0.000000[0m
+[0;33mW (576844) PARSED_DATA: Violet      = 0.000000[0m
+[0;32mI (582244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (582244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (582264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (582814) MESH_CLIENT: OP_STATUS -- Message received: 0xc202e5[0m
+[0;32mI (582814) MESH_CLIENT: src: 0x000a, dst: 0xc001[0m
+[0;32mI (582814) MESH_CLIENT: 65 73 70 5f 31 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (582824) MESH_CLIENT: 00 00 00 00 1f 85 ab 3f 52 b8 0e 40 00 00 00 00 [0m
+[0;32mI (582834) MESH_CLIENT: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (582834) MESH_CLIENT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;33mW (582844) PARSED_DATA: Device Name = esp_1[0m
+[0;33mW (582854) PARSED_DATA: Temperature = 1.340000[0m
+[0;33mW (582854) PARSED_DATA: Pressure    = 2.230000[0m
+[0;33mW (582864) PARSED_DATA: Humidity    = 0.000000[0m
+[0;33mW (582864) PARSED_DATA: TVOC        = 3[0m
+[0;33mW (582874) PARSED_DATA: eCO2        = 0[0m
+[0;33mW (582874) PARSED_DATA: Noise       = 0[0m
+[0;33mW (582884) PARSED_DATA: Red         = 0.000000[0m
+[0;33mW (582884) PARSED_DATA: Orange      = 0.000000[0m
+[0;33mW (582894) PARSED_DATA: Yellow      = 0.000000[0m
+[0;33mW (582894) PARSED_DATA: Green       = 0.000000[0m
+[0;33mW (582904) PARSED_DATA: Blue        = 0.000000[0m
+[0;33mW (582904) PARSED_DATA: Violet      = 0.000000[0m
+[0;32mI (588244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (588244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (588264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (588754) MESH_CLIENT: OP_STATUS -- Message received: 0xc202e5[0m
+[0;32mI (588754) MESH_CLIENT: src: 0x000a, dst: 0xc001[0m
+[0;32mI (588754) MESH_CLIENT: 65 73 70 5f 31 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (588764) MESH_CLIENT: 00 00 00 00 1f 85 ab 3f 52 b8 0e 40 00 00 00 00 [0m
+[0;32mI (588774) MESH_CLIENT: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (588774) MESH_CLIENT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;33mW (588784) PARSED_DATA: Device Name = esp_1[0m
+[0;33mW (588794) PARSED_DATA: Temperature = 1.340000[0m
+[0;33mW (588794) PARSED_DATA: Pressure    = 2.230000[0m
+[0;33mW (588804) PARSED_DATA: Humidity    = 0.000000[0m
+[0;33mW (588804) PARSED_DATA: TVOC        = 3[0m
+[0;33mW (588814) PARSED_DATA: eCO2        = 0[0m
+[0;33mW (588814) PARSED_DATA: Noise       = 0[0m
+[0;33mW (588824) PARSED_DATA: Red         = 0.000000[0m
+[0;33mW (588824) PARSED_DATA: Orange      = 0.000000[0m
+[0;33mW (588834) PARSED_DATA: Yellow      = 0.000000[0m
+[0;33mW (588834) PARSED_DATA: Green       = 0.000000[0m
+[0;33mW (588844) PARSED_DATA: Blue        = 0.000000[0m
+[0;33mW (588844) PARSED_DATA: Violet      = 0.000000[0m
+[0;32mI (594244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (594244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (594264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (594754) MESH_CLIENT: OP_STATUS -- Message received: 0xc202e5[0m
+[0;32mI (594754) MESH_CLIENT: src: 0x000a, dst: 0xc001[0m
+[0;32mI (594754) MESH_CLIENT: 65 73 70 5f 31 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (594764) MESH_CLIENT: 00 00 00 00 1f 85 ab 3f 52 b8 0e 40 00 00 00 00 [0m
+[0;32mI (594774) MESH_CLIENT: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (594774) MESH_CLIENT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;33mW (594784) PARSED_DATA: Device Name = esp_1[0m
+[0;33mW (594794) PARSED_DATA: Temperature = 1.340000[0m
+[0;33mW (594794) PARSED_DATA: Pressure    = 2.230000[0m
+[0;33mW (594804) PARSED_DATA: Humidity    = 0.000000[0m
+[0;33mW (594804) PARSED_DATA: TVOC        = 3[0m
+[0;33mW (594814) PARSED_DATA: eCO2        = 0[0m
+[0;33mW (594814) PARSED_DATA: Noise       = 0[0m
+[0;33mW (594824) PARSED_DATA: Red         = 0.000000[0m
+[0;33mW (594824) PARSED_DATA: Orange      = 0.000000[0m
+[0;33mW (594834) PARSED_DATA: Yellow      = 0.000000[0m
+[0;33mW (594834) PARSED_DATA: Green       = 0.000000[0m
+[0;33mW (594844) PARSED_DATA: Blue        = 0.000000[0m
+[0;33mW (594844) PARSED_DATA: Violet      = 0.000000[0m
+[0;32mI (600244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (600244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
+[0;32mI (600264) MESH_CLIENT: Send message opcode 0xc002e5 success![0m
+[0;32mI (600814) MESH_CLIENT: OP_STATUS -- Message received: 0xc202e5[0m
+[0;32mI (600814) MESH_CLIENT: src: 0x000a, dst: 0xc001[0m
+[0;32mI (600814) MESH_CLIENT: 65 73 70 5f 31 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (600824) MESH_CLIENT: 00 00 00 00 1f 85 ab 3f 52 b8 0e 40 00 00 00 00 [0m
+[0;32mI (600834) MESH_CLIENT: 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;32mI (600834) MESH_CLIENT: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [0m
+[0;33mW (600844) PARSED_DATA: Device Name = esp_1[0m
+[0;33mW (600854) PARSED_DATA: Temperature = 1.340000[0m
+[0;33mW (600854) PARSED_DATA: Pressure    = 2.230000[0m
+[0;33mW (600864) PARSED_DATA: Humidity    = 0.000000[0m
+[0;33mW (600864) PARSED_DATA: TVOC        = 3[0m
+[0;33mW (600874) PARSED_DATA: eCO2        = 0[0m
+[0;33mW (600874) PARSED_DATA: Noise       = 0[0m
+[0;33mW (600884) PARSED_DATA: Red         = 0.000000[0m
+[0;33mW (600884) PARSED_DATA: Orange      = 0.000000[0m
+[0;33mW (600894) PARSED_DATA: Yellow      = 0.000000[0m
+[0;33mW (600894) PARSED_DATA: Green       = 0.000000[0m
+[0;33mW (600904) PARSED_DATA: Blue        = 0.000000[0m
+[0;33mW (600904) PARSED_DATA: Violet      = 0.000000[0m
+[0;32mI (606244) MAIN: TVOC: 18,  eCO2: 36[0m
+[0;32mI (606244) MESH_CLIENT: *** ble_mesh_custom_sensor_client_model_message_get ***[0m
