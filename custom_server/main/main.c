@@ -4,7 +4,6 @@
 
 #include "esp_log.h"
 
-// #include "mesh_server.h"
 #include "mesh_device_app.h"
 
 #include "freertos/FreeRTOS.h"
@@ -57,13 +56,11 @@ void app_main(void) {
     }
     ESP_ERROR_CHECK(err);
     // HUMIDITY, TEMPERATURE
-    DHT11_init(GPIO_NUM_4);
-    // err = ble_mesh_device_init_server();
+    DHT11_init(GPIO_NUM_5);
     err = ble_mesh_device_init();
     if (err) {
         ESP_LOGE(TAG, "Bluetooth mesh init failed (err 0x%06x)", err);
     }
 
     xTaskCreate(read_received_items, "Read queue task", 2048 * 2, (void *)0, 20, NULL);
-
 }

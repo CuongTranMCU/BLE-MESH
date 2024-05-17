@@ -46,5 +46,6 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_get(void);
 
 bool is_client_provisioned(void);
 
+void mqtt_get_data_callback(char *data, uint16_t length);
 #endif  // __MESH_CLIENT_H__
 

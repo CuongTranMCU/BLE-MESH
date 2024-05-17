@@ -4,7 +4,6 @@
 
 
 #include "mesh_client.h"
-#include "mesh_server.h"
 
 
 /**

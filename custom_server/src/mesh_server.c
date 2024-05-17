@@ -159,8 +159,8 @@ void server_send_to_client(model_sensor_data_t server_model_state)
 {
     esp_ble_mesh_msg_ctx_t _ctx = {0};
     _ctx.send_ttl = 3;
-    _ctx.addr = ESP_BLE_MESH_GROUP_GW_SUB_ADDR;             //gateway
-    // _ctx.recv_dst = 0x0058;         // me
+    _ctx.addr = ESP_BLE_MESH_GROUP_GW_SUB_ADDR; // client sub C001: server : sub: C000          //gateway
+    // _ctx.recv_dst = 0x00 58;         // me
     _ctx.srv_send = 0;
 
     esp_err_t err = esp_ble_mesh_server_model_send_msg(custom_models, &_ctx, ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS, sizeof(server_model_state), &server_model_state);
@@ -273,7 +273,7 @@ static void ble_mesh_config_server_cb(esp_ble_mesh_cfg_server_cb_event_t event,
 }
 static void getTempAndHum()
 {
-     int temp = DHT11_read().temperature;
+    int temp = DHT11_read().temperature;
     int hum = DHT11_read().humidity;
     _server_model_state.humidity = hum;
     _server_model_state.temperature = temp;
@@ -292,16 +292,7 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
                     } else {
                         ESP_LOGW(TAG, "OP_GET -- Opcode 0x%06x  -- empty message", param->model_operation.opcode);
                     }
-
-                    //* Responde com o estado atual do Model (OP_STATUS)
-                    // model_sensor_data_t response = *(model_sensor_data_t *)param->model_operation.model->user_data;
-
-                    // esp_err_t err = esp_ble_mesh_server_model_send_msg(param->model_operation.model, param->model_operation.ctx, 
-                    //                 ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS, sizeof(response), (uint8_t *)&response);
-                    // if (err) {
-                    //     ESP_LOGE(TAG, "%s -- Failed to send response with OPCODE 0x%06x", __func__, ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS);
-                    // }
-                   getTempAndHum();
+                    getTempAndHum();
                     server_send_to_client(_server_model_state);
                 break;
 

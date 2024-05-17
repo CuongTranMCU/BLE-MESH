@@ -19,6 +19,10 @@
 #include "esp_bt_device.h"
 #include "esp_ble_mesh_defs.h"
 
+
+// 
+#include "wifi.h"
+#include "mqtt.h"
 #define TAG "MESH_CLIENT"
 
 /*******************************************
@@ -271,6 +275,9 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
                     //! Fazer alguma coisa nesse get ao inves de só printar o valor
                     model_sensor_data_t received_data;
                     parse_received_data(param, &received_data);
+                    char *json_data = convert_model_sensor_to_json(&received_data);
+                    mqtt_data_publish_callback(json_data);
+                    free(json_data);
                 break;
 
                 default:
@@ -298,7 +305,8 @@ static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model
         return;
     }
 
-    parsed_data = (model_sensor_data_t *)recv_param->client_recv_publish_msg.msg;
+    // parsed_data = (model_sensor_data_t *)recv_param->client_recv_publish_msg.msg;
+    memcpy(parsed_data, recv_param->client_recv_publish_msg.msg, sizeof(model_sensor_data_t));
 
     ESP_LOGW("PARSED_DATA", "Device Name = %s", parsed_data->device_name);
     ESP_LOGW("PARSED_DATA", "Temperature = %f", parsed_data->temperature);
@@ -399,6 +407,9 @@ esp_err_t ble_mesh_device_init_client(void) {
     esp_ble_mesh_set_unprovisioned_device_name(BLE_MESH_DEVICE_NAME);
 
     esp_ble_mesh_node_prov_enable(ESP_BLE_MESH_PROV_ADV | ESP_BLE_MESH_PROV_GATT);
+    // wifi_init_sta();
+
+    mqtt_data_pt_set_callback(mqtt_get_data_callback);
 
     ESP_LOGI(TAG, "BLE Mesh Node initialized");
 
@@ -416,8 +427,8 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_set(model_sensor_data_t se
     
     ctx.net_idx = 0;
     ctx.app_idx = 0;
-    ctx.addr = ESP_BLE_MESH_ADDR_ALL_NODES;
-    // ctx.addr = ESP_BLE_MESH_GROUP_PUB_ADDR;
+    // ctx.addr = ESP_BLE_MESH_ADDR_ALL_NODES;
+    ctx.addr = ESP_BLE_MESH_GROUP_PUB_ADDR;
     ctx.send_ttl = 3;
     ctx.send_rel = false;
 
@@ -441,7 +452,7 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_get(void) {
     ctx.net_idx = 0;
     ctx.app_idx = 0;
     // ctx.addr = ESP_BLE_MESH_ADDR_ALL_NODES;
-    ctx.addr = ESP_BLE_MESH_GROUP_PUB_ADDR;  //! FIXME: passar o endereco do device pra GET?
+    ctx.addr = ESP_BLE_MESH_GROUP_PUB_ADDR;  //! server sub C000
     ctx.send_ttl = 3;
     ctx.send_rel = false;
 
@@ -456,5 +467,31 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_get(void) {
 
     return err;
 }
-
+void mqtt_get_data_callback(char *data, uint16_t length)
+{
+     // Tìm vị trí của chuỗi JSON trong dữ liệu
+    char *jsonData = strstr(data, "DATA=");
+    if (jsonData == NULL) {
+        printf("Không tìm thấy chuỗi JSON trong dữ liệu.\n");
+        return;
+    }
+    
+    // Phân tích dữ liệu JSON
+    char addr[10];
+    int getData = 0;
+    
+    sscanf(jsonData, "DATA= {addr: \"%9[^\"]\", getData: %d}", addr, &getData);
+    
+    // Chuyển đổi địa chỉ addr sang kiểu dữ liệu mong muốn (ví dụ: hex)
+    unsigned int addrValue;
+    sscanf(addr, "0x%X", &addrValue);
+    
+    // Chuyển đổi getData sang kiểu bool
+    bool getDataBool = getData == 1 ? true : false;
+    
+    // Sử dụng addrValue và getDataBool theo nhu cầu của bạn
+    printf("Address: 0x%X\n", addrValue);
+    printf("GetData: %s\n", getDataBool ? "true" : "false");
+    ble_mesh_custom_sensor_client_model_message_get();
+}
 

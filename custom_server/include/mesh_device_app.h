@@ -3,7 +3,6 @@
 #define __MESH_DEVICE_APP_H__
 
 
-#include "mesh_client.h"
 #include "mesh_server.h"
 
 

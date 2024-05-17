@@ -4,13 +4,11 @@
 
 #include "esp_log.h"
 
-// #include "mesh_client.h"
 #include "mesh_device_app.h"
 #include "board.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-
 #define TAG "MAIN"
 
 static uint8_t ticks = 0;
@@ -19,31 +17,8 @@ model_sensor_data_t device_sensor_data;
 static void air_sensor_task(void *arg) {
     ESP_LOGI(TAG, "SGP30 main task initializing...");
 
-    // if (xSemaphoreTake(xSemaphore, portMAX_DELAY ) == pdTRUE ) {
-        // sgp30_init(&main_sensor);
-        // xSemaphoreGive(xSemaphore);
-    // }
-
-    // SGP30 needs to be read every 1s and sends TVOC = 400 14 times when initializing
-    // for (int i = 0; i < 14; i++) {
-    //     vTaskDelay(1000 / portTICK_RATE_MS);
-
-        // if (xSemaphoreTake(xSemaphore, portMAX_DELAY ) == pdTRUE ) {
-            // sgp30_IAQ_measure(&main_sensor);
-            // xSemaphoreGive(xSemaphore);
-        // }
-
-        // ESP_LOGI(TAG, "SGP30 Calibrating... TVOC: %d,  eCO2: %d",  main_sensor.TVOC, main_sensor.eCO2);
-    // }
-
     // Read initial baselines 
     uint16_t eco2_baseline = 36, tvoc_baseline = 18;
-
-
-    // if (xSemaphoreTake(xSemaphore, portMAX_DELAY ) == pdTRUE ) {
-        // sgp30_get_IAQ_baseline(&main_sensor, &eco2_baseline, &tvoc_baseline);
-        // xSemaphoreGive(xSemaphore);
-    // }
     
     ESP_LOGI(TAG, "BASELINES - TVOC: %d,  eCO2: %d",  tvoc_baseline, eco2_baseline);
 
@@ -52,17 +27,12 @@ static void air_sensor_task(void *arg) {
     while(1) {
         vTaskDelay(1000 / portTICK_PERIOD_MS);
 
-        // if (xSemaphoreTake(xSemaphore, portMAX_DELAY ) == pdTRUE ) {
-            // sgp30_IAQ_measure(&main_sensor);
-            // xSemaphoreGive(xSemaphore);
-        // }
-        
         if ((ticks++ >= 5) && (is_client_provisioned())) {
         // if (ticks++ >= 5) {
-            ESP_LOGI(TAG, "TVOC: %d,  eCO2: %d",  tvoc_baseline, eco2_baseline);// for set message
-            device_sensor_data.eCO2 = eco2_baseline;
-            device_sensor_data.tVOC = tvoc_baseline;
-            strcpy(device_sensor_data.device_name, "GW");
+            // ESP_LOGI(TAG, "TVOC: %d,  eCO2: %d",  tvoc_baseline, eco2_baseline);// for set message
+            // device_sensor_data.eCO2 = eco2_baseline;
+            // device_sensor_data.tVOC = tvoc_baseline;
+            // strcpy(device_sensor_data.device_name, "GW");
 
             // ble_mesh_custom_sensor_client_model_message_set(device_sensor_data); 
             ble_mesh_custom_sensor_client_model_message_get();
