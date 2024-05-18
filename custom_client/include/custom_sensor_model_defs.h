@@ -42,8 +42,8 @@ typedef struct __attribute__((packed))
 
     /**< BME280 Data */
     float temperature; /*!< BME260 calibrated temperature */
-    int pressure;      /*!< BME260 calibrated pressure */
-    int humidity;      /*!< BME260 calibrated humidity */
+    float pressure;    /*!< BME260 calibrated pressure */
+    float humidity;    /*!< BME260 calibrated humidity */
 
     /**< SGP30 Data */
     uint16_t tVOC; /*!< SGP30 total volatile organic compound */
@@ -63,5 +63,12 @@ typedef struct __attribute__((packed))
     /**< Feedback answers */
     uint8_t feedback; /*!< Each bit corresponds to an answer: (NEW_DATA | X | X | TEMP_COMF | HIGH_TEMP | SOUND_COMF | LIGHT_COMF | LIGHTNESS) */
 } model_sensor_data_t;
+
+typedef struct __attribute__((packed))
+{
+    /* data */
+    uint16_t addr;
+    int status;
+} control_sensor_model_t;
 
 #endif // __CUSTOM_SENSOR_MODEL_DEFS_H__

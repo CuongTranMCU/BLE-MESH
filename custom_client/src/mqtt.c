@@ -79,6 +79,11 @@ void mqtt_app_start(void)
     esp_mqtt_client_start(global_client);
 }
 
+esp_mqtt_client_handle_t mqtt_get_global_client(void)
+{
+    return global_client;
+}
+
 void mqtt_data_pt_set_callback(void *cb)
 {
     if (cb)
@@ -87,17 +92,17 @@ void mqtt_data_pt_set_callback(void *cb)
     }
 }
 
-void mqtt_data_publish_callback(char *data)
+void mqtt_data_publish_callback(char *data, int length)
 {
-    esp_mqtt_client_publish(global_client, "/topic/qos1", "data_3", 0, 1, 0);
-    ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+    esp_mqtt_client_handle_t client = mqtt_get_global_client();
+
+    esp_mqtt_client_publish(client, "/topic/qos1", "data_3", length, 0, 0);
 }
 
 char *convert_model_sensor_to_json(model_sensor_data_t *received_data)
 {
-    // parse the JSON data
-    char buffer[1024];
-    cJSON *json = cJSON_Parse(buffer);
+    // create a new cJSON object
+    cJSON *json = cJSON_CreateObject();
     if (json == NULL)
     {
         const char *error_ptr = cJSON_GetErrorPtr();
@@ -120,4 +125,40 @@ char *convert_model_sensor_to_json(model_sensor_data_t *received_data)
     cJSON_Delete(json);
 
     return json_str;
+}
+
+control_sensor_model_t convert_json_to_control_model_sensor(char *data)
+{
+    control_sensor_model_t temp;
+    memset(&temp, 0, sizeof(control_sensor_model_t)); // Khởi tạo struct với giá trị 0
+
+    cJSON *json = cJSON_Parse(data);
+    if (json == NULL)
+    {
+        const char *error_ptr = cJSON_GetErrorPtr();
+        if (error_ptr != NULL)
+        {
+            printf("Error: %s\n", error_ptr);
+        }
+        cJSON_Delete(json);
+        return temp;
+    }
+
+    // access the JSON data
+    cJSON *addr = cJSON_GetObjectItemCaseSensitive(json, "addr");
+    if (cJSON_IsNumber(addr))
+    {
+        temp.addr = (uint16_t)addr->valueint;
+        printf("Addr: %u\n", temp.addr);
+    }
+
+    cJSON *status = cJSON_GetObjectItemCaseSensitive(json, "status");
+    if (cJSON_IsNumber(status))
+    {
+        temp.status = status->valueint;
+        printf("Status: %d\n", temp.status);
+    }
+
+    cJSON_Delete(json);
+    return temp;
 }

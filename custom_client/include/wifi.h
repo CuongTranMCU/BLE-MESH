@@ -1,5 +1,5 @@
-#ifndef __MESH_CLIENT_H__
-#define __MESH_CLIENT_H__
+#ifndef __WIFI_H
+#define __WIFI_H
 
 #include <stdint.h>
 #include <stdio.h>

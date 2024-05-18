@@ -10,18 +10,6 @@
 
 #include "mesh_client.h"
 
-#include <sdkconfig.h>
-
-#include "esp_log.h"
-
-#include "esp_bt.h"
-#include "esp_bt_main.h"
-#include "esp_bt_device.h"
-#include "esp_ble_mesh_defs.h"
-
-#include <stdio.h>
-#include <cjson/cJSON.h>
-
 #define TAG "MESH_CLIENT"
 
 /*******************************************
@@ -278,7 +266,7 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
             model_sensor_data_t received_data;
             parse_received_data(param, &received_data);
             char *json = convert_model_sensor_to_json(&received_data);
-            mqtt_data_publish_callback(json);
+            mqtt_data_publish_callback(json, 0);
 
             break;
 
@@ -308,7 +296,7 @@ static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model
         return;
     }
 
-    memccpy(parsed_data, (model_sensor_data_t *)recv_param->client_recv_publish_msg.msg);
+    memcpy(parsed_data, (model_sensor_data_t *)recv_param->client_recv_publish_msg.msg, recv_param->client_recv_publish_msg.length);
 
     ESP_LOGW("PARSED_DATA", "Device Name = %s", parsed_data->device_name);
     ESP_LOGW("PARSED_DATA", "Temperature = %f", parsed_data->temperature);
@@ -417,8 +405,8 @@ esp_err_t ble_mesh_device_init_client(void)
 
     ESP_LOGI(TAG, "BLE Mesh Node initialized");
 
-    mqtt_data_pt_set_callback(mqtt_data_callback);
     wifi_init_sta();
+    mqtt_data_pt_set_callback(mqtt_data_callback);
 
     return err;
 }
@@ -450,7 +438,7 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_set(model_sensor_data_t se
     return err;
 }
 
-esp_err_t ble_mesh_custom_sensor_client_model_message_get(void)
+esp_err_t ble_mesh_custom_sensor_client_model_message_get(uint16_t addr)
 {
     esp_ble_mesh_msg_ctx_t ctx = {0};
     uint32_t opcode;
@@ -461,7 +449,11 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_get(void)
     ctx.net_idx = 0;
     ctx.app_idx = 0;
     // ctx.addr = ESP_BLE_MESH_ADDR_ALL_NODES;
-    ctx.addr = ESP_BLE_MESH_GROUP_PUB_ADDR; //! FIXME: passar o endereco do device pra GET?
+    if (addr == 0)
+        ctx.addr = ESP_BLE_MESH_GROUP_PUB_ADDR; //! FIXME: passar o endereco do device pra GET?
+    else
+        ctx.addr = addr;
+
     ctx.send_ttl = 3;
     ctx.send_rel = false;
 
@@ -480,73 +472,10 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_get(void)
 
 void mqtt_data_callback(char *data, uint16_t length)
 {
-    char *pt = (char *)data;
-    // {"addr":"0x005b","state":0}
-    char address[7]; // Assuming the address length is always 6 characters (including the '0x' prefix)
-    // Find the position of "0x" in the string
-    char *start = strstr(pt, "0x");
-    if (start != NULL)
+
+    control_sensor_model_t control_sensor = convert_json_to_control_model_sensor(data);
+    if (control_sensor.status == 1)
     {
-        // Copy the address substring
-        strncpy(address, start, 6);
-        address[6] = '\0'; // Null-terminate the address string
-
-        // Convert the address string to an integer
-        address_des = (int)strtol(address, NULL, 16);
-
-        // Print the extracted hexadecimal value
-        printf("Hexadecimal value: 0x%04x\n", address_des);
+        ble_mesh_custom_sensor_client_model_message_get(control_sensor.addr);
     }
-
-    char state[2]; // Assuming the state value is always a single digit
-
-    // Find the position of "state" in the string
-    start = strstr(pt, "\"state\":");
-    if (start != NULL)
-    {
-        start += 8; // Move the pointer to the beginning of the state value
-
-        // Copy the state value
-        strncpy(state, start, 1);
-        state[1] = '\0'; // Null-terminate the state string
-
-        // Convert the state string to an integer
-        value = atoi(state);
-
-        // Print the extracted state value
-        printf("Integer value: %d\n", value);
-    }
-
-    printf("Send -> 0x%04x, %d\n", address_des, value);
-
-    cJSON *json = cJSON_Parse(data);
-    if (json == NULL)
-    {
-        const char *error_ptr = cJSON_GetErrorPtr();
-        if (error_ptr != NULL)
-        {
-            printf("Error: %s\n", error_ptr);
-        }
-        cJSON_Delete(json);
-        return 1;
-    }
-
-    // // access the JSON data
-    // cJSON *addr = cJSON_GetObjectItemCaseSensitive(json, "addr");
-    // if (cJSON_IsString(addr) && (addr->valuestring != NULL))
-    // {
-    //     printf("Name: %s\n", addr->valuestring);
-    // }
-
-    // // cJSON *status = cJSON_GetObjectItemCaseSensitive(json, "addr");
-    // // if (cJSON_IsString(status) && (name->valuestring != NULL))
-    // // {
-    // //     printf("Name: %s\n", status->valuestring);
-    // // }
-
-    // // delete the JSON object
-    // cJSON_Delete(json);
-    return 0;
-
-    ble_mesh_custom_sensor_client_model_message_get();
 }

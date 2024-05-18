@@ -10,20 +10,22 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "DHT11.h"
-static const char* TAG = "MESH-SERVER-EXAMPLE";
+static const char *TAG = "MESH-SERVER-EXAMPLE";
 
 QueueHandle_t ble_mesh_received_data_queue = NULL;
 
-
-static void read_received_items(void *arg) {
+static void read_received_items(void *arg)
+{
     ESP_LOGI(TAG, "Task initializing..");
 
     model_sensor_data_t _received_data;
 
-    while (1) {
+    while (1)
+    {
         vTaskDelay(500 / portTICK_PERIOD_MS);
-        
-        if (xQueueReceive(ble_mesh_received_data_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS) {
+
+        if (xQueueReceive(ble_mesh_received_data_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
+        {
             ESP_LOGI(TAG, "Recebido dados de %s", _received_data.device_name);
             ESP_LOGI(TAG, "    Temperatura: %f", _received_data.temperature);
             ESP_LOGI(TAG, "    Pressao:     %f", _received_data.pressure);
@@ -38,12 +40,11 @@ static void read_received_items(void *arg) {
             ESP_LOGI(TAG, "    Azul:        %f", _received_data.blue);
             ESP_LOGI(TAG, "    Violeta:     %f", _received_data.violet);
         }
+    }
+}
 
-        
-    }   
-} 
-
-void app_main(void) {
+void app_main(void)
+{
     esp_err_t err;
 
     ESP_LOGI(TAG, "Initializing...");
@@ -51,19 +52,20 @@ void app_main(void) {
     ble_mesh_received_data_queue = xQueueCreate(5, sizeof(model_sensor_data_t));
 
     err = nvs_flash_init();
-    if (err == ESP_ERR_NVS_NO_FREE_PAGES) {
+    if (err == ESP_ERR_NVS_NO_FREE_PAGES)
+    {
         ESP_ERROR_CHECK(nvs_flash_erase());
         err = nvs_flash_init();
     }
     ESP_ERROR_CHECK(err);
     // HUMIDITY, TEMPERATURE
-    DHT11_init(GPIO_NUM_4);
+    DHT11_init(GPIO_NUM_5);
     // err = ble_mesh_device_init_server();
     err = ble_mesh_device_init();
-    if (err) {
+    if (err)
+    {
         ESP_LOGE(TAG, "Bluetooth mesh init failed (err 0x%06x)", err);
     }
 
     xTaskCreate(read_received_items, "Read queue task", 2048 * 2, (void *)0, 20, NULL);
-
 }

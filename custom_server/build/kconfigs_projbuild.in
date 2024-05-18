@@ -1,0 +1,6 @@
+source "F:/app/Esp_idf/esp-idf/esp-idf/components/bootloader/Kconfig.projbuild"
+source "F:/app/Esp_idf/esp-idf/esp-idf/components/esp_app_format/Kconfig.projbuild"
+source "F:/app/Esp_idf/esp-idf/esp-idf/components/esp_rom/Kconfig.projbuild"
+source "F:/app/Esp_idf/esp-idf/esp-idf/components/esptool_py/Kconfig.projbuild"
+source "F:/app/Esp_idf/esp-idf/esp-idf/components/partition_table/Kconfig.projbuild"
+source "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/Kconfig.projbuild"

@@ -1,0 +1,970 @@
+[1/14] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D F:\ESP32\Tutorials\Bai18_Series_BLE_Mesh\custom_client\build\bootloader\esp-idf\esptool_py && f:\app\Esp_idf\.espressif\python_env\idf5.1_py3.11_env\Scripts\python.exe F:/app/Esp_idf/esp-idf/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/build/bootloader/bootloader.bin"
+Bootloader binary size 0x5340 bytes. 0x2cc0 bytes (35%) free.
+[2/12] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/__/src/mqtt.c.obj
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mqtt.c: In function 'convert_model_sensor_to_json':
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mqtt.c:114:16: warning: returning 'int' from a function with return type 'char *' makes pointer from integer without a cast [-Wint-conversion]
+  114 |         return 1;
+      |                ^
+[3/12] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/__/src/wifi.c.obj
+[4/12] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/__/src/mesh_device_app.c.obj
+[5/12] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
+[6/12] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/__/src/mesh_client.c.obj
+In file included from F:/app/Esp_idf/esp-idf/esp-idf/components/bt/esp_ble_mesh/mesh_common/include/mesh_trace.h:13,
+                 from F:/app/Esp_idf/esp-idf/esp-idf/components/bt/esp_ble_mesh/mesh_common/include/mesh_byteorder.h:11,
+                 from F:/app/Esp_idf/esp-idf/esp-idf/components/bt/esp_ble_mesh/mesh_common/include/mesh_common.h:20,
+                 from F:/app/Esp_idf/esp-idf/esp-idf/components/bt/esp_ble_mesh/api/esp_ble_mesh_defs.h:13,
+                 from F:/app/Esp_idf/esp-idf/esp-idf/components/bt/esp_ble_mesh/api/core/include/esp_ble_mesh_common_api.h:10,
+                 from F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/include/mesh_client.h:18,
+                 from F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:11:
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c: In function 'prov_complete':
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 7 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:268:27: note: in expansion of macro 'LOG_COLOR'
+  268 | #define LOG_COLOR_E       LOG_COLOR(LOG_COLOR_RED)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_E'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:410:86: note: in expansion of macro 'LOG_FORMAT'
+  410 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:152:5: note: in expansion of macro 'ESP_LOGI'
+  152 |     ESP_LOGI(TAG, "flags: 0x%02x, iv_index: 0x%08x", flags, iv_index);
+      |     ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 7 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:269:27: note: in expansion of macro 'LOG_COLOR'
+  269 | #define LOG_COLOR_W       LOG_COLOR(LOG_COLOR_BROWN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_W'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:411:86: note: in expansion of macro 'LOG_FORMAT'
+  411 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:152:5: note: in expansion of macro 'ESP_LOGI'
+  152 |     ESP_LOGI(TAG, "flags: 0x%02x, iv_index: 0x%08x", flags, iv_index);
+      |     ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:152:1: warning: format '%x' expects argument of type 'unsigned int', but argument 7 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  152 |     ESP_LOGI(TAG, "flags: 0x%02x, iv_index: 0x%08x", flags, iv_index);
+      | ^   ~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:152:5: note: in expansion of macro 'ESP_LOGI'
+  152 |     ESP_LOGI(TAG, "flags: 0x%02x, iv_index: 0x%08x", flags, iv_index);
+      |     ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:152:1: warning: format '%x' expects argument of type 'unsigned int', but argument 7 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  152 |     ESP_LOGI(TAG, "flags: 0x%02x, iv_index: 0x%08x", flags, iv_index);
+      | ^   ~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:152:5: note: in expansion of macro 'ESP_LOGI'
+  152 |     ESP_LOGI(TAG, "flags: 0x%02x, iv_index: 0x%08x", flags, iv_index);
+      |     ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 7 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:270:27: note: in expansion of macro 'LOG_COLOR'
+  270 | #define LOG_COLOR_I       LOG_COLOR(LOG_COLOR_GREEN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_I'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:414:86: note: in expansion of macro 'LOG_FORMAT'
+  414 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:152:5: note: in expansion of macro 'ESP_LOGI'
+  152 |     ESP_LOGI(TAG, "flags: 0x%02x, iv_index: 0x%08x", flags, iv_index);
+      |     ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c: In function 'ble_mesh_custom_sensor_client_model_cb':
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:268:27: note: in expansion of macro 'LOG_COLOR'
+  268 | #define LOG_COLOR_E       LOG_COLOR(LOG_COLOR_RED)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_E'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:410:86: note: in expansion of macro 'LOG_FORMAT'
+  410 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:237:13: note: in expansion of macro 'ESP_LOGI'
+  237 |             ESP_LOGI(TAG, "OP_STATUS -- Mensagem recebida: 0x%06x", param->model_operation.opcode);
+      |             ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:269:27: note: in expansion of macro 'LOG_COLOR'
+  269 | #define LOG_COLOR_W       LOG_COLOR(LOG_COLOR_BROWN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_W'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:411:86: note: in expansion of macro 'LOG_FORMAT'
+  411 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:237:13: note: in expansion of macro 'ESP_LOGI'
+  237 |             ESP_LOGI(TAG, "OP_STATUS -- Mensagem recebida: 0x%06x", param->model_operation.opcode);
+      |             ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:237:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  237 |             ESP_LOGI(TAG, "OP_STATUS -- Mensagem recebida: 0x%06x", param->model_operation.opcode);
+      | ^          
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:237:13: note: in expansion of macro 'ESP_LOGI'
+  237 |             ESP_LOGI(TAG, "OP_STATUS -- Mensagem recebida: 0x%06x", param->model_operation.opcode);
+      |             ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:237:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  237 |             ESP_LOGI(TAG, "OP_STATUS -- Mensagem recebida: 0x%06x", param->model_operation.opcode);
+      | ^          
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:237:13: note: in expansion of macro 'ESP_LOGI'
+  237 |             ESP_LOGI(TAG, "OP_STATUS -- Mensagem recebida: 0x%06x", param->model_operation.opcode);
+      |             ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:270:27: note: in expansion of macro 'LOG_COLOR'
+  270 | #define LOG_COLOR_I       LOG_COLOR(LOG_COLOR_GREEN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_I'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:414:86: note: in expansion of macro 'LOG_FORMAT'
+  414 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:237:13: note: in expansion of macro 'ESP_LOGI'
+  237 |             ESP_LOGI(TAG, "OP_STATUS -- Mensagem recebida: 0x%06x", param->model_operation.opcode);
+      |             ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:268:27: note: in expansion of macro 'LOG_COLOR'
+  268 | #define LOG_COLOR_E       LOG_COLOR(LOG_COLOR_RED)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_E'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:410:86: note: in expansion of macro 'LOG_FORMAT'
+  410 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:251:13: note: in expansion of macro 'ESP_LOGE'
+  251 |             ESP_LOGE(TAG, "Failed to send message 0x%06x", param->model_send_comp.opcode);
+      |             ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:269:27: note: in expansion of macro 'LOG_COLOR'
+  269 | #define LOG_COLOR_W       LOG_COLOR(LOG_COLOR_BROWN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_W'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:411:86: note: in expansion of macro 'LOG_FORMAT'
+  411 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:251:13: note: in expansion of macro 'ESP_LOGE'
+  251 |             ESP_LOGE(TAG, "Failed to send message 0x%06x", param->model_send_comp.opcode);
+      |             ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:251:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  251 |             ESP_LOGE(TAG, "Failed to send message 0x%06x", param->model_send_comp.opcode);
+      | ^          
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:251:13: note: in expansion of macro 'ESP_LOGE'
+  251 |             ESP_LOGE(TAG, "Failed to send message 0x%06x", param->model_send_comp.opcode);
+      |             ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:251:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  251 |             ESP_LOGE(TAG, "Failed to send message 0x%06x", param->model_send_comp.opcode);
+      | ^          
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:251:13: note: in expansion of macro 'ESP_LOGE'
+  251 |             ESP_LOGE(TAG, "Failed to send message 0x%06x", param->model_send_comp.opcode);
+      |             ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:270:27: note: in expansion of macro 'LOG_COLOR'
+  270 | #define LOG_COLOR_I       LOG_COLOR(LOG_COLOR_GREEN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_I'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:414:86: note: in expansion of macro 'LOG_FORMAT'
+  414 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:251:13: note: in expansion of macro 'ESP_LOGE'
+  251 |             ESP_LOGE(TAG, "Failed to send message 0x%06x", param->model_send_comp.opcode);
+      |             ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:268:27: note: in expansion of macro 'LOG_COLOR'
+  268 | #define LOG_COLOR_E       LOG_COLOR(LOG_COLOR_RED)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_E'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:410:86: note: in expansion of macro 'LOG_FORMAT'
+  410 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:254:9: note: in expansion of macro 'ESP_LOGI'
+  254 |         ESP_LOGI(TAG, "Send message opcode 0x%06x success!", param->model_send_comp.opcode);
+      |         ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:269:27: note: in expansion of macro 'LOG_COLOR'
+  269 | #define LOG_COLOR_W       LOG_COLOR(LOG_COLOR_BROWN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_W'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:411:86: note: in expansion of macro 'LOG_FORMAT'
+  411 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:254:9: note: in expansion of macro 'ESP_LOGI'
+  254 |         ESP_LOGI(TAG, "Send message opcode 0x%06x success!", param->model_send_comp.opcode);
+      |         ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:254:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  254 |         ESP_LOGI(TAG, "Send message opcode 0x%06x success!", param->model_send_comp.opcode);
+      | ^       ~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:254:9: note: in expansion of macro 'ESP_LOGI'
+  254 |         ESP_LOGI(TAG, "Send message opcode 0x%06x success!", param->model_send_comp.opcode);
+      |         ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:254:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  254 |         ESP_LOGI(TAG, "Send message opcode 0x%06x success!", param->model_send_comp.opcode);
+      | ^       ~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:254:9: note: in expansion of macro 'ESP_LOGI'
+  254 |         ESP_LOGI(TAG, "Send message opcode 0x%06x success!", param->model_send_comp.opcode);
+      |         ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:270:27: note: in expansion of macro 'LOG_COLOR'
+  270 | #define LOG_COLOR_I       LOG_COLOR(LOG_COLOR_GREEN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_I'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:414:86: note: in expansion of macro 'LOG_FORMAT'
+  414 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:254:9: note: in expansion of macro 'ESP_LOGI'
+  254 |         ESP_LOGI(TAG, "Send message opcode 0x%06x success!", param->model_send_comp.opcode);
+      |         ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:268:27: note: in expansion of macro 'LOG_COLOR'
+  268 | #define LOG_COLOR_E       LOG_COLOR(LOG_COLOR_RED)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_E'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:410:86: note: in expansion of macro 'LOG_FORMAT'
+  410 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:262:13: note: in expansion of macro 'ESP_LOGI'
+  262 |             ESP_LOGI(TAG, "OP_STATUS -- Message received: 0x%06x", param->client_recv_publish_msg.opcode);
+      |             ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:269:27: note: in expansion of macro 'LOG_COLOR'
+  269 | #define LOG_COLOR_W       LOG_COLOR(LOG_COLOR_BROWN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_W'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:411:86: note: in expansion of macro 'LOG_FORMAT'
+  411 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:262:13: note: in expansion of macro 'ESP_LOGI'
+  262 |             ESP_LOGI(TAG, "OP_STATUS -- Message received: 0x%06x", param->client_recv_publish_msg.opcode);
+      |             ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:262:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  262 |             ESP_LOGI(TAG, "OP_STATUS -- Message received: 0x%06x", param->client_recv_publish_msg.opcode);
+      | ^          
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:262:13: note: in expansion of macro 'ESP_LOGI'
+  262 |             ESP_LOGI(TAG, "OP_STATUS -- Message received: 0x%06x", param->client_recv_publish_msg.opcode);
+      |             ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:262:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  262 |             ESP_LOGI(TAG, "OP_STATUS -- Message received: 0x%06x", param->client_recv_publish_msg.opcode);
+      | ^          
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:262:13: note: in expansion of macro 'ESP_LOGI'
+  262 |             ESP_LOGI(TAG, "OP_STATUS -- Message received: 0x%06x", param->client_recv_publish_msg.opcode);
+      |             ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:270:27: note: in expansion of macro 'LOG_COLOR'
+  270 | #define LOG_COLOR_I       LOG_COLOR(LOG_COLOR_GREEN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_I'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:414:86: note: in expansion of macro 'LOG_FORMAT'
+  414 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:342:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  342 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:262:13: note: in expansion of macro 'ESP_LOGI'
+  262 |             ESP_LOGI(TAG, "OP_STATUS -- Message received: 0x%06x", param->client_recv_publish_msg.opcode);
+      |             ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:268:27: note: in expansion of macro 'LOG_COLOR'
+  268 | #define LOG_COLOR_E       LOG_COLOR(LOG_COLOR_RED)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_E'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:410:86: note: in expansion of macro 'LOG_FORMAT'
+  410 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:341:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  341 | #define ESP_LOGW( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_WARN,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:274:13: note: in expansion of macro 'ESP_LOGW'
+  274 |             ESP_LOGW(TAG, "Received unrecognized OPCODE message: 0x%04x", param->client_recv_publish_msg.opcode);
+      |             ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:269:27: note: in expansion of macro 'LOG_COLOR'
+  269 | #define LOG_COLOR_W       LOG_COLOR(LOG_COLOR_BROWN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_W'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:411:86: note: in expansion of macro 'LOG_FORMAT'
+  411 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:341:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  341 | #define ESP_LOGW( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_WARN,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:274:13: note: in expansion of macro 'ESP_LOGW'
+  274 |             ESP_LOGW(TAG, "Received unrecognized OPCODE message: 0x%04x", param->client_recv_publish_msg.opcode);
+      |             ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:274:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  274 |             ESP_LOGW(TAG, "Received unrecognized OPCODE message: 0x%04x", param->client_recv_publish_msg.opcode);
+      | ^          
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:341:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  341 | #define ESP_LOGW( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_WARN,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:274:13: note: in expansion of macro 'ESP_LOGW'
+  274 |             ESP_LOGW(TAG, "Received unrecognized OPCODE message: 0x%04x", param->client_recv_publish_msg.opcode);
+      |             ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:274:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  274 |             ESP_LOGW(TAG, "Received unrecognized OPCODE message: 0x%04x", param->client_recv_publish_msg.opcode);
+      | ^          
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:341:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  341 | #define ESP_LOGW( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_WARN,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:274:13: note: in expansion of macro 'ESP_LOGW'
+  274 |             ESP_LOGW(TAG, "Received unrecognized OPCODE message: 0x%04x", param->client_recv_publish_msg.opcode);
+      |             ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:270:27: note: in expansion of macro 'LOG_COLOR'
+  270 | #define LOG_COLOR_I       LOG_COLOR(LOG_COLOR_GREEN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_I'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:414:86: note: in expansion of macro 'LOG_FORMAT'
+  414 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:341:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  341 | #define ESP_LOGW( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_WARN,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:274:13: note: in expansion of macro 'ESP_LOGW'
+  274 |             ESP_LOGW(TAG, "Received unrecognized OPCODE message: 0x%04x", param->client_recv_publish_msg.opcode);
+      |             ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:268:27: note: in expansion of macro 'LOG_COLOR'
+  268 | #define LOG_COLOR_E       LOG_COLOR(LOG_COLOR_RED)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_E'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:410:86: note: in expansion of macro 'LOG_FORMAT'
+  410 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:341:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  341 | #define ESP_LOGW( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_WARN,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:281:9: note: in expansion of macro 'ESP_LOGW'
+  281 |         ESP_LOGW(TAG, "Message opcode 0x%06x timeout", param->client_send_timeout.opcode);
+      |         ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:269:27: note: in expansion of macro 'LOG_COLOR'
+  269 | #define LOG_COLOR_W       LOG_COLOR(LOG_COLOR_BROWN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_W'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:411:86: note: in expansion of macro 'LOG_FORMAT'
+  411 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:341:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  341 | #define ESP_LOGW( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_WARN,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:281:9: note: in expansion of macro 'ESP_LOGW'
+  281 |         ESP_LOGW(TAG, "Message opcode 0x%06x timeout", param->client_send_timeout.opcode);
+      |         ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:281:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  281 |         ESP_LOGW(TAG, "Message opcode 0x%06x timeout", param->client_send_timeout.opcode);
+      | ^       ~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:341:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  341 | #define ESP_LOGW( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_WARN,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:281:9: note: in expansion of macro 'ESP_LOGW'
+  281 |         ESP_LOGW(TAG, "Message opcode 0x%06x timeout", param->client_send_timeout.opcode);
+      |         ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:281:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  281 |         ESP_LOGW(TAG, "Message opcode 0x%06x timeout", param->client_send_timeout.opcode);
+      | ^       ~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:341:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  341 | #define ESP_LOGW( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_WARN,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:281:9: note: in expansion of macro 'ESP_LOGW'
+  281 |         ESP_LOGW(TAG, "Message opcode 0x%06x timeout", param->client_send_timeout.opcode);
+      |         ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:270:27: note: in expansion of macro 'LOG_COLOR'
+  270 | #define LOG_COLOR_I       LOG_COLOR(LOG_COLOR_GREEN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_I'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:414:86: note: in expansion of macro 'LOG_FORMAT'
+  414 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:341:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  341 | #define ESP_LOGW( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_WARN,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:281:9: note: in expansion of macro 'ESP_LOGW'
+  281 |         ESP_LOGW(TAG, "Message opcode 0x%06x timeout", param->client_send_timeout.opcode);
+      |         ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c: In function 'ble_mesh_custom_sensor_client_model_message_set':
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:268:27: note: in expansion of macro 'LOG_COLOR'
+  268 | #define LOG_COLOR_E       LOG_COLOR(LOG_COLOR_RED)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_E'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:410:86: note: in expansion of macro 'LOG_FORMAT'
+  410 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:435:9: note: in expansion of macro 'ESP_LOGE'
+  435 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      |         ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:269:27: note: in expansion of macro 'LOG_COLOR'
+  269 | #define LOG_COLOR_W       LOG_COLOR(LOG_COLOR_BROWN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_W'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:411:86: note: in expansion of macro 'LOG_FORMAT'
+  411 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:435:9: note: in expansion of macro 'ESP_LOGE'
+  435 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      |         ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:435:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  435 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      | ^       ~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:435:9: note: in expansion of macro 'ESP_LOGE'
+  435 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      |         ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:435:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  435 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      | ^       ~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:435:9: note: in expansion of macro 'ESP_LOGE'
+  435 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      |         ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:270:27: note: in expansion of macro 'LOG_COLOR'
+  270 | #define LOG_COLOR_I       LOG_COLOR(LOG_COLOR_GREEN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_I'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:414:86: note: in expansion of macro 'LOG_FORMAT'
+  414 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:435:9: note: in expansion of macro 'ESP_LOGE'
+  435 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      |         ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c: In function 'ble_mesh_custom_sensor_client_model_message_get':
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:268:27: note: in expansion of macro 'LOG_COLOR'
+  268 | #define LOG_COLOR_E       LOG_COLOR(LOG_COLOR_RED)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_E'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:410:86: note: in expansion of macro 'LOG_FORMAT'
+  410 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:467:9: note: in expansion of macro 'ESP_LOGE'
+  467 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      |         ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:269:27: note: in expansion of macro 'LOG_COLOR'
+  269 | #define LOG_COLOR_W       LOG_COLOR(LOG_COLOR_BROWN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_W'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:411:86: note: in expansion of macro 'LOG_FORMAT'
+  411 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:467:9: note: in expansion of macro 'ESP_LOGE'
+  467 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      |         ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:467:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  467 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      | ^       ~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:467:9: note: in expansion of macro 'ESP_LOGE'
+  467 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      |         ^~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:467:1: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  467 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      | ^       ~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:59: note: in definition of macro 'LOG_FORMAT'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                                           ^~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:467:9: note: in expansion of macro 'ESP_LOGE'
+  467 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      |         ^~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:265:27: warning: format '%x' expects argument of type 'unsigned int', but argument 6 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  265 | #define LOG_COLOR(COLOR)  "\033[0;" COLOR "m"
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:270:27: note: in expansion of macro 'LOG_COLOR'
+  270 | #define LOG_COLOR_I       LOG_COLOR(LOG_COLOR_GREEN)
+      |                           ^~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:282:37: note: in expansion of macro 'LOG_COLOR_I'
+  282 | #define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%" PRIu32 ") %s: " format LOG_RESET_COLOR "\n"
+      |                                     ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:414:86: note: in expansion of macro 'LOG_FORMAT'
+  414 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                      ^~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:432:41: note: in expansion of macro 'ESP_LOG_LEVEL'
+  432 |         if ( LOG_LOCAL_LEVEL >= level ) ESP_LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
+      |                                         ^~~~~~~~~~~~~
+F:/app/Esp_idf/esp-idf/esp-idf/components/log/include/esp_log.h:340:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  340 | #define ESP_LOGE( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR,   tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/src/mesh_client.c:467:9: note: in expansion of macro 'ESP_LOGE'
+  467 |         ESP_LOGE(TAG, "Failed to send the custom msg 0x%06x, err = 0x%06x", opcode, err);
+      |         ^~~~~~~~
+[7/12] Linking C static library esp-idf\main\libmain.a
+[8/12] Generating ld/sections.ld
+[9/12] Linking CXX executable custom_client.elf
+[10/12] Generating binary image from built executable
+esptool.py v4.7.0
+Creating esp32c6 image...
+Merged 3 ELF sections
+Successfully created esp32c6 image.
+Generated F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/build/custom_client.bin
+[11/12] cmd.exe /C "cd /D F:\ESP32\Tutorials\Bai18_Series_BLE_Mesh\custom_client\build\esp-idf\esptool_py && f:\app\Esp_idf\.espressif\python_env\idf5.1_py3.11_env\Scripts\python.exe F:/app/Esp_idf/esp-idf/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/build/partition_table/partition-table.bin F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/build/custom_client.bin"
+custom_client.bin binary size 0x1b6030 bytes. Smallest app partition is 0x200000 bytes. 0x49fd0 bytes (14%) free.
+[11/12] cmd.exe /C "cd /D F:\app\Esp_idf\esp-idf\esp-idf\components\esptool_py && F:\app\Esp_idf\.espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=F:/app/Esp_idf/esp-idf/esp-idf -D SERIAL_TOOL=f:/app/Esp_idf/.espressif/python_env/idf5.1_py3.11_env/Scripts/python.exe;;F:/app/Esp_idf/esp-idf/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32c6 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/build -P F:/app/Esp_idf/esp-idf/esp-idf/components/esptool_py/run_serial_tool.cmake"
+esptool.py --chip esp32c6 -p COM9 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 4MB 0x0 bootloader/bootloader.bin 0x10000 custom_client.bin 0x8000 partition_table/partition-table.bin 0xd000 ota_data_initial.bin
+esptool.py v4.7.0
+Serial port COM9
+Connecting....
+Chip is ESP32-C6 (QFN40) (revision v0.0)
+Features: WiFi 6, BT 5, IEEE802.15.4
+Crystal is 40MHz
+MAC: 40:4c:ca:ff:fe:44:d7:14
+BASE MAC: 40:4c:ca:44:d7:14
+MAC_EXT: ff:fe
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00000000 to 0x00005fff...
+Flash will be erased from 0x00010000 to 0x001c6fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Flash will be erased from 0x0000d000 to 0x0000efff...
+Compressed 21312 bytes to 12914...
+Writing at 0x00000000... (100 %)
+Wrote 21312 bytes (12914 compressed) at 0x00000000 in 0.6 seconds (effective 277.3 kbit/s)...
+Hash of data verified.
+Compressed 1794096 bytes to 979563...
+Writing at 0x00010000... (1 %)
+Writing at 0x0001d175... (3 %)
+Writing at 0x0002e095... (5 %)
+Writing at 0x0003b515... (6 %)
+Writing at 0x00043888... (8 %)
+Writing at 0x0004895a... (10 %)
+Writing at 0x00052a89... (11 %)
+Writing at 0x0005b9dc... (13 %)
+Writing at 0x00061c8d... (15 %)
+Writing at 0x0006951d... (16 %)
+Writing at 0x0007085a... (18 %)
+Writing at 0x000782fe... (20 %)
+Writing at 0x00080311... (21 %)
+Writing at 0x00087a98... (23 %)
+Writing at 0x0008fced... (25 %)
+Writing at 0x000974a6... (26 %)
+Writing at 0x0009f531... (28 %)
+Writing at 0x000a908b... (30 %)
+Writing at 0x000b1836... (31 %)
+Writing at 0x000b933c... (33 %)
+Writing at 0x000c0b05... (35 %)
+Writing at 0x000c847f... (36 %)
+Writing at 0x000cf883... (38 %)
+Writing at 0x000d6a79... (40 %)
+Writing at 0x000ddade... (41 %)
+Writing at 0x000e59c4... (43 %)
+Writing at 0x000ed28f... (45 %)
+Writing at 0x000f3699... (46 %)
+Writing at 0x000f96ab... (48 %)
+Writing at 0x000ff9f5... (50 %)
+Writing at 0x00105a24... (51 %)
+Writing at 0x0010bc7a... (53 %)
+Writing at 0x00111a4a... (55 %)
+Writing at 0x001189da... (56 %)
+Writing at 0x0011fc0f... (58 %)
+Writing at 0x00126d91... (60 %)
+Writing at 0x0012d1c2... (61 %)
+Writing at 0x00133a64... (63 %)
+Writing at 0x0013a717... (65 %)
+Writing at 0x00140a57... (66 %)
+Writing at 0x00146f4b... (68 %)
+Writing at 0x0014d6c4... (70 %)
+Writing at 0x00153298... (71 %)
+Writing at 0x001593cf... (73 %)
+Writing at 0x0015f492... (75 %)
+Writing at 0x0016556f... (76 %)
+Writing at 0x0016b5f9... (78 %)
+Writing at 0x00171597... (80 %)
+Writing at 0x00177fa8... (81 %)
+Writing at 0x0017ebc9... (83 %)
+Writing at 0x00185bae... (85 %)
+Writing at 0x0018ca4c... (86 %)
+Writing at 0x00193b35... (88 %)
+Writing at 0x00199cd1... (90 %)
+Writing at 0x0019ff5b... (91 %)
+Writing at 0x001a630a... (93 %)
+Writing at 0x001ac20d... (95 %)
+Writing at 0x001b2a5a... (96 %)
+Writing at 0x001b9916... (98 %)
+Writing at 0x001bf1ce... (100 %)
+Wrote 1794096 bytes (979563 compressed) at 0x00010000 in 22.7 seconds (effective 632.9 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 117...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (117 compressed) at 0x00008000 in 0.1 seconds (effective 471.7 kbit/s)...
+Hash of data verified.
+Compressed 8192 bytes to 31...
+Writing at 0x0000d000... (100 %)
+Wrote 8192 bytes (31 compressed) at 0x0000d000 in 0.1 seconds (effective 681.9 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
