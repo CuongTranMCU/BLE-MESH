@@ -3,5 +3,9 @@
   "idf.openOcdConfigs": [
     "interface/ftdi/esp32_devkitj_v1.cfg",
     "target/esp32.cfg"
-  ]
+  ],
+  "files.associations": {
+    "mesh_device_app.h": "c",
+    "dht11.h": "c"
+  }
 }

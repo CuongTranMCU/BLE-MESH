@@ -23,7 +23,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     {
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
-        msg_id = esp_mqtt_client_subscribe(client, "topic/command", 0);
+        msg_id = esp_mqtt_client_subscribe(client, "ReceiveControl", 0);
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
         break;
 
@@ -70,7 +70,10 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 void mqtt_app_start(void)
 {
     const esp_mqtt_client_config_t mqtt_cfg = {
-        .broker.address.uri = "mqtt://broker.hivemq.com:1883"};
+        .broker.address.uri = EXAMPLE_ESP_MQQT_BORKER_URI,
+        .broker.address.port = EXAMPLE_ESP_MQQT_BORKER_PORT,
+        .credentials.username = EXAMPLE_ESP_MQQT_CREDENTIALS_USERNAME,
+    };
 
     ESP_LOGI(TAG, "[APP] Free memory: %ld bytes", esp_get_free_heap_size());
     global_client = esp_mqtt_client_init(&mqtt_cfg);
@@ -96,7 +99,7 @@ void mqtt_data_publish_callback(char *data, int length)
 {
     esp_mqtt_client_handle_t client = mqtt_get_global_client();
 
-    esp_mqtt_client_publish(client, "/topic/qos1", "data_3", length, 0, 0);
+    esp_mqtt_client_publish(client, "SendData", data, length, 0, 0);
 }
 
 char *convert_model_sensor_to_json(model_sensor_data_t *received_data)

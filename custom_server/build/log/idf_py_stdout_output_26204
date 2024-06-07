@@ -1,0 +1,267 @@
+m�m
+[0;32mI (35) boot: chip revision: v3�ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7080
+load:0x40078000,len:15584
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3876
+entry 0x4008064c
+[0;32mI (31) boot: ESP-IDF v5.1.2 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time May 18 2024 12:00:58[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (35) boot: chip revision: v3.1[0m
+[0;32mI (39) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (48) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (58) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (84) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=2bdech (179692) map[0m
+[0;32mI (169) esp_image: segment 1: paddr=0003be14 vaddr=3ffbdb60 size=04204h ( 16900) load[0m
+[0;32mI (176) esp_image: segment 2: paddr=00040020 vaddr=400d0020 size=a1f7ch (663420) map[0m
+[0;32mI (416) esp_image: segment 3: paddr=000e1fa4 vaddr=3ffc1d64 size=00f54h (  3924) load[0m
+[0;32mI (418) esp_image: segment 4: paddr=000e2f00 vaddr=40080000 size=187f4h (100340) load[0m
+[0;32mI (476) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (476) boot: Disabling RNG early entropy source...[0m
+[0;32mI (487) cpu_start: Multicore app[0m
+[0;32mI (488) cpu_start: Pro cpu up.[0m
+[0;32mI (488) cpu_start: Starting app cpu, entry point is 0x4008137c[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (506) cpu_start: Pro cpu start user code[0m
+[0;32mI (506) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (506) cpu_start: Application information:[0m
+[0;32mI (510) cpu_start: Project name:     onoff_server_s3[0m
+[0;32mI (516) cpu_start: App version:      a1d81d1-dirty[0m
+[0;32mI (521) cpu_start: Compile time:     Jun  5 2024 11:50:27[0m
+[0;32mI (528) cpu_start: ELF file SHA256:  a2901723e6e1db6e...[0m
+[0;32mI (534) cpu_start: ESP-IDF:          v5.1.2[0m
+[0;32mI (538) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (543) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (548) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (553) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (560) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (566) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (572) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (578) heap_init: At 3FFCA4A0 len 00015B60 (86 KiB): DRAM[0m
+[0;32mI (584) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (591) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (597) heap_init: At 400987F4 len 0000780C (30 KiB): IRAM[0m
+[0;32mI (605) spi_flash: detected chip: generic[0m
+[0;32mI (608) spi_flash: flash io: dio[0m
+[0;33mW (612) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (626) coexist: coex firmware version: b6d5e8c[0m
+[0;32mI (631) app_start: Starting scheduler on CPU0[0m
+[0;32[0;32mI (635) app_start: Starting scheduler on CPU1[0m
+mI (635) main_task: Started on CPU0[0m
+[0;32mI (645) main_task: Calling app_main()[0m
+[0;32mI (645) MESH-SERVER-EXAMPLE: Initializing...[0m
+[0;32mI (1685) BTDM_INIT: BT controller compile version [ec4ac65][0m
+[0;32mI (1685) BTDM_INIT: Bluetooth MAC: d8:bc:38:fc:1d:e2[0m
+[0;32mI (1685) phy_init: phy_version 4780,16b31a7,Sep 22 2023,20:42:16[0m
+[0;32mI (2175) MESH_SERVER: ESP_BLE_MESH_PROV_REGISTER_COMP_EVT, err_code 0[0m
+[0;32mI (2175) MESH_SERVER: ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT, Name: ESP-SERVER MESH, err_code 0[0m
+[0;32mI (2185) MESH_SERVER: BLE Mesh Node initialized![0m
+[0;32mI (2185) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (2205) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_ENABLE_COMP_EVT, err_code 0[0m
+[0;32mI (2205) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (2235) main_task: Returned from app_main()[0m
+[0;32mI (2735) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (3235) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (3735) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (4235) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (4755) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (27885) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_LINK_OPEN_EVT, bearer PB-GATT[0m
+[0;33mW (35625) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;32mI (35635) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_LINK_CLOSE_EVT, bearer PB-GATT[0m
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7080
+load:0x40078000,len:15584
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3876
+entry 0x4008064c
+[0;32mI (31) boot: ESP-IDF v5.1.2 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time May 18 2024 12:00:58[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (35) boot: chip revision: v3.1[0m
+[0;32mI (39) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (48) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (58) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (84) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=2bdech (179692) map[0m
+[0;32mI (169) esp_image: segment 1: paddr=0003be14 vaddr=3ffbdb60 size=04204h ( 16900) load[0m
+[0;32mI (176) esp_image: segment 2: paddr=00040020 vaddr=400d0020 size=a1f7ch (663420) map[0m
+[0;32mI (416) esp_image: segment 3: paddr=000e1fa4 vaddr=3ffc1d64 size=00f54h (  3924) load[0m
+[0;32mI (418) esp_image: segment 4: paddr=000e2f00 vaddr=40080000 size=187f4h (100340) load[0m
+[0;32mI (476) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (476) boot: Disabling RNG early entropy source...[0m
+[0;32mI (487) cpu_start: Multicore app[0m
+[0;32mI (488) cpu_start: Pro cpu up.[0m
+[0;32mI (488) cpu_start: Starting app cpu, entry point is 0x4008137c[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (506) cpu_start: Pro cpu start user code[0m
+[0;32mI (506) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (506) cpu_start: Application information:[0m
+[0;32mI (510) cpu_start: Project name:     onoff_server_s3[0m
+[0;32mI (516) cpu_start: App version:      a1d81d1-dirty[0m
+[0;32mI (521) cpu_start: Compile time:     Jun  5 2024 11:50:27[0m
+[0;32mI (528) cpu_start: ELF file SHA256:  a2901723e6e1db6e...[0m
+[0;32mI (534) cpu_start: ESP-IDF:          v5.1.2[0m
+[0;32mI (538) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (543) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (548) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (553) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (560) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (566) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (572) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (578) heap_init: At 3FFCA4A0 len 00015B60 (86 KiB): DRAM[0m
+[0;32mI (584) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (591) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (597) heap_init: At 400987F4 len 0000780C (30 KiB): IRAM[0m
+[0;32mI (605) spi_flash: detected chip: generic[0m
+[0;32mI (608) spi_flash: flash io: dio[0m
+[0;33mW (612) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (626) coexist: coex firmware version: b6d5e8c[0m
+[0;32mI (631) app_start: Starting scheduler on CPU0[0m
+[0;32[0;32mI (635) app_start: Starting scheduler on CPU1[0m
+mI (635) main_task: Started on CPU0[0m
+[0;32mI (645) main_task: Calling app_main()[0m
+[0;32mI (645) MESH-SERVER-EXAMPLE: Initializing...[0m
+[0;32mI (1685) BTDM_INIT: BT controller compile version [ec4ac65][0m
+[0;32mI (1685) BTDM_INIT: Bluetooth MAC: d8:bc:38:fc:1d:e2[0m
+[0;32mI (1685) phy_init: phy_version 4780,16b31a7,Sep 22 2023,20:42:16[0m
+[0;32mI (2165) MESH_SERVER: ESP_BLE_MESH_PROV_REGISTER_COMP_EVT, err_code 0[0m
+[0;32mI (2165) MESH_SERVER: ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT, Name: ESP-SERVER MESH, err_code 0[0m
+[0;32mI (2175) MESH_SERVER: BLE Mesh Node initialized![0m
+[0;32mI (2175) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (2195) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_ENABLE_COMP_EVT, err_code 0[0m
+[0;32mI (2195) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (2215) main_task: Returned from app_main()[0m
+[0;32mI (2715) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (3215) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (3715) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (4215) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (4735) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (18455) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_LINK_OPEN_EVT, bearer PB-GATT[0m
+[0;33mW (21395) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;32mI (21405) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_LINK_CLOSE_EVT, bearer PB-GATT[0m
+[0;32mI (23955) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_LINK_OPEN_EVT, bearer PB-GATT[0m
+[0;33mW (25295) BLE_MESH: No Health Server context provided[0m
+[0;33mW (27585) BLE_MESH: No Health Server context provided[0m
+[0;32mI (27615) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_LINK_CLOSE_EVT, bearer PB-GATT[0m
+[0;32mI (27615) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_COMPLETE_EVT[0m
+[0;32mI (27615) MESH_SERVER: net_idx: 0x0000, addr: 0x0028[0m
+[0;32mI (27625) MESH_SERVER: flags: 0x00, iv_index: 0x00000000[0m
+[0;32mI (27625) MESH_SERVER: Device provisioned[0m
+[0;33mW (28755) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;33mW (34655) BLE_MESH: No matching TX context for ack[0m
+[0;32mI (38165) MESH_SERVER: ESP_BLE_MESH_MODEL_OP_APP_KEY_ADD[0m
+[0;32mI (38175) MESH_SERVER: net_idx 0x0000, app_idx 0x0000[0m
+[0;32mI (38175) AppKey: 36 09 b9 aa fb 09 83 59 68 5c 85 5d 8b c7 f5 99 [0m
+[0;33mW (43625) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;32mI (66705) MESH_SERVER: ESP_BLE_MESH_MODEL_OP_MODEL_APP_BIND[0m
+[0;32mI (66705) MESH_SERVER: elem_addr 0x0028, app_idx 0x0000, cid 0x02e5, mod_id 0x001414[0m
+[0;32mI (66705) MESH_SERVER: Application key bound to model 0x001414[0m
+[0;32mI (77225) MESH_SERVER: ESP_BLE_MESH_MODEL_OP_MODEL_SUB_ADD[0m
+[0;32mI (77225) MESH_SERVER: elem_addr 0x0028, sub_addr 0xc000, cid 0x02e5, mod_id 0x1414[0m
+[0;32mI (77225) MESH_SERVER: Model 0x001414 subscribed to Group 0xc000 ![0m
+[0;33mW (83535) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (83535) MESH_SERVER:     Temperaturw: 52.000000[0m
+[0;32mI (83535) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (83555) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (84035) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (89535) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (89535) MESH_SERVER:     Temperaturw: 52.000000[0m
+[0;32mI (89535) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (89555) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (90035) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (95515) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (95515) MESH_SERVER:     Temperaturw: 52.000000[0m
+[0;32mI (95515) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (95535) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (96015) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (101515) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (101515) MESH_SERVER:     Temperaturw: 52.000000[0m
+[0;32mI (101515) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (101525) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (102015) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (107515) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (107515) MESH_SERVER:     Temperaturw: 26.000000[0m
+[0;32mI (107515) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (107535) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (108015) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (113545) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (113545) MESH_SERVER:     Temperaturw: 26.000000[0m
+[0;32mI (113545) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (113565) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (114045) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (119515) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (119515) MESH_SERVER:     Temperaturw: -1.000000[0m
+[0;32mI (119515) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (119535) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (120015) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (125515) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (125515) MESH_SERVER:     Temperaturw: 26.000000[0m
+[0;32mI (125515) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (125535) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (126015) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (131505) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (131505) MESH_SERVER:     Temperaturw: -1.000000[0m
+[0;32mI (131505) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (131525) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (132005) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (137505) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (137505) MESH_SERVER:     Temperaturw: -1.000000[0m
+[0;32mI (137505) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (137525) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (138005) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (143525) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (143525) MESH_SERVER:     Temperaturw: -1.000000[0m
+[0;32mI (143535) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (143545) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (144025) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (149505) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (149505) MESH_SERVER:     Temperaturw: 26.000000[0m
+[0;32mI (149505) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (149525) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (150005) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (155515) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (155515) MESH_SERVER:     Temperaturw: -1.000000[0m
+[0;32mI (155515) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (155535) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (156015) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (161505) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (161515) MESH_SERVER:     Temperaturw: 26.000000[0m
+[0;32mI (161515) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (161525) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (162015) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (167515) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (167515) MESH_SERVER:     Temperaturw: 26.000000[0m
+[0;32mI (167515) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (167535) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (168015) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;33mW (173515) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (173515) MESH_SERVER:     Temperaturw: 26.000000[0m
+[0;32mI (173515) MESH_SERVER:     Pressao:     0.000000[0m
+[0;32mI (173535) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (174015) MESH-SERVER-EXAMPLE: Task initializing..[0m

@@ -1,7 +1,7 @@
 {
     "version":            "1",
     "project_name":       "custom_client",
-    "project_version":    "1ec4c6a-dirty",
+    "project_version":    "a1d81d1-dirty",
     "project_path":       "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client",
     "idf_path":           "F:/app/Esp_idf/esp-idf/esp-idf",
     "build_dir":          "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_client/build",

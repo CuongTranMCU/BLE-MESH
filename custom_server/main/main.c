@@ -13,6 +13,7 @@
 static const char *TAG = "MESH-SERVER-EXAMPLE";
 
 QueueHandle_t ble_mesh_received_data_queue = NULL;
+QueueHandle_t dht11_received_data_queue = NULL;
 
 static void read_received_items(void *arg)
 {
@@ -43,6 +44,21 @@ static void read_received_items(void *arg)
     }
 }
 
+static void read_data_from_DHT11(void *arg)
+{
+    model_sensor_data_t _received_data;
+    while (1)
+    {
+        ESP_LOGI(TAG, "Task initializing..");
+
+        _received_data.temperature = DHT11_read().temperature;
+        _received_data.humidity = DHT11_read().humidity;
+        printf("Tem: %f \nHum:%f\n", _received_data.temperature, _received_data.humidity);
+        xQueueSendToBack(dht11_received_data_queue, &_received_data, portMAX_DELAY);
+        vTaskDelay(5000 / portTICK_PERIOD_MS);
+    }
+}
+
 void app_main(void)
 {
     esp_err_t err;
@@ -50,6 +66,7 @@ void app_main(void)
     ESP_LOGI(TAG, "Initializing...");
 
     ble_mesh_received_data_queue = xQueueCreate(5, sizeof(model_sensor_data_t));
+    dht11_received_data_queue = xQueueCreate(1, sizeof(model_sensor_data_t));
 
     err = nvs_flash_init();
     if (err == ESP_ERR_NVS_NO_FREE_PAGES)
@@ -68,4 +85,5 @@ void app_main(void)
     }
 
     xTaskCreate(read_received_items, "Read queue task", 2048 * 2, (void *)0, 20, NULL);
+    xTaskCreate(read_data_from_DHT11, "Read queue dht11 task", 2048 * 2, (void *)0, 20, NULL);
 }

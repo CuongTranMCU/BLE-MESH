@@ -1,0 +1,441 @@
+[0;33m--- WARNING: GDB cannot open serial ports accessed as COMx[0m
+[0;33m--- Using \\.\COM7 instead...[0m
+[0;33m--- esp-idf-monitor 1.3.4 on \\.\COM7 115200 ---[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x4008137c: call_start_cpu1 at F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400d8127: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x400014fd: strlen in ROM
+[0m
+[0;33m0x4000150d: strlen in ROM
+[0m
+[0;33m0x400d8124: read_data_from_DHT11 at F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c:53
+[0m
+[0;33m0x40093b41: vPortTaskWrapper at F:/app/Esp_idf/esp-idf/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0m

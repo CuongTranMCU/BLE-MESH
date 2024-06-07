@@ -1,0 +1,2506 @@
+Hh�ښ�j%�(35) boot: chip revision: v3.1[0m
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7080
+load:0x40078000,len:15584
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3876
+entry 0x4008064c
+[0;32mI (31) boot: ESP-IDF v5.1.2 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time May 18 2024 12:00:58[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (35) boot: chip revision: v3.1[0m
+[0;32mI (39) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (48) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (58) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (84) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=2cdbch (183740) map[0m
+[0;32mI (171) esp_image: segment 1: paddr=0003cde4 vaddr=3ffbdb60 size=03234h ( 12852) load[0m
+[0;32mI (176) esp_image: segment 2: paddr=00040020 vaddr=400d0020 size=a48dch (674012) map[0m
+[0;32mI (420) esp_image: segment 3: paddr=000e4904 vaddr=3ffc0d94 size=01f40h (  8000) load[0m
+[0;32mI (423) esp_image: segment 4: paddr=000e684c vaddr=40080000 size=187f4h (100340) load[0m
+[0;32mI (480) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (480) boot: Disabling RNG early entropy source...[0m
+[0;32mI (491) cpu_start: Multicore app[0m
+[0;32mI (492) cpu_start: Pro cpu up.[0m
+[0;32mI (492) cpu_start: Starting app cpu, entry point is 0x4008137c[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (512) cpu_start: Pro cpu start user code[0m
+[0;32mI (512) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (512) cpu_start: Application information:[0m
+[0;32mI (516) cpu_start: Project name:     onoff_server_s3[0m
+[0;32mI (522) cpu_start: App version:      a1d81d1-dirty[0m
+[0;32mI (528) cpu_start: Compile time:     Jun  5 2024 14:39:00[0m
+[0;32mI (534) cpu_start: ELF file SHA256:  cd14212221672870...[0m
+[0;32mI (540) cpu_start: ESP-IDF:          v5.1.2[0m
+[0;32mI (544) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (549) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (554) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (559) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (566) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (572) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (578) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (584) heap_init: At 3FFCA4E8 len 00015B18 (86 KiB): DRAM[0m
+[0;32mI (590) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (597) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (603) heap_init: At 400987F4 len 0000780C (30 KiB): IRAM[0m
+[0;32mI (611) spi_flash: detected chip: generic[0m
+[0;32mI (614) spi_flash: flash io: dio[0m
+[0;33mW (618) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (632) coexist: coex firmware version: b6d5e8c[0m
+[0;32mI (637) app_start: Starting scheduler on CPU0[0m
+[0;32m[0;32mI (641) app_start: Starting scheduler on CPU1[0m
+I (641) main_task: Started on CPU0[0m
+[0;32mI (651) main_task: Calling app_main()[0m
+[0;32mI (651) MESH-SERVER-EXAMPLE: Initializing...[0m
+[0;32mI (1671) BTDM_INIT: BT controller compile version [ec4ac65][0m
+[0;32mI (1671) BTDM_INIT: Bluetooth MAC: d8:bc:38:fc:1d:e2[0m
+[0;32mI (1671) phy_init: phy_version 4780,16b31a7,Sep 22 2023,20:42:16[0m
+[0;33mW (1671) phy_init: failed to load RF calibration data (0x1102), falling back to full calibration[0m
+[0;32mI (2201) MESH_SERVER: ESP_BLE_MESH_PROV_REGISTER_COMP_EVT, err_code 0[0m
+[0;32mI (2201) MESH_SERVER: ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT, Name: ESP-SERVER MESH, err_code 0[0m
+[0;32mI (2211) MESH_SERVER: BLE Mesh Node initialized![0m
+[0;32mI (2211) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (2221) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_ENABLE_COMP_EVT, err_code 0[0m
+[0;32mI (2231) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (2251) main_task: Returned from app_main()[0m
+[0;32mI (7251) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 27.000000 
+Hum:59.000000
+[0;32mI (59361) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_LINK_OPEN_EVT, bearer PB-GATT[0m
+[0;33mW (59781) BLE_MESH: No Health Server context provided[0m
+[0;33mW (67081) BLE_MESH: No Health Server context provided[0m
+[0;32mI (67111) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_LINK_CLOSE_EVT, bearer PB-GATT[0m
+[0;32mI (67111) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_COMPLETE_EVT[0m
+[0;32mI (67111) MESH_SERVER: net_idx: 0x0000, addr: 0x0018[0m
+[0;32mI (67121) MESH_SERVER: flags: 0x00, iv_index: 0x00000000[0m
+[0;32mI (67121) MESH_SERVER: Device provisioned[0m
+[0;33mW (67191) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13[0m
+[0;32mI (88171) MESH_SERVER: ESP_BLE_MESH_MODEL_OP_APP_KEY_ADD[0m
+[0;32mI (88171) MESH_SERVER: net_idx 0x0000, app_idx 0x0000[0m
+[0;32mI (88171) AppKey: a1 c2 3c 7e dc 60 1d a6 df 99 0a 61 f7 83 f0 6b [0m
+[0;32mI (91231) MESH_SERVER: ESP_BLE_MESH_MODEL_OP_APP_KEY_ADD[0m
+[0;32mI (91231) MESH_SERVER: net_idx 0x0000, app_idx 0x0000[0m
+[0;32mI (91231) AppKey: a1 c2 3c 7e dc 60 1d a6 df 99 0a 61 f7 83 f0 6b [0m
+[0;32mI (100021) MESH_SERVER: ESP_BLE_MESH_MODEL_OP_MODEL_APP_BIND[0m
+[0;32mI (100021) MESH_SERVER: elem_addr 0x0018, app_idx 0x0000, cid 0x02e5, mod_id 0x001414[0m
+[0;32mI (100021) MESH_SERVER: Application key bound to model 0x001414[0m
+[0;32mI (115171) MESH_SERVER: ESP_BLE_MESH_MODEL_OP_MODEL_SUB_ADD[0m
+[0;32mI (115171) MESH_SERVER: elem_addr 0x0018, sub_addr 0xc000, cid 0x02e5, mod_id 0x1414[0m
+[0;32mI (115171) MESH_SERVER: Model 0x001414 subscribed to Group 0xc000 ![0m
+[0;33mW (115581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (115581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (115581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (115641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (120581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 27.000000 
+Hum:58.000000
+[0;33mW (121511) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (121511) MESH_SERVER:     Temperature: 27.000000[0m
+[0;32mI (121511) MESH_SERVER:     Humidity     59.000000[0m
+[0;32mI (121571) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (126511) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (127531) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (127531) MESH_SERVER:     Temperature: 27.000000[0m
+[0;32mI (127531) MESH_SERVER:     Humidity     58.000000[0m
+[0;32mI (127601) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (132531) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (133531) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (133531) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (133531) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (133601) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (138531) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 27.000000 
+Hum:57.000000
+[0;33mW (139521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (139521) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (139521) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (139581) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (144521) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 27.000000 
+Hum:57.000000
+[0;33mW (145531) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (145531) MESH_SERVER:     Temperature: 27.000000[0m
+[0;32mI (145531) MESH_SERVER:     Humidity     57.000000[0m
+[0;32mI (145601) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (150531) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 27.000000 
+Hum:57.000000
+[0;33mW (151551) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (151551) MESH_SERVER:     Temperature: 27.000000[0m
+[0;32mI (151551) MESH_SERVER:     Humidity     57.000000[0m
+[0;32mI (151611) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (156551) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (157521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (157521) MESH_SERVER:     Temperature: 27.000000[0m
+[0;32mI (157521) MESH_SERVER:     Humidity     57.000000[0m
+[0;32mI (157581) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (162521) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (163541) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (163541) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (163541) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (163611) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (168541) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 27.000000 
+Hum:56.000000
+[0;33mW (169511) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (169511) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (169511) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (169581) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (174511) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 27.000000 
+Hum:56.000000
+[0;33mW (175521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (175521) MESH_SERVER:     Temperature: 27.000000[0m
+[0;32mI (175521) MESH_SERVER:     Humidity     56.000000[0m
+[0;32mI (175611) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (180521) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (181521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (181521) MESH_SERVER:     Temperature: 27.000000[0m
+[0;32mI (181521) MESH_SERVER:     Humidity     56.000000[0m
+[0;32mI (181591) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (186521) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (187521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (187521) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (187521) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (187591) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (192521) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (193531) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (193531) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (193531) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (193601) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (198531) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (199531) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (199531) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (199531) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (199611) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (204531) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (205531) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (205531) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (205531) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (205591) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (210531) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (211531) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (211531) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (211531) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (211591) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (216531) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (217521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (217521) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (217521) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (217591) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (222521) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (223521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (223521) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (223521) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (223621) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (228521) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:60.000000
+[0;33mW (229521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (229521) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (229521) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (229591) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (234521) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (235521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (235521) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (235521) MESH_SERVER:     Humidity     60.000000[0m
+[0;32mI (235591) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (237991) BLE_MESH: No matching TX context for ack[0m
+[0;32mI (240521) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:62.000000
+[0;33mW (241521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (241521) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (241521) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (241581) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (243531) BLE_MESH: No matching TX context for ack[0m
+[0;32mI (246521) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (247521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (247521) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (247521) MESH_SERVER:     Humidity     62.000000[0m
+[0;32mI (247591) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (252521) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 0.000000 
+Hum:0.000000
+[0;33mW (253551) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (253551) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (253551) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (253621) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (258271) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (258271) MESH_SERVER:     Temperature: 0.000000[0m
+[0;32mI (258271) MESH_SERVER:     Humidity     0.000000[0m
+[0;32mI (258331) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (258551) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (259581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (259581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (259581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (259641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (263571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (264271) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (264271) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (264271) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (264331) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (268591) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (270291) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (270291) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (270291) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (270351) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (271581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (272711) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (273611) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (276321) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (276321) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (276321) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (276381) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (277531) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (278631) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (278671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (282281) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (282281) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (282281) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (282351) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (283591) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (283651) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 27.000000 
+Hum:58.000000
+[0;32mI (283671) MESH_SERVER:     Temperature: 27.000000[0m
+[0;32mI (283671) MESH_SERVER:     Humidity     58.000000[0m
+[0;32mI (283721) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (288281) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (288671) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (288691) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (288691) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (288781) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (289521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (290621) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (293691) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (294281) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (294281) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (294281) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (294351) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (295551) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (296681) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (298711) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 27.000000 
+Hum:57.000000
+[0;33mW (300291) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (300291) MESH_SERVER:     Temperature: 27.000000[0m
+[0;32mI (300291) MESH_SERVER:     Humidity     57.000000[0m
+[0;32mI (300351) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (301531) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (302631) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (303731) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 28.000000 
+Hum:56.000000
+[0;33mW (306291) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (306291) MESH_SERVER:     Temperature: 28.000000[0m
+[0;32mI (306291) MESH_SERVER:     Humidity     56.000000[0m
+[0;32mI (306361) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (307521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (308651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (308751) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (312281) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (312281) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (312281) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (312341) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (313521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (313771) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 28.000000 
+Hum:55.000000
+[0;32mI (313791) MESH_SERVER:     Temperature: 28.000000[0m
+[0;32mI (313791) MESH_SERVER:     Humidity     55.000000[0m
+[0;32mI (313851) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (318271) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (318791) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 28.000000 
+Hum:55.000000
+[0;32mI (318811) MESH_SERVER:     Temperature: 28.000000[0m
+[0;32mI (318811) MESH_SERVER:     Humidity     55.000000[0m
+[0;32mI (318871) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (319561) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (320701) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (323811) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (324291) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (324291) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (324291) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (324351) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (328831) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (330271) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (330271) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (330271) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (330341) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (331611) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (332711) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (333851) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (336341) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (336341) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (336341) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (336401) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (337571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (338671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (338871) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (342491) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (342491) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (342491) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (342601) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (343531) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (343891) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (343911) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (343911) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (344041) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (348541) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (348911) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (348931) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (348931) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (348981) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (349531) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (350631) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (353931) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (354701) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (354701) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (354701) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (354751) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (355601) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (356751) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (358951) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (360791) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (360791) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (360791) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (360851) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (361591) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (362691) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (363971) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (366861) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (366861) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (366861) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (366931) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (367681) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (368811) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (368991) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (373621) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (373621) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (373621) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (373691) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (374011) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (378841) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (378841) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (378841) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (378911) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (379031) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (379601) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (379601) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (379601) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (379671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (384051) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (384841) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (384841) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (384841) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (384911) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (385601) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (386701) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (389071) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (390891) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (390891) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (390891) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (390961) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (391551) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (392691) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (394091) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 30.000000 
+Hum:49.000000
+[0;33mW (396931) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (396931) MESH_SERVER:     Temperature: 30.000000[0m
+[0;32mI (396931) MESH_SERVER:     Humidity     49.000000[0m
+[0;32mI (397041) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (397701) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (398801) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (399111) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 30.000000 
+Hum:48.000000
+[0;33mW (402891) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (402891) MESH_SERVER:     Temperature: 30.000000[0m
+[0;32mI (402891) MESH_SERVER:     Humidity     48.000000[0m
+[0;32mI (402951) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (403571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (404131) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 30.000000 
+Hum:48.000000
+[0;32mI (404151) MESH_SERVER:     Temperature: 30.000000[0m
+[0;32mI (404151) MESH_SERVER:     Humidity     48.000000[0m
+[0;32mI (404301) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (408991) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (409151) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 30.000000 
+Hum:47.000000
+[0;32mI (409181) MESH_SERVER:     Temperature: 30.000000[0m
+[0;32mI (409181) MESH_SERVER:     Humidity     47.000000[0m
+[0;32mI (409231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (409641) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (410741) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (414171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 30.000000 
+Hum:47.000000
+[0;33mW (414951) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (414951) MESH_SERVER:     Temperature: 30.000000[0m
+[0;32mI (414951) MESH_SERVER:     Humidity     47.000000[0m
+[0;32mI (415011) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (415821) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (416921) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (419191) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (421101) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (421101) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (421101) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (421161) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (421601) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (422711) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (424211) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (427091) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (427091) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (427091) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (427151) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (427561) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (428691) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (429231) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (433201) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (433201) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (433201) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (433271) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (433561) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (434251) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 30.000000 
+Hum:47.000000
+[0;32mI (434271) MESH_SERVER:     Temperature: 30.000000[0m
+[0;32mI (434271) MESH_SERVER:     Humidity     47.000000[0m
+[0;32mI (434381) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (439191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (439271) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 30.000000 
+Hum:47.000000
+[0;32mI (439301) MESH_SERVER:     Temperature: 30.000000[0m
+[0;32mI (439301) MESH_SERVER:     Humidity     47.000000[0m
+[0;32mI (439351) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (439561) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (440701) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (444291) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (445191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (445191) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (445191) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (445241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (445561) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (446661) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (449311) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (451191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (451191) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (451191) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (451251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (451591) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (452731) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (454331) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (457241) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (457241) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (457241) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (457301) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (457571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (458671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (459351) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 31.000000 
+Hum:46.000000
+[0;33mW (463231) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (463231) MESH_SERVER:     Temperature: 31.000000[0m
+[0;32mI (463231) MESH_SERVER:     Humidity     46.000000[0m
+[0;32mI (463301) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (463571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (464371) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 31.000000 
+Hum:46.000000
+[0;32mI (464391) MESH_SERVER:     Temperature: 31.000000[0m
+[0;32mI (464391) MESH_SERVER:     Humidity     46.000000[0m
+[0;32mI (464531) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (469271) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (469391) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 31.000000 
+Hum:46.000000
+[0;32mI (469421) MESH_SERVER:     Temperature: 31.000000[0m
+[0;32mI (469421) MESH_SERVER:     Humidity     46.000000[0m
+[0;32mI (469481) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (469621) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (470721) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (474411) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 31.000000 
+Hum:46.000000
+[0;33mW (475291) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (475291) MESH_SERVER:     Temperature: 31.000000[0m
+[0;32mI (475291) MESH_SERVER:     Humidity     46.000000[0m
+[0;32mI (475351) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (475561) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (476691) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (479431) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (481311) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (481311) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (481311) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (481381) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (481571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (482671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (484451) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 56.000000 
+Hum:46.000000
+[0;33mW (487501) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (487501) MESH_SERVER:     Temperature: 56.000000[0m
+[0;32mI (487501) MESH_SERVER:     Humidity     46.000000[0m
+[0;32mI (487561) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (487601) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (488741) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (489471) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 31.000000 
+Hum:46.000000
+[0;33mW (493521) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (493521) MESH_SERVER:     Temperature: 31.000000[0m
+[0;32mI (493521) MESH_SERVER:     Humidity     46.000000[0m
+[0;32mI (493581) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (493631) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (494491) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 31.000000 
+Hum:46.000000
+[0;32mI (494511) MESH_SERVER:     Temperature: 31.000000[0m
+[0;32mI (494511) MESH_SERVER:     Humidity     46.000000[0m
+[0;32mI (494621) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (499511) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 31.000000 
+Hum:46.000000
+[0;33mW (499571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (499571) MESH_SERVER:     Temperature: 31.000000[0m
+[0;32mI (499571) MESH_SERVER:     Humidity     46.000000[0m
+[0;33mW (499581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (500681) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (500681) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (504531) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (505571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (505571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (505571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;33mW (505581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (506691) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (506691) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (509551) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 31.000000 
+Hum:46.000000
+[0;33mW (511611) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (511611) MESH_SERVER:     Temperature: 31.000000[0m
+[0;32mI (511611) MESH_SERVER:     Humidity     46.000000[0m
+[0;33mW (511621) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (512731) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (512731) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (514571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (517621) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (517621) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (517621) MESH_SERVER:     Humidity     -1.000000[0m
+[0;33mW (517631) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (518731) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (518741) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (519591) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (523581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (523581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (523581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (523641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (524611) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (526461) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (526461) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (526461) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (526571) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (529631) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (532501) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (532501) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (532501) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (532591) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (534651) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (537371) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (537371) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (537371) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (537441) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (538551) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (539651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (539671) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (543361) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (543361) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (543361) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (543431) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (544691) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (549351) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (549351) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (549351) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (549451) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (549711) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (550471) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (550471) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (550471) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (550531) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (554731) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (555401) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (555401) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (555401) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (555471) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (556501) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (557651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (559751) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (561371) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (561371) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (561371) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (561441) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (564771) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (567361) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (567361) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (567361) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (567431) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (568491) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (569591) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (569791) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (573491) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (573491) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (573491) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (573561) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (574811) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (579421) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (579421) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (579421) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (579521) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (579831) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (584851) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (585431) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (585431) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (585431) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (585501) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (586481) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (586481) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (586481) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (586561) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (590431) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (591431) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (591431) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (591431) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (591501) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (595451) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (597431) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (597431) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (597431) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (597521) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (598471) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (599571) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (600471) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (603481) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (603481) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (603481) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (603541) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (604481) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (605491) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (605601) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (609571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (609571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (609571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (609641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (610501) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (610511) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (610531) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (610531) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (610571) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (615531) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (615561) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (615561) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (615561) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (615631) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (620551) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (621551) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (621551) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (621551) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (621621) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (622501) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (623601) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (625571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (627611) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (627611) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (627611) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (627681) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (628551) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (629711) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (630591) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (634511) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (634511) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (634511) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (634581) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (635611) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (639671) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (639671) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (639671) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (639741) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (640551) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (640631) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (640651) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (640651) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (640701) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (645651) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (645671) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (645681) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (645681) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (645741) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (646571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (647671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (650671) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (651611) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (651611) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (651611) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (651671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (652511) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (653671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (655691) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (657691) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (657691) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (657691) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (657751) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (658561) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (659661) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (660711) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (663691) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (663691) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (663691) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (663751) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (664501) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (665641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (665731) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (669741) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (669741) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (669741) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (669801) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (670501) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (670751) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (670771) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (670771) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (670821) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (675711) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (675771) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (675791) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (675801) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (675841) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (680791) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 28.000000 
+Hum:47.000000
+[0;33mW (681701) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (681701) MESH_SERVER:     Temperature: 28.000000[0m
+[0;32mI (681701) MESH_SERVER:     Humidity     47.000000[0m
+[0;32mI (681771) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (682541) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (683671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (685811) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 28.000000 
+Hum:47.000000
+[0;33mW (687771) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (687771) MESH_SERVER:     Temperature: 28.000000[0m
+[0;32mI (687771) MESH_SERVER:     Humidity     47.000000[0m
+[0;32mI (687861) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (690831) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 28.000000 
+Hum:47.000000
+[0;33mW (693731) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (693731) MESH_SERVER:     Temperature: 28.000000[0m
+[0;32mI (693731) MESH_SERVER:     Humidity     47.000000[0m
+[0;32mI (693801) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (694581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (695681) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (695851) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (699761) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (699761) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (699761) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (699831) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (700871) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 28.000000 
+Hum:47.000000
+[0;33mW (705761) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (705761) MESH_SERVER:     Temperature: 28.000000[0m
+[0;32mI (705761) MESH_SERVER:     Humidity     47.000000[0m
+[0;32mI (705871) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (705891) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (706831) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (706831) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (706831) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (706891) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (710911) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 28.000000 
+Hum:47.000000
+[0;33mW (712781) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (712781) MESH_SERVER:     Temperature: 28.000000[0m
+[0;32mI (712791) MESH_SERVER:     Humidity     47.000000[0m
+[0;32mI (712851) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (715931) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 28.000000 
+Hum:48.000000
+[0;33mW (718751) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (718751) MESH_SERVER:     Temperature: 28.000000[0m
+[0;32mI (718751) MESH_SERVER:     Humidity     48.000000[0m
+[0;33mW (718831) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (719831) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (719931) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (720951) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 28.000000 
+Hum:48.000000
+[0;33mW (724731) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (724731) MESH_SERVER:     Temperature: 28.000000[0m
+[0;32mI (724731) MESH_SERVER:     Humidity     48.000000[0m
+[0;32mI (724801) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (724871) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (725971) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (726031) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (730761) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (730761) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (730761) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (730831) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (730861) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (731001) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 56.000000 
+Hum:96.000000
+[0;32mI (731021) MESH_SERVER:     Temperature: 56.000000[0m
+[0;32mI (731021) MESH_SERVER:     Humidity     96.000000[0m
+[0;32mI (731071) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (736021) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (736751) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (736751) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (736751) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (736821) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (736971) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (738101) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (741041) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 27.000000 
+Hum:49.000000
+[0;33mW (742771) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (742771) MESH_SERVER:     Temperature: 27.000000[0m
+[0;32mI (742771) MESH_SERVER:     Humidity     49.000000[0m
+[0;32mI (742821) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (743061) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (744161) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (746061) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 27.000000 
+Hum:49.000000
+[0;32mI (751081) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (754761) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (754761) MESH_SERVER:     Temperature: 27.000000[0m
+[0;32mI (754761) MESH_SERVER:     Humidity     49.000000[0m
+[0;32mI (754831) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (759761) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 27.000000 
+Hum:50.000000
+j5
+[0;32mI (35) boot: chip revision: �ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7080
+load:0x40078000,len:15584
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3876
+entry 0x4008064c
+[0;32mI (31) boot: ESP-IDF v5.1.2 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time May 18 2024 12:00:58[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (35) boot: chip revision: v3.1[0m
+[0;32mI (39) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (48) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (58) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (84) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=2cdbch (183740) map[0m
+[0;32mI (171) esp_image: segment 1: paddr=0003cde4 vaddr=3ffbdb60 size=03234h ( 12852) load[0m
+[0;32mI (176) esp_image: segment 2: paddr=00040020 vaddr=400d0020 size=a48dch (674012) map[0m
+[0;32mI (420) esp_image: segment 3: paddr=000e4904 vaddr=3ffc0d94 size=01f40h (  8000) load[0m
+[0;32mI (423) esp_image: segment 4: paddr=000e684c vaddr=40080000 size=187f4h (100340) load[0m
+[0;32mI (480) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (480) boot: Disabling RNG early entropy source...[0m
+[0;32mI (491) cpu_start: Multicore app[0m
+[0;32mI (492) cpu_start: Pro cpu up.[0m
+[0;32mI (492) cpu_start: Starting app cpu, entry point is 0x4008137c[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (512) cpu_start: Pro cpu start user code[0m
+[0;32mI (512) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (512) cpu_start: Application information:[0m
+[0;32mI (516) cpu_start: Project name:     onoff_server_s3[0m
+[0;32mI (522) cpu_start: App version:      a1d81d1-dirty[0m
+[0;32mI (528) cpu_start: Compile time:     Jun  5 2024 14:39:00[0m
+[0;32mI (534) cpu_start: ELF file SHA256:  cd14212221672870...[0m
+[0;32mI (540) cpu_start: ESP-IDF:          v5.1.2[0m
+[0;32mI (544) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (549) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (554) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (559) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (566) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (572) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (578) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (584) heap_init: At 3FFCA4E8 len 00015B18 (86 KiB): DRAM[0m
+[0;32mI (590) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (597) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (603) heap_init: At 400987F4 len 0000780C (30 KiB): IRAM[0m
+[0;32mI (611) spi_flash: detected chip: generic[0m
+[0;32mI (614) spi_flash: flash io: dio[0m
+[0;33mW (618) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (632) coexist: coex firmware version: b6d5e8c[0m
+[0;32mI (637) app_start: Starting scheduler on CPU0[0m
+[0;32m[0;32mI (641) app_start: Starting scheduler on CPU1[0m
+I (641) main_task: Started on CPU0[0m
+[0;32mI (651) main_task: Calling app_main()[0m
+[0;32mI (651) MESH-SERVER-EXAMPLE: Initializing...[0m
+[0;32mI (1681) BTDM_INIT: BT controller compile version [ec4ac65][0m
+[0;32mI (1681) BTDM_INIT: Bluetooth MAC: d8:bc:38:fc:1d:e2[0m
+[0;32mI (1681) phy_init: phy_version 4780,16b31a7,Sep 22 2023,20:42:16[0m
+[0;33mW (2181) BLE_MESH: bt_mesh_proxy_server_prov_disable, Already[0m
+[0;32mI (2211) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_COMPLETE_EVT[0m
+[0;32mI (2211) MESH_SERVER: net_idx: 0x0000, addr: 0x0018[0m
+[0;32mI (2211) MESH_SERVER: flags: 0x00, iv_index: 0x00000000[0m
+[0;32mI (2211) MESH_SERVER: Device provisioned[0m
+[0;32mI (2221) MESH_SERVER: ESP_BLE_MESH_PROV_REGISTER_COMP_EVT, err_code 0[0m
+[0;32mI (2231) MESH_SERVER: ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT, Name: ESP-SERVER MESH, err_code 0[0m
+[0;33mW (2241) BLE_MESH: bt_mesh_prov_enable, Already[0m
+[0;32mI (2241) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_ENABLE_COMP_EVT, err_code -120[0m
+[0;32mI (2251) MESH_SERVER: BLE Mesh Node initialized![0m
+[0;32mI (2261) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (2261) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (2261) main_task: Returned from app_main()[0m
+Tem: 26.000000 
+Hum:52.000000
+[0;33mW (7231) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (7231) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (7231) MESH_SERVER:     Humidity     52.000000[0m
+[0;32mI (7291) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (7291) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+Tem: 26.000000 
+Hum:52.000000
+[0;32mI (12311) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:53.000000
+[0;33mW (13171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (13171) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (13171) MESH_SERVER:     Humidity     52.000000[0m
+[0;32mI (13241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (18171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:52.000000
+[0;33mW (19171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (19171) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (19171) MESH_SERVER:     Humidity     53.000000[0m
+[0;32mI (19231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (24171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:53.000000
+[0;33mW (25211) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (25211) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (25211) MESH_SERVER:     Humidity     52.000000[0m
+[0;32mI (25281) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (30211) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:53.000000
+[0;33mW (31171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (31171) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (31171) MESH_SERVER:     Humidity     53.000000[0m
+[0;32mI (31231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (36171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:53.000000
+[0;33mW (37191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (37191) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (37191) MESH_SERVER:     Humidity     53.000000[0m
+[0;32mI (37251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (42191) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:53.000000
+[0;33mW (43181) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (43181) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (43181) MESH_SERVER:     Humidity     53.000000[0m
+[0;32mI (43251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (48181) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:53.000000
+[0;33mW (49161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (49161) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (49161) MESH_SERVER:     Humidity     53.000000[0m
+[0;32mI (49231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (54161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:53.000000
+[0;33mW (55161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (55161) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (55161) MESH_SERVER:     Humidity     53.000000[0m
+[0;32mI (55221) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (60161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:53.000000
+[0;33mW (61161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (61161) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (61161) MESH_SERVER:     Humidity     53.000000[0m
+[0;32mI (61251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (66161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:54.000000
+[0;33mW (67231) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (67231) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (67231) MESH_SERVER:     Humidity     53.000000[0m
+[0;32mI (67291) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (72231) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:54.000000
+[0;33mW (79171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (79171) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (79171) MESH_SERVER:     Humidity     54.000000[0m
+[0;32mI (79241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (84171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:54.000000
+[0;33mW (85261) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (85261) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (85261) MESH_SERVER:     Humidity     54.000000[0m
+[0;32mI (85331) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (90261) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:54.000000
+[0;33mW (91181) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (91181) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (91181) MESH_SERVER:     Humidity     54.000000[0m
+[0;32mI (91261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (96181) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:54.000000
+[0;33mW (97171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (97171) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (97171) MESH_SERVER:     Humidity     54.000000[0m
+[0;32mI (97241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (102171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:54.000000
+[0;33mW (103181) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (103181) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (103181) MESH_SERVER:     Humidity     54.000000[0m
+[0;32mI (103251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (108181) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:54.000000
+[0;33mW (109181) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (109181) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (109181) MESH_SERVER:     Humidity     54.000000[0m
+[0;32mI (109251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (114181) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:55.000000
+[0;33mW (115171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (115171) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (115171) MESH_SERVER:     Humidity     54.000000[0m
+[0;32mI (115251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (120171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: 26.000000 
+Hum:55.000000
+[0;33mW (121191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (121191) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (121191) MESH_SERVER:     Humidity     55.000000[0m
+[0;32mI (121261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (126191) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (133171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (133171) MESH_SERVER:     Temperature: 26.000000[0m
+[0;32mI (133171) MESH_SERVER:     Humidity     55.000000[0m
+[0;32mI (133241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (138171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (139171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (139171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (139171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (139241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (144171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (145161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (145161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (145161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (145231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (150161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (151161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (151161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (151161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (151231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (156161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (157171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (157171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (157171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (157241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (162171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (163161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (163161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (163161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (163231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (168161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (169171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (169171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (169171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (169231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (174171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (175161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (175161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (175161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (175231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (180161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (181171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (181171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (181171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (181241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (186171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (187201) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (187201) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (187201) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (187271) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (192201) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (193161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (193161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (193161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (193231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (198161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (199181) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (199181) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (199181) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (199251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (204181) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (205191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (205191) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (205191) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (205261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (210191) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (211161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (211161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (211161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (211261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (216161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (217161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (217161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (217161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (217231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (222161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (223161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (223161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (223161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (223231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (228161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (229161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (229161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (229161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (229231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (234161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (235171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (235171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (235171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (235261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (240171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (241171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (241171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (241171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (241241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (246171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (253161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (253161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (253161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (253231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (258161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (259241) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (259241) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (259241) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (259311) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (264241) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (265171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (265171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (265171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (265271) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (270171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (271161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (271161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (271161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (271231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (276161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (277161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (277161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (277161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (277231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (282161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (283161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (283161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (283161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (283231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (288161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (289171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (289171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (289171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (289241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (294171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (295171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (295171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (295171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (295231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (300171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (301191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (301191) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (301191) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (301251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (306191) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (307171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (307171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (307171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (307231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (312171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (313171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (313171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (313171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (313231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (318171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (319161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (319161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (319161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (319231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (324161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (325171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (325171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (325171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (325241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (330171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (331171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (331171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (331171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (331261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (336171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (337161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (337161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (337161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (337221) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (342161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (343271) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (343271) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (343271) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (343331) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (348271) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (349171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (349171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (349171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (349231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (354171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (355171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (355171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (355171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (355251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (360171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (361171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (361171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (361171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (361241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (366171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (367171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (367171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (367171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (367241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (372171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (373171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (373171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (373171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (373241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (378171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (379171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (379171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (379171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (379261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (384171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (391201) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (391201) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (391201) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (391271) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (396201) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (397161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (397161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (397161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (397231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (402161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (403221) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (403221) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (403221) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (403291) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (408221) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (409161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (409161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (409161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (409231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (414161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (415161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (415161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (415161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (415231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (420161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (421201) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (421201) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (421201) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (421271) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (426201) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (427171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (427171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (427171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (427241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (432171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (433161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (433161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (433161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (433231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (438161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (439161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (439161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (439161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (439231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (444161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (445171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (445171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (445171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (445231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (450171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (451221) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (451221) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (451221) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (451291) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (456221) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (457161) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (457161) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (457161) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (457231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (462161) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (463171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (463171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (463171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (463231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (468171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (469171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (469171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (469171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (469231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (474171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (475171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (475171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (475171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (475261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (480171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (481191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (481191) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (481191) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (481261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (486191) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (487171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (487171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (487171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (487241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (492171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (499171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (499171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (499171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (499241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (504171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (505171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (505171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (505171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (505271) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (510171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (511211) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (511211) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (511211) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (511281) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (516211) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (517191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (517191) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (517191) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (517261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (522191) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (523241) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (523241) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (523241) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (523311) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (528241) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (529171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (529171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (529171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (529261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (534171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (535231) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (535231) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (535231) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (535291) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (540231) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (541181) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (541181) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (541181) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (541251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (546181) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (547171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (547171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (547171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (547231) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (552171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (559201) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (559201) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (559201) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (559271) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (564201) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (571181) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (571181) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (571181) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (571251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (576181) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (577231) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (577231) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (577231) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (577301) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (582231) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (583311) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (583311) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (583311) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (583371) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (588311) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (589181) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (589181) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (589181) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (589251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (594181) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (595241) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (595241) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (595241) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (595311) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (600241) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (643201) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (643201) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (643201) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (643271) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (648201) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (667191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (667191) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (667191) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (667281) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (672191) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (685201) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (685201) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (685201) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (685261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (690201) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (691231) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (691231) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (691231) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (691291) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (696231) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (715211) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (715211) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (715211) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (715281) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (720211) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (721231) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (721231) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (721231) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (721321) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (726231) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (727181) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (727181) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (727181) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (727251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (732181) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (751191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (751191) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (751191) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (751261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (756191) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (757231) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (757231) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (757231) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (757301) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (762231) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (763251) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (763251) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (763251) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (763331) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (768251) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (769171) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (769171) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (769171) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (769241) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (774171) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (793251) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (793251) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (793251) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (793311) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (798251) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (805231) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (805231) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (805231) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (805301) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (810231) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (817191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (817191) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (817191) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (817251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (822191) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (823251) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (823251) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (823251) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (823321) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (828251) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (829201) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (829201) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (829201) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (829271) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (834201) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (835211) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (835211) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (835211) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (835281) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (840211) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (841181) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (841181) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (841181) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (841251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (846181) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (847231) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (847231) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (847241) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (847301) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (852231) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (853191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (853191) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (853191) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (853261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (858191) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (859221) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (859221) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (859221) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (859291) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (864221) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (865211) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (865211) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (865211) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (865281) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (870211) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (871201) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (871201) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (871201) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (871271) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (876201) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (877181) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (877181) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (877181) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (877251) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (882181) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (883191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (883191) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (883191) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (883291) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (888191) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (889191) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (889191) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (889191) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (889261) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (894191) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (901211) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (901211) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (901211) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (901281) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+%�(35) boot: chip revision: v3.1[0m
+[0;32�ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7080
+load:0x40078000,len:15584
+load:0x40080400,len:4
+ho 8 tail 4 room 4
+load:0x40080404,len:3876
+entry 0x4008064c
+[0;32mI (31) boot: ESP-IDF v5.1.2 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time May 18 2024 12:00:58[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (35) boot: chip revision: v3.1[0m
+[0;32mI (39) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (48) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (58) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (77) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (84) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (92) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=2cdbch (183740) map[0m
+[0;32mI (171) esp_image: segment 1: paddr=0003cde4 vaddr=3ffbdb60 size=03234h ( 12852) load[0m
+[0;32mI (176) esp_image: segment 2: paddr=00040020 vaddr=400d0020 size=a48dch (674012) map[0m
+[0;32mI (420) esp_image: segment 3: paddr=000e4904 vaddr=3ffc0d94 size=01f40h (  8000) load[0m
+[0;32mI (423) esp_image: segment 4: paddr=000e684c vaddr=40080000 size=187f4h (100340) load[0m
+[0;32mI (480) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (480) boot: Disabling RNG early entropy source...[0m
+[0;32mI (491) cpu_start: Multicore app[0m
+[0;32mI (492) cpu_start: Pro cpu up.[0m
+[0;32mI (492) cpu_start: Starting app cpu, entry point is 0x4008137c[0m
+[0;32mI (0) cpu_start: App cpu up.[0m
+[0;32mI (512) cpu_start: Pro cpu start user code[0m
+[0;32mI (512) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (512) cpu_start: Application information:[0m
+[0;32mI (516) cpu_start: Project name:     onoff_server_s3[0m
+[0;32mI (522) cpu_start: App version:      a1d81d1-dirty[0m
+[0;32mI (528) cpu_start: Compile time:     Jun  5 2024 14:39:00[0m
+[0;32mI (534) cpu_start: ELF file SHA256:  cd14212221672870...[0m
+[0;32mI (540) cpu_start: ESP-IDF:          v5.1.2[0m
+[0;32mI (544) cpu_start: Min chip rev:     v0.0[0m
+[0;32mI (549) cpu_start: Max chip rev:     v3.99 [0m
+[0;32mI (554) cpu_start: Chip rev:         v3.1[0m
+[0;32mI (559) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (566) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM[0m
+[0;32mI (572) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM[0m
+[0;32mI (578) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM[0m
+[0;32mI (584) heap_init: At 3FFCA4E8 len 00015B18 (86 KiB): DRAM[0m
+[0;32mI (590) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (597) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (603) heap_init: At 400987F4 len 0000780C (30 KiB): IRAM[0m
+[0;32mI (611) spi_flash: detected chip: generic[0m
+[0;32mI (614) spi_flash: flash io: dio[0m
+[0;33mW (618) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (632) coexist: coex firmware version: b6d5e8c[0m
+[0;32mI (637) app_start: Starting scheduler on CPU0[0m
+[0;32m[0;32mI (641) app_start: Starting scheduler on CPU1[0m
+I (641) main_task: Started on CPU0[0m
+[0;32mI (651) main_task: Calling app_main()[0m
+[0;32mI (651) MESH-SERVER-EXAMPLE: Initializing...[0m
+[0;32mI (1681) BTDM_INIT: BT controller compile version [ec4ac65][0m
+[0;32mI (1681) BTDM_INIT: Bluetooth MAC: d8:bc:38:fc:1d:e2[0m
+[0;32mI (1681) phy_init: phy_version 4780,16b31a7,Sep 22 2023,20:42:16[0m
+[0;33mW (2211) BLE_MESH: bt_mesh_proxy_server_prov_disable, Already[0m
+[0;32mI (2241) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_COMPLETE_EVT[0m
+[0;32mI (2241) MESH_SERVER: net_idx: 0x0000, addr: 0x0018[0m
+[0;32mI (2241) MESH_SERVER: flags: 0x00, iv_index: 0x00000000[0m
+[0;32mI (2241) MESH_SERVER: Device provisioned[0m
+[0;32mI (2251) MESH_SERVER: ESP_BLE_MESH_PROV_REGISTER_COMP_EVT, err_code 0[0m
+[0;32mI (2251) MESH_SERVER: ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT, Name: ESP-SERVER MESH, err_code 0[0m
+[0;33mW (2261) BLE_MESH: bt_mesh_prov_enable, Already[0m
+[0;32mI (2271) MESH_SERVER: ESP_BLE_MESH_NODE_PROV_ENABLE_COMP_EVT, err_code -120[0m
+[0;32mI (2281) MESH_SERVER: BLE Mesh Node initialized![0m
+[0;32mI (2281) MESH-SERVER-EXAMPLE: Task initializing..[0m
+[0;32mI (2291) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (2311) main_task: Returned from app_main()[0m
+[0;32mI (7311) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (7571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (7571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (7571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (7631) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (12571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (13581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (13581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (13581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (13671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (18581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (25571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (25571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (25571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (25631) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (30571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (31571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (31571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (31571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (31631) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (36571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (37601) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (37601) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (37601) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (37661) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (42601) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (43571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (43571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (43571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (43651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (48571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (49601) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (49601) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (49601) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (49671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (54601) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (55581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (55581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (55581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (55651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (60581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (61581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (61581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (61581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (61651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (66581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (67581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (67581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (67581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (67651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (72581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (73571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (73571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (73571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (73631) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (78571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (79591) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (79591) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (79591) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (79661) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (84591) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (85581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (85581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (85581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (85641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (90581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (91581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (91581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (91581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (91651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (96581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (97571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (97571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (97571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (97641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (102571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (103581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (103581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (103581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (103651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (108581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (109631) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (109631) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (109631) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (109691) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (114631) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (115581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (115581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (115581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (115651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (120581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (121581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (121581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (121581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (121651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (126581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (127581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (127581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (127581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (127651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (132581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (133601) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (133601) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (133601) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (133671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (138601) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (139611) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (139611) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (139611) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (139681) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (144611) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (145571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (145571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (145571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (145641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (150571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (151601) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (151601) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (151601) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (151661) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (156601) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (157571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (157571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (157571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (157671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (162571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (163581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (163581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (163581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (163651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (168581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (169581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (169581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (169581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (169651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (174581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (175571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (175571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (175571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (175631) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (180571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (181581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (181581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (181581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (181661) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (186581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (187571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (187571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (187571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (187641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (192571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (193571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (193571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (193571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (193641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (198571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (199581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (199581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (199581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (199641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (204581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (205571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (205571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (205571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (205671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (210571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (217581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (217581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (217581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (217651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (222581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (223611) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (223611) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (223611) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (223681) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (228611) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (229581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (229581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (229581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (229651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (234581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (235581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (235581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (235581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (235651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (240581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (257621) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (257621) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (257621) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (257691) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;33mW (259581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (259581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (259581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (259651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (262621) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (265581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (265581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (265581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (265651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (267641) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (271661) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (271661) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (271661) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (271731) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (272661) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (277581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (277581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (277581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (277651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (277681) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;32mI (282701) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (283621) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (283621) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (283621) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (283691) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (288621) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (289581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (289581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (289581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (289671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (294581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (295581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (295581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (295581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (295641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (300581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (301681) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (301681) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (301681) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (301751) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (306681) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (319581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (319581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (319581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (319641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (324581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (325621) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (325621) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (325621) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (325701) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (330621) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (331581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (331581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (331581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (331641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (336581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (337581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (337581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (337581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (337641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (342581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (349581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (349581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (349581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (349651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (354581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (355581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (355581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (355581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (355661) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (360581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (361571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (361571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (361571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (361641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (366571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (367571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (367571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (367571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (367641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (372571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (373601) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (373601) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (373601) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (373671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (378601) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (379601) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (379601) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (379601) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (379671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (384601) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (385601) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (385601) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (385601) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (385671) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (390601) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (391611) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (391611) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (391611) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (391681) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (396611) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (397571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (397571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (397571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (397641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (402571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (403651) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (403651) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (403651) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (403721) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (408651) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (409571) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (409571) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (409571) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (409641) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (414571) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (415581) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (415581) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (415581) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (415651) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m
+[0;32mI (420581) MESH-SERVER-EXAMPLE: Task initializing..[0m
+Tem: -1.000000 
+Hum:-1.000000
+[0;33mW (421611) MESH_SERVER: OP_GET -- Opcode 0xc002e5  -- empty message[0m
+[0;32mI (421611) MESH_SERVER:     Temperature: -1.000000[0m
+[0;32mI (421611) MESH_SERVER:     Humidity     -1.000000[0m
+[0;32mI (421681) MESH_SERVER: ble_mesh_custom_sensor_server_model_cb -- SEND_COMPLETE -- Send message opcode 0x00c202e5 success[0m

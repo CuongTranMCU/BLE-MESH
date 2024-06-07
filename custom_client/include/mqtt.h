@@ -8,6 +8,11 @@
 #include <stdio.h>
 #include <cJSON.h>
 
+#define EXAMPLE_ESP_MQQT_BORKER_URI "mqtt://mqtt.flespi.io"
+#define EXAMPLE_ESP_MQQT_BORKER_PORT 1883
+#define EXAMPLE_ESP_MQQT_BORKER_TRANSPORT MQTT_TRANSPORT_OVER_TCP
+#define EXAMPLE_ESP_MQQT_CREDENTIALS_USERNAME "NLbaNpU1SUgaBhQSS9duq2LMgV4JaCCdRIDNBRz6b3eElk0iGfBUULPU9E52R1AC"
+
 typedef void (*mqtt_data_pt_t)(char *data, uint16_t length);
 
 void mqtt_app_start(void);

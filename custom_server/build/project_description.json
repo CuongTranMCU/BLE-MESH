@@ -1,7 +1,7 @@
 {
     "version":            "1",
     "project_name":       "onoff_server_s3",
-    "project_version":    "1ec4c6a-dirty",
+    "project_version":    "a1d81d1-dirty",
     "project_path":       "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server",
     "idf_path":           "F:/app/Esp_idf/esp-idf/esp-idf",
     "build_dir":          "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/build",
@@ -835,7 +835,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/build/esp-idf/main/libmain.a",
-            "sources": [ "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c", "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/board.c", "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/src/mesh_client.c", "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/src/mesh_device_app.c", "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/src/mesh_server.c" ],
+            "sources": [ "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/main.c", "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main/board.c", "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/src/mesh_device_app.c", "F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/src/mesh_server.c" ],
             "include_dirs": [ ".", "../include" ]
         },
         "mbedtls": {

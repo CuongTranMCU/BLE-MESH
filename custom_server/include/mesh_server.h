@@ -1,10 +1,10 @@
 /**
  * @file mesh_server.h
- * 
+ *
  * @brief
- * 
+ *
  * @author
- * 
+ *
  * @date  11/2020
  */
 
@@ -26,15 +26,14 @@
 #include "freertos/queue.h"
 
 extern QueueHandle_t ble_mesh_received_data_queue;
+extern QueueHandle_t dht11_received_data_queue;
 
 /**
  * @brief Initializes BLE Mesh stack, initializing Models and it's callback functions
- * 
+ *
  */
 esp_err_t ble_mesh_device_init_server(void);
 
-
 bool is_server_provisioned(void);
 
-
-#endif  // __MESH_SERVER_H__
+#endif // __MESH_SERVER_H__

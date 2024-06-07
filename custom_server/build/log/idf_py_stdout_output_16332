@@ -1,0 +1,102 @@
+[0/1] Re-running CMake...
+-- ccache will be used for faster recompilation
+-- Building ESP-IDF components for target esp32
+-- Project sdkconfig file F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/sdkconfig
+Loading defaults file F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/sdkconfig.defaults...
+-- App "onoff_server_s3" version: a1d81d1-dirty
+-- Adding linker script F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/build/esp-idf/esp_system/ld/memory.ld
+-- Adding linker script F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system/ld/esp32/sections.ld.in
+-- Adding linker script F:/app/Esp_idf/esp-idf/esp-idf/components/esp_rom/esp32/ld/esp32.rom.ld
+-- Adding linker script F:/app/Esp_idf/esp-idf/esp-idf/components/esp_rom/esp32/ld/esp32.rom.api.ld
+-- Adding linker script F:/app/Esp_idf/esp-idf/esp-idf/components/esp_rom/esp32/ld/esp32.rom.libgcc.ld
+-- Adding linker script F:/app/Esp_idf/esp-idf/esp-idf/components/esp_rom/esp32/ld/esp32.rom.newlib-data.ld
+-- Adding linker script F:/app/Esp_idf/esp-idf/esp-idf/components/esp_rom/esp32/ld/esp32.rom.syscalls.ld
+-- Adding linker script F:/app/Esp_idf/esp-idf/esp-idf/components/esp_rom/esp32/ld/esp32.rom.newlib-funcs.ld
+-- Adding linker script F:/app/Esp_idf/esp-idf/esp-idf/components/soc/esp32/ld/esp32.peripherals.ld
+-- Components: DHT11 app_trace app_update bootloader bootloader_support bt button cmock console cxx driver efuse esp-tls esp_adc esp_app_format esp_coex esp_common esp_eth esp_event esp_gdbstub esp_hid esp_http_client esp_http_server esp_https_ota esp_https_server esp_hw_support esp_lcd esp_local_ctrl esp_mm esp_netif esp_netif_stack esp_partition esp_phy esp_pm esp_psram esp_ringbuf esp_rom esp_system esp_timer esp_wifi espcoredump esptool_py example_init fatfs freertos hal heap http_parser idf_test ieee802154 json log lwip main mbedtls mqtt newlib nvs_flash openthread partition_table perfmon protobuf-c protocomm pthread sdmmc soc spi_flash spiffs tcp_transport ulp unity usb vfs wear_levelling wifi_provisioning wpa_supplicant xtensa
+-- Component paths: F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/components/DHT11 F:/app/Esp_idf/esp-idf/esp-idf/components/app_trace F:/app/Esp_idf/esp-idf/esp-idf/components/app_update F:/app/Esp_idf/esp-idf/esp-idf/components/bootloader F:/app/Esp_idf/esp-idf/esp-idf/components/bootloader_support F:/app/Esp_idf/esp-idf/esp-idf/components/bt F:/app/Esp_idf/esp-idf/esp-idf/examples/bluetooth/esp_ble_mesh/common_components/button F:/app/Esp_idf/esp-idf/esp-idf/components/cmock F:/app/Esp_idf/esp-idf/esp-idf/components/console F:/app/Esp_idf/esp-idf/esp-idf/components/cxx F:/app/Esp_idf/esp-idf/esp-idf/components/driver F:/app/Esp_idf/esp-idf/esp-idf/components/efuse F:/app/Esp_idf/esp-idf/esp-idf/components/esp-tls F:/app/Esp_idf/esp-idf/esp-idf/components/esp_adc F:/app/Esp_idf/esp-idf/esp-idf/components/esp_app_format F:/app/Esp_idf/esp-idf/esp-idf/components/esp_coex F:/app/Esp_idf/esp-idf/esp-idf/components/esp_common F:/app/Esp_idf/esp-idf/esp-idf/components/esp_eth F:/app/Esp_idf/esp-idf/esp-idf/components/esp_event F:/app/Esp_idf/esp-idf/esp-idf/components/esp_gdbstub F:/app/Esp_idf/esp-idf/esp-idf/components/esp_hid F:/app/Esp_idf/esp-idf/esp-idf/components/esp_http_client F:/app/Esp_idf/esp-idf/esp-idf/components/esp_http_server F:/app/Esp_idf/esp-idf/esp-idf/components/esp_https_ota F:/app/Esp_idf/esp-idf/esp-idf/components/esp_https_server F:/app/Esp_idf/esp-idf/esp-idf/components/esp_hw_support F:/app/Esp_idf/esp-idf/esp-idf/components/esp_lcd F:/app/Esp_idf/esp-idf/esp-idf/components/esp_local_ctrl F:/app/Esp_idf/esp-idf/esp-idf/components/esp_mm F:/app/Esp_idf/esp-idf/esp-idf/components/esp_netif F:/app/Esp_idf/esp-idf/esp-idf/components/esp_netif_stack F:/app/Esp_idf/esp-idf/esp-idf/components/esp_partition F:/app/Esp_idf/esp-idf/esp-idf/components/esp_phy F:/app/Esp_idf/esp-idf/esp-idf/components/esp_pm F:/app/Esp_idf/esp-idf/esp-idf/components/esp_psram F:/app/Esp_idf/esp-idf/esp-idf/components/esp_ringbuf F:/app/Esp_idf/esp-idf/esp-idf/components/esp_rom F:/app/Esp_idf/esp-idf/esp-idf/components/esp_system F:/app/Esp_idf/esp-idf/esp-idf/components/esp_timer F:/app/Esp_idf/esp-idf/esp-idf/components/esp_wifi F:/app/Esp_idf/esp-idf/esp-idf/components/espcoredump F:/app/Esp_idf/esp-idf/esp-idf/components/esptool_py F:/app/Esp_idf/esp-idf/esp-idf/examples/bluetooth/esp_ble_mesh/common_components/example_init F:/app/Esp_idf/esp-idf/esp-idf/components/fatfs F:/app/Esp_idf/esp-idf/esp-idf/components/freertos F:/app/Esp_idf/esp-idf/esp-idf/components/hal F:/app/Esp_idf/esp-idf/esp-idf/components/heap F:/app/Esp_idf/esp-idf/esp-idf/components/http_parser F:/app/Esp_idf/esp-idf/esp-idf/components/idf_test F:/app/Esp_idf/esp-idf/esp-idf/components/ieee802154 F:/app/Esp_idf/esp-idf/esp-idf/components/json F:/app/Esp_idf/esp-idf/esp-idf/components/log F:/app/Esp_idf/esp-idf/esp-idf/components/lwip F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/main F:/app/Esp_idf/esp-idf/esp-idf/components/mbedtls F:/app/Esp_idf/esp-idf/esp-idf/components/mqtt F:/app/Esp_idf/esp-idf/esp-idf/components/newlib F:/app/Esp_idf/esp-idf/esp-idf/components/nvs_flash F:/app/Esp_idf/esp-idf/esp-idf/components/openthread F:/app/Esp_idf/esp-idf/esp-idf/components/partition_table F:/app/Esp_idf/esp-idf/esp-idf/components/perfmon F:/app/Esp_idf/esp-idf/esp-idf/components/protobuf-c F:/app/Esp_idf/esp-idf/esp-idf/components/protocomm F:/app/Esp_idf/esp-idf/esp-idf/components/pthread F:/app/Esp_idf/esp-idf/esp-idf/components/sdmmc F:/app/Esp_idf/esp-idf/esp-idf/components/soc F:/app/Esp_idf/esp-idf/esp-idf/components/spi_flash F:/app/Esp_idf/esp-idf/esp-idf/components/spiffs F:/app/Esp_idf/esp-idf/esp-idf/components/tcp_transport F:/app/Esp_idf/esp-idf/esp-idf/components/ulp F:/app/Esp_idf/esp-idf/esp-idf/components/unity F:/app/Esp_idf/esp-idf/esp-idf/components/usb F:/app/Esp_idf/esp-idf/esp-idf/components/vfs F:/app/Esp_idf/esp-idf/esp-idf/components/wear_levelling F:/app/Esp_idf/esp-idf/esp-idf/components/wifi_provisioning F:/app/Esp_idf/esp-idf/esp-idf/components/wpa_supplicant F:/app/Esp_idf/esp-idf/esp-idf/components/xtensa
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/build
+[1/9] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D F:\ESP32\Tutorials\Bai18_Series_BLE_Mesh\custom_server\build\bootloader\esp-idf\esptool_py && f:\app\Esp_idf\.espressif\python_env\idf5.1_py3.11_env\Scripts\python.exe F:/app/Esp_idf/esp-idf/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6810 bytes. 0x7f0 bytes (7%) free.
+[2/7] Linking C static library esp-idf\main\libmain.a
+[3/7] Generating ld/sections.ld
+[4/7] Linking CXX executable onoff_server_s3.elf
+[5/7] Generating binary image from built executable
+esptool.py v4.7.0
+Creating esp32 image...
+Merged 27 ELF sections
+Successfully created esp32 image.
+Generated F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/build/onoff_server_s3.bin
+[6/7] cmd.exe /C "cd /D F:\ESP32\Tutorials\Bai18_Series_BLE_Mesh\custom_server\build\esp-idf\esptool_py && f:\app\Esp_idf\.espressif\python_env\idf5.1_py3.11_env\Scripts\python.exe F:/app/Esp_idf/esp-idf/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/build/partition_table/partition-table.bin F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/build/onoff_server_s3.bin"
+onoff_server_s3.bin binary size 0xeb710 bytes. Smallest app partition is 0x100000 bytes. 0x148f0 bytes (8%) free.
+[6/7] cmd.exe /C "cd /D F:\app\Esp_idf\esp-idf\esp-idf\components\esptool_py && F:\app\Esp_idf\.espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=F:/app/Esp_idf/esp-idf/esp-idf -D SERIAL_TOOL=f:/app/Esp_idf/.espressif/python_env/idf5.1_py3.11_env/Scripts/python.exe;;F:/app/Esp_idf/esp-idf/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=F:/ESP32/Tutorials/Bai18_Series_BLE_Mesh/custom_server/build -P F:/app/Esp_idf/esp-idf/esp-idf/components/esptool_py/run_serial_tool.cmake"
+esptool.py --chip esp32 -p COM7 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 onoff_server_s3.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.7.0
+Serial port COM7
+Connecting......
+Chip is ESP32-D0WD-V3 (revision v3.1)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: d8:bc:38:fc:1d:e0
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x000fbfff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Compressed 26640 bytes to 16682...
+Writing at 0x00001000... (50 %)
+Writing at 0x0000768f... (100 %)
+Wrote 26640 bytes (16682 compressed) at 0x00001000 in 0.7 seconds (effective 322.7 kbit/s)...
+Hash of data verified.
+Compressed 964368 bytes to 557620...
+Writing at 0x00010000... (2 %)
+Writing at 0x0001cf68... (5 %)
+Writing at 0x0002e099... (8 %)
+Writing at 0x0003a756... (11 %)
+Writing at 0x000445ce... (14 %)
+Writing at 0x0004a213... (17 %)
+Writing at 0x0004f8e6... (20 %)
+Writing at 0x00054f6c... (22 %)
+Writing at 0x0005af25... (25 %)
+Writing at 0x00060b36... (28 %)
+Writing at 0x00066b6c... (31 %)
+Writing at 0x0006e694... (34 %)
+Writing at 0x00074c1c... (37 %)
+Writing at 0x0007aac8... (40 %)
+Writing at 0x000808d8... (42 %)
+Writing at 0x000860fe... (45 %)
+Writing at 0x0008b829... (48 %)
+Writing at 0x000915de... (51 %)
+Writing at 0x00098016... (54 %)
+Writing at 0x0009dfcb... (57 %)
+Writing at 0x000a4084... (60 %)
+Writing at 0x000aa007... (62 %)
+Writing at 0x000afc53... (65 %)
+Writing at 0x000b5ee7... (68 %)
+Writing at 0x000bbfd7... (71 %)
+Writing at 0x000c1aa6... (74 %)
+Writing at 0x000c75d3... (77 %)
+Writing at 0x000cd8e1... (80 %)
+Writing at 0x000d596b... (82 %)
+Writing at 0x000dde89... (85 %)
+Writing at 0x000e4697... (88 %)
+Writing at 0x000e9ce3... (91 %)
+Writing at 0x000efade... (94 %)
+Writing at 0x000f544a... (97 %)
+Writing at 0x000fb345... (100 %)
+Wrote 964368 bytes (557620 compressed) at 0x00010000 in 13.1 seconds (effective 589.9 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.0 seconds (effective 534.4 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
