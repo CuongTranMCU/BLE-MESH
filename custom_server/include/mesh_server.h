@@ -26,6 +26,7 @@
 #include "freertos/queue.h"
 
 extern QueueHandle_t ble_mesh_received_data_queue;
+// extern QueueHandle_t sensor_data_queue;
 
 /**
  * @brief Initializes BLE Mesh stack, initializing Models and it's callback functions

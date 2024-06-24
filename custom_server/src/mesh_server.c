@@ -18,7 +18,8 @@
 #include "esp_bt_main.h"
 #include "esp_bt_device.h"
 #include "esp_ble_mesh_defs.h"
-#include "DHT11.h"
+#include "DHT22.h"
+#include "MQ7.h"
 static const char* TAG = "MESH_SERVER";
 
 
@@ -35,7 +36,7 @@ static uint8_t dev_uuid[16] = { 0xdd, 0xdd };               /**< Device UUID */
 
 //* Definicao do Configuration Server Model
 static esp_ble_mesh_cfg_srv_t config_server = {
-    .relay = ESP_BLE_MESH_RELAY_DISABLED,
+    .relay = ESP_BLE_MESH_RELAY_ENABLED,
     .beacon = ESP_BLE_MESH_BEACON_ENABLED,
 #if defined(CONFIG_BLE_MESH_FRIEND)
     .friend_state = ESP_BLE_MESH_FRIEND_ENABLED,
@@ -67,7 +68,7 @@ static esp_ble_mesh_model_op_t custom_sensor_op[] = {
 };
 
 static model_sensor_data_t _server_model_state = {
-    .device_name = "esp_server",
+    .device_name = "esp_server 02",
 };
 
 //* E agora a definiçao do model
@@ -271,13 +272,18 @@ static void ble_mesh_config_server_cb(esp_ble_mesh_cfg_server_cb_event_t event,
         }
     }
 }
-static void getTempAndHum()
+static void getData()
 {
-    int temp = DHT11_read().temperature;
-    int hum = DHT11_read().humidity;
+    int ret = readDHT();
+    errorHandler(ret);
+    float CO =  MQ7_GetPPM();
+    float hum = getHumidity();
+    float temp = getTemperature();
     _server_model_state.humidity = hum;
     _server_model_state.temperature = temp;
+    _server_model_state.CO = CO;
 }
+
 static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t event,
                                                     esp_ble_mesh_model_cb_param_t *param) {
 
@@ -286,14 +292,15 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
         case ESP_BLE_MESH_MODEL_OPERATION_EVT:
             switch (param->model_operation.opcode) {
 
-                case ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_GET:
+                case ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_GET:// khi nhận được bản tin GET 
                     if (param->model_operation.length > 0) {
                         ESP_LOGI(TAG, "OP_GET -- Opcode 0x%06x,  tid 0x%04x", param->model_operation.opcode, *param->model_operation.msg);
                     } else {
                         ESP_LOGW(TAG, "OP_GET -- Opcode 0x%06x  -- empty message", param->model_operation.opcode);
                     }
-                    getTempAndHum();
+                    getData();
                     server_send_to_client(_server_model_state);
+                    
                 break;
 
                 case ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_SET:
@@ -334,18 +341,9 @@ static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model
 
     ESP_LOGW("PARSED_DATA", "Device Name = %s", parsed_data->device_name);
     ESP_LOGW("PARSED_DATA", "Temperature = %f", parsed_data->temperature);
-    ESP_LOGW("PARSED_DATA", "Pressure    = %f", parsed_data->pressure);
+    ESP_LOGW("PARSED_DATA", "CO          = %f", parsed_data->CO);
     ESP_LOGW("PARSED_DATA", "Humidity    = %f", parsed_data->humidity);
-    ESP_LOGW("PARSED_DATA", "TVOC        = %d", parsed_data->tVOC);
-    ESP_LOGW("PARSED_DATA", "eCO2        = %d", parsed_data->eCO2);
-    ESP_LOGW("PARSED_DATA", "Noise       = %d", parsed_data->noise_level);
-    ESP_LOGW("PARSED_DATA", "Red         = %f", parsed_data->red);
-    ESP_LOGW("PARSED_DATA", "Orange      = %f", parsed_data->orange);
-    ESP_LOGW("PARSED_DATA", "Yellow      = %f", parsed_data->yellow);
-    ESP_LOGW("PARSED_DATA", "Green       = %f", parsed_data->green);
-    ESP_LOGW("PARSED_DATA", "Blue        = %f", parsed_data->blue);
-    ESP_LOGW("PARSED_DATA", "Violet      = %f", parsed_data->violet);
-
+    // trỏ đến hàng đợi ble_mesh_....queue với data: parsed_data.
     xQueueSendToBack(ble_mesh_received_data_queue, parsed_data, portMAX_DELAY);
 }
 
