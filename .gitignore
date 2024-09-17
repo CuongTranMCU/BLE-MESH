@@ -1,8 +1,8 @@
-Bai18_Series_BLE_Mesh/custom_client/build
-Bai18_Series_BLE_Mesh/custom_client/.vscode
-Bai18_Series_BLE_Mesh/custom_client/.devcontainer
+custom_client/build
+custom_client/.vscode
+custom_client/.devcontainer
 
-Bai18_Series_BLE_Mesh/custom_server/build
-Bai18_Series_BLE_Mesh/custom_server/.vscode
-Bai18_Series_BLE_Mesh/custom_server/.devcontainer
+custom_server/build
+custom_server/.vscode
+custom_server/.devcontainer
 
