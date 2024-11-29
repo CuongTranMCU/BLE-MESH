@@ -4,16 +4,21 @@
 
 #include "esp_log.h"
 
-// #include "mesh_server.h"
 #include "mesh_device_app.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "DHT11.h"
+
+#include "DHT22.h"
+#include "MQ7.h"
+#include "board.h"
+
 static const char *TAG = "MESH-SERVER-EXAMPLE";
 
+esp_adc_cal_characteristics_t *adc_chars; // MQ7
+
 QueueHandle_t ble_mesh_received_data_queue = NULL;
-QueueHandle_t dht11_received_data_queue = NULL;
+QueueHandle_t dht22_received_data_queue = NULL;
 
 static void read_received_items(void *arg)
 {
@@ -27,19 +32,10 @@ static void read_received_items(void *arg)
 
         if (xQueueReceive(ble_mesh_received_data_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
         {
-            ESP_LOGI(TAG, "Recebido dados de %s", _received_data.device_name);
-            ESP_LOGI(TAG, "    Temperatura: %f", _received_data.temperature);
-            ESP_LOGI(TAG, "    Pressao:     %f", _received_data.pressure);
-            ESP_LOGI(TAG, "    Umidade:     %f", _received_data.humidity);
-            ESP_LOGI(TAG, "    TVOC:        %d", _received_data.tVOC);
-            ESP_LOGI(TAG, "    eCO2:        %d", _received_data.eCO2);
-            ESP_LOGI(TAG, "    Ruido:       %d", _received_data.noise_level);
-            ESP_LOGI(TAG, "    Vermelho:    %f", _received_data.red);
-            ESP_LOGI(TAG, "    Laranja:     %f", _received_data.orange);
-            ESP_LOGI(TAG, "    Amarelo:     %f", _received_data.yellow);
-            ESP_LOGI(TAG, "    Verde:       %f", _received_data.green);
-            ESP_LOGI(TAG, "    Azul:        %f", _received_data.blue);
-            ESP_LOGI(TAG, "    Violeta:     %f", _received_data.violet);
+            ESP_LOGI(TAG, "    Device Name: %s", _received_data.device_name);
+            ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
+            ESP_LOGI(TAG, "    CO         : %f", _received_data.CO);
+            ESP_LOGI(TAG, "    Humidity   : %f", _received_data.humidity);
         }
     }
 }
@@ -51,10 +47,16 @@ static void read_data_from_DHT11(void *arg)
     {
         ESP_LOGI(TAG, "Task initializing..");
 
+        // int ret = readDHT();
+        // errorHandler(ret);
+        // float CO = MQ7_GetPPM();
+        // float hum = getHumidity();
+        // float temp = getTemperature();
+
         _received_data.temperature = DHT11_read().temperature;
         _received_data.humidity = DHT11_read().humidity;
         printf("Tem: %f \nHum:%f\n", _received_data.temperature, _received_data.humidity);
-        xQueueSendToBack(dht11_received_data_queue, &_received_data, portMAX_DELAY);
+        xQueueSendToBack(dht22_received_data_queue, &_received_data, portMAX_DELAY);
         vTaskDelay(5000 / portTICK_PERIOD_MS);
     }
 }
@@ -75,9 +77,14 @@ void app_main(void)
         err = nvs_flash_init();
     }
     ESP_ERROR_CHECK(err);
+
     // HUMIDITY, TEMPERATURE
-    DHT11_init(GPIO_NUM_5);
-    // err = ble_mesh_device_init_server();
+    setDHTgpio(GPIO_NUM_5);
+    ESP_LOGI(TAG, "Starting DHT Task\n\n");
+
+    Init_MQ7();
+    board_init();
+
     err = ble_mesh_device_init();
     if (err)
     {

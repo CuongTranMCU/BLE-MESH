@@ -19,7 +19,7 @@
 #include "esp_bt_device.h"
 #include "esp_ble_mesh_defs.h"
 #include "DHT11.h"
-static const char *TAG = "MESH_SERVER";
+static const char *TAG = "MESH_SERVER 02";
 
 /*******************************************
  ****** Private Variables Definitions ******
@@ -62,7 +62,7 @@ static esp_ble_mesh_model_op_t custom_sensor_op[] = {
 };
 
 static model_sensor_data_t _server_model_state = {
-    .device_name = "esp_server 01",
+    .device_name = "esp_server 02",
 };
 
 //* E agora a definiçao do model
@@ -147,8 +147,13 @@ void server_send_to_client(model_sensor_data_t server_model_state)
 {
     esp_ble_mesh_msg_ctx_t _ctx = {0};
     _ctx.send_ttl = 3;
-    _ctx.addr = ESP_BLE_MESH_GROUP_GW_SUB_ADDR; // gateway
+
+    uint16_t publish_addr = custom_models[0].pub->publish_addr;
+    _ctx.addr = publish_addr;
+
+    //_ctx.addr = ESP_BLE_MESH_GROUP_GW_SUB_ADDR; // gateway
     // _ctx.recv_dst = 0x0058;         // me
+
     _ctx.srv_send = 0;
 
     esp_err_t err = esp_ble_mesh_server_model_send_msg(custom_models, &_ctx, ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS, sizeof(server_model_state), &server_model_state);
@@ -267,12 +272,14 @@ static void getTempAndHum()
 {
 
     model_sensor_data_t _received_data;
-    if (xQueueReceive(dht11_received_data_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
+    if (xQueueReceive(dht22_received_data_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
     {
         ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
         ESP_LOGI(TAG, "    Humidity     %f", _received_data.humidity);
-        _server_model_state.humidity = _received_data.humidity;
-        _server_model_state.temperature = _received_data.temperature;
+        // ESP_LOGI(TAG, "    Humidity     %f", _received_data.humidity);
+        _server_model_state.humidity = hum;
+        _server_model_state.temperature = temp;
+        _server_model_state.CO = CO;
     }
 }
 static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t event,
@@ -351,17 +358,8 @@ static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model
 
     ESP_LOGW("PARSED_DATA", "Device Name = %s", parsed_data->device_name);
     ESP_LOGW("PARSED_DATA", "Temperature = %f", parsed_data->temperature);
-    ESP_LOGW("PARSED_DATA", "Pressure    = %f", parsed_data->pressure);
+    ESP_LOGW("PARSED_DATA", "CO          = %f", parsed_data->CO);
     ESP_LOGW("PARSED_DATA", "Humidity    = %f", parsed_data->humidity);
-    ESP_LOGW("PARSED_DATA", "TVOC        = %d", parsed_data->tVOC);
-    ESP_LOGW("PARSED_DATA", "eCO2        = %d", parsed_data->eCO2);
-    ESP_LOGW("PARSED_DATA", "Noise       = %d", parsed_data->noise_level);
-    ESP_LOGW("PARSED_DATA", "Red         = %f", parsed_data->red);
-    ESP_LOGW("PARSED_DATA", "Orange      = %f", parsed_data->orange);
-    ESP_LOGW("PARSED_DATA", "Yellow      = %f", parsed_data->yellow);
-    ESP_LOGW("PARSED_DATA", "Green       = %f", parsed_data->green);
-    ESP_LOGW("PARSED_DATA", "Blue        = %f", parsed_data->blue);
-    ESP_LOGW("PARSED_DATA", "Violet      = %f", parsed_data->violet);
 
     xQueueSendToBack(ble_mesh_received_data_queue, parsed_data, portMAX_DELAY);
 }
