@@ -17,8 +17,8 @@
 
 #include "esp_ble_mesh_common_api.h"
 
-#define BLE_MESH_DEVICE_NAME "ESP-CLIENT MESH" /*!< Device Advertising Name */
-#define CID_ESP 0x02E5                         /*!< Espressif Component ID */
+#define BLE_MESH_DEVICE_NAME "ESP-CLIENT MESH 02" /*!< Device Advertising Name */
+#define CID_ESP 0x02E5                            /*!< Espressif Component ID */
 
 //* Definicao dos IDs dos Models (Server e Client)
 #define ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_ID_SERVER 0x1414 /*!< Custom Server Model ID */
@@ -39,26 +39,9 @@
 typedef struct __attribute__((packed))
 {
     char device_name[20];
-
-    /**< BME280 Data */
-    float temperature; /*!< BME260 calibrated temperature */
-    float pressure;    /*!< BME260 calibrated pressure */
-    float humidity;    /*!< BME260 calibrated humidity */
-
-    /**< SGP30 Data */
-    uint16_t tVOC; /*!< SGP30 total volatile organic compound */
-    uint16_t eCO2; /*!< SGP30 equivalent CO2 */
-
-    /**< Mic Noise */
-    uint16_t noise_level; /*!< Analog microphone noise level */
-
-    /**< AS7262 data */
-    float red;    /*!< AS7262 calibrated red */
-    float orange; /*!< AS7262 calibrated orange */
-    float yellow; /*!< AS7262 calibrated yellow */
-    float green;  /*!< AS7262 calibrated green */
-    float blue;   /*!< AS7262 calibrated blue */
-    float violet; /*!< AS7262 calibrated violet */
+    float temperature;
+    float CO;
+    float humidity;
 
     /**< Feedback answers */
     uint8_t feedback; /*!< Each bit corresponds to an answer: (NEW_DATA | X | X | TEMP_COMF | HIGH_TEMP | SOUND_COMF | LIGHT_COMF | LIGHTNESS) */

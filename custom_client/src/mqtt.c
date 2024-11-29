@@ -23,8 +23,8 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     {
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
-        msg_id = esp_mqtt_client_subscribe(client, "ReceiveControl", 0);
-        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+        // msg_id = esp_mqtt_client_subscribe(client, "ReceiveControl", 0);
+        // ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
         break;
 
     case MQTT_EVENT_DISCONNECTED:
@@ -95,11 +95,12 @@ void mqtt_data_pt_set_callback(void *cb)
     }
 }
 
-void mqtt_data_publish_callback(char *data, int length)
+void mqtt_data_publish_callback(char *topic, char *data, int length)
 {
     esp_mqtt_client_handle_t client = mqtt_get_global_client();
 
-    esp_mqtt_client_publish(client, "SendData", data, length, 0, 0);
+    esp_mqtt_client_publish(client, topic, data, length, 0, 0);
+    // ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 }
 
 char *convert_model_sensor_to_json(model_sensor_data_t *received_data)
@@ -120,6 +121,7 @@ char *convert_model_sensor_to_json(model_sensor_data_t *received_data)
     // modify the JSON data
     cJSON_AddNumberToObject(json, "temperature", received_data->temperature);
     cJSON_AddNumberToObject(json, "humidity", received_data->humidity);
+    cJSON_AddNumberToObject(json, "CO", received_data->CO);
 
     // convert the cJSON object to a JSON string
     char *json_str = cJSON_Print(json);

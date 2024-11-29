@@ -184,6 +184,12 @@ static void ble_mesh_provisioning_cb(esp_ble_mesh_prov_cb_event_t event,
         break;
 
     case ESP_BLE_MESH_NODE_PROV_RESET_EVT:
+        ESP_LOGI(TAG, "ESP_BLE_MESH_NODE_PROV_RESET_EVT");
+        esp_timer_handle_t reset_timer;
+        esp_timer_create_args_t timer_args = {
+            .callback = &esp_restart};
+        esp_timer_create(&timer_args, &reset_timer);
+        esp_timer_start_once(reset_timer, 1000000); // Delay 1s
         break;
 
     case ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT:
@@ -230,7 +236,7 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
 {
     switch (event)
     {
-    case ESP_BLE_MESH_MODEL_OPERATION_EVT: // P2P
+    case ESP_BLE_MESH_MODEL_OPERATION_EVT: // P2P Received message from server
         switch (param->model_operation.opcode)
         {
         case ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS:
@@ -245,7 +251,7 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
         }
         break;
 
-    case ESP_BLE_MESH_MODEL_SEND_COMP_EVT: // Set
+    case ESP_BLE_MESH_MODEL_SEND_COMP_EVT: // Set  Send message completion
         if (param->model_send_comp.err_code)
         {
             ESP_LOGE(TAG, "Failed to send message 0x%06x", param->model_send_comp.opcode);
@@ -265,8 +271,17 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
 
             model_sensor_data_t received_data;
             parse_received_data(param, &received_data);
-            char *json = convert_model_sensor_to_json(&received_data);
-            mqtt_data_publish_callback(json, 0);
+
+            char *json_data = convert_model_sensor_to_json(&received_data);
+            if (strcmp(received_data.device_name, "esp_server 01") == 0)
+            {
+                mqtt_data_publish_callback("node-01", json_data, 0);
+            }
+            else if (strcmp(received_data.device_name, "esp_server 02") == 0)
+            {
+                mqtt_data_publish_callback("node-02", json_data, 0);
+            }
+            free(json_data);
 
             break;
 
@@ -300,17 +315,8 @@ static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model
 
     ESP_LOGW("PARSED_DATA", "Device Name = %s", parsed_data->device_name);
     ESP_LOGW("PARSED_DATA", "Temperature = %f", parsed_data->temperature);
-    ESP_LOGW("PARSED_DATA", "Pressure    = %f", parsed_data->pressure);
+    ESP_LOGW("PARSED_DATA", "CO          = %f", parsed_data->CO);
     ESP_LOGW("PARSED_DATA", "Humidity    = %f", parsed_data->humidity);
-    ESP_LOGW("PARSED_DATA", "TVOC        = %d", parsed_data->tVOC);
-    ESP_LOGW("PARSED_DATA", "eCO2        = %d", parsed_data->eCO2);
-    ESP_LOGW("PARSED_DATA", "Noise       = %d", parsed_data->noise_level);
-    ESP_LOGW("PARSED_DATA", "Red         = %f", parsed_data->red);
-    ESP_LOGW("PARSED_DATA", "Orange      = %f", parsed_data->orange);
-    ESP_LOGW("PARSED_DATA", "Yellow      = %f", parsed_data->yellow);
-    ESP_LOGW("PARSED_DATA", "Green       = %f", parsed_data->green);
-    ESP_LOGW("PARSED_DATA", "Blue        = %f", parsed_data->blue);
-    ESP_LOGW("PARSED_DATA", "Violet      = %f", parsed_data->violet);
 }
 
 static void ble_mesh_get_dev_uuid(uint8_t *dev_uuid)
@@ -373,6 +379,7 @@ esp_err_t ble_mesh_device_init_client(void)
 {
     esp_err_t err = ESP_OK;
 
+    // Khởi tạo Bluetooth
     err = bluetooth_init();
     if (err)
     {
@@ -380,11 +387,15 @@ esp_err_t ble_mesh_device_init_client(void)
         return err;
     }
 
+    // Lấy UUID của thiết bị
     ble_mesh_get_dev_uuid(dev_uuid);
 
+    // Đăng ký các callback cho BLE Mesh
     esp_ble_mesh_register_prov_callback(ble_mesh_provisioning_cb);                       //
     esp_ble_mesh_register_config_server_callback(ble_mesh_config_server_cb);             // PUB/SUB/ APPKEY/NET_KEY
     esp_ble_mesh_register_custom_model_callback(ble_mesh_custom_sensor_client_model_cb); // GET/SET
+
+    // Khởi tạo BLE Mesh
     err = esp_ble_mesh_init(&provision, &composition);
     if (err)
     {
@@ -392,6 +403,7 @@ esp_err_t ble_mesh_device_init_client(void)
         return err;
     }
 
+    // Khởi tạo client model
     err = esp_ble_mesh_client_model_init(&custom_models[0]);
     if (err)
     {
@@ -399,13 +411,15 @@ esp_err_t ble_mesh_device_init_client(void)
         return err;
     }
 
+    // Thiết lập tên thiết bị cho các thiết bị chưa được provision
     esp_ble_mesh_set_unprovisioned_device_name(BLE_MESH_DEVICE_NAME);
 
+    // Bật provisioning cho thiết bị Mesh (advertising và GATT)
     esp_ble_mesh_node_prov_enable(ESP_BLE_MESH_PROV_ADV | ESP_BLE_MESH_PROV_GATT);
 
     ESP_LOGI(TAG, "BLE Mesh Node initialized");
 
-    wifi_init_sta();
+    // Cấu hình callback MQTT
     mqtt_data_pt_set_callback(mqtt_data_callback);
 
     return err;
@@ -422,13 +436,20 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_set(model_sensor_data_t se
 
     ctx.net_idx = 0;
     ctx.app_idx = 0;
-    ctx.addr = ESP_BLE_MESH_ADDR_ALL_NODES;
-    // ctx.addr = ESP_BLE_MESH_GROUP_PUB_ADDR;
+
+    uint16_t publish_addr = custom_sensor_client.model->pub->publish_addr;
+    ctx.addr = publish_addr;
+
+    // ctx.addr = ESP_BLE_MESH_ADDR_ALL_NODES;
+    //  ctx.addr = ESP_BLE_MESH_GROUP_PUB_ADDR;
+
     ctx.send_ttl = 3;
     ctx.send_rel = false;
 
     err = esp_ble_mesh_client_model_send_msg(custom_sensor_client.model, &ctx, opcode,
                                              sizeof(set_data), (uint8_t *)&set_data, 0, false, ROLE_NODE);
+
+    // err = esp_ble_mesh_model_publish(custom_sensor_client.model, opcode, sizeof(set_data), (uint8_t *)&set_data, ROLE_NODE);
 
     if (err != ESP_OK)
     {
@@ -448,11 +469,18 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_get(uint16_t addr)
 
     ctx.net_idx = 0;
     ctx.app_idx = 0;
+
     // ctx.addr = ESP_BLE_MESH_ADDR_ALL_NODES;
     if (addr == 0)
-        ctx.addr = ESP_BLE_MESH_GROUP_PUB_ADDR; //! FIXME: passar o endereco do device pra GET?
+    {
+        uint16_t publish_addr = custom_sensor_client.model->pub->publish_addr;
+        ctx.addr = publish_addr;
+        // ctx.addr = ESP_BLE_MESH_GROUP_PUB_ADDR; //! FIXME: passar o endereco do device pra GET?
+    }
     else
+    {
         ctx.addr = addr;
+    }
 
     ctx.send_ttl = 3;
     ctx.send_rel = false;
@@ -478,4 +506,123 @@ void mqtt_data_callback(char *data, uint16_t length)
     {
         ble_mesh_custom_sensor_client_model_message_get(control_sensor.addr);
     }
+}
+
+// Hàm dừng BLE Mesh
+esp_err_t stop_ble_mesh(void)
+{
+    esp_err_t err;
+
+    // Kiểm tra xem BLE Mesh có đang được sử dụng hay không
+    if (is_client_provisioned())
+    {
+        ESP_LOGI("BLE_MESH", "Stopping BLE Mesh...");
+
+        // Dừng provisioning (ADV + GATT)
+        err = esp_ble_mesh_node_prov_disable(ESP_BLE_MESH_PROV_ADV | ESP_BLE_MESH_PROV_GATT);
+        if (err != ESP_OK)
+        {
+            ESP_LOGE("BLE_MESH", "Failed to disable BLE Mesh provisioning: %s", esp_err_to_name(err));
+            return err; // Trả về lỗi nếu không thể dừng provisioning
+        }
+        ESP_LOGI("BLE_MESH", "Provisioning disabled successfully.");
+
+        // Deinitialize custom client model
+        err = esp_ble_mesh_client_model_deinit(&custom_models[0]);
+        if (err != ESP_OK)
+        {
+            ESP_LOGE("BLE_MESH", "Failed to deinitialize client model: %s", esp_err_to_name(err));
+            return err; // Trả về lỗi nếu không thể deinitialize client model
+        }
+        ESP_LOGI("BLE_MESH", "Client model deinitialized successfully.");
+
+        // Deinitialize BLE Mesh stack
+        esp_ble_mesh_deinit_param_t deinit_param = {true}; // true để giải phóng bộ nhớ của cấu hình BLE Mesh
+        err = esp_ble_mesh_deinit(&deinit_param);
+        if (err != ESP_OK)
+        {
+            ESP_LOGE("BLE_MESH", "Failed to deinitialize BLE Mesh: %s", esp_err_to_name(err));
+            return err; // Trả về lỗi nếu không thể deinitialize BLE Mesh stack
+        }
+        ESP_LOGI("BLE_MESH", "BLE Mesh deinitialized successfully.");
+
+        // Chờ ngắn để đảm bảo stack được giải phóng hoàn toàn
+        vTaskDelay(100 / portTICK_PERIOD_MS);
+    }
+    else
+    {
+        ESP_LOGW("BLE_MESH", "BLE Mesh is not provisioned or initialized.");
+    }
+
+    return ESP_OK; // Trả về kết quả thành công nếu không có lỗi
+}
+
+// Hàm dừng Bluetooth (Bluedroid stack)
+esp_err_t stop_bluetooth(void)
+{
+    esp_err_t err;
+
+    // Kiểm tra trạng thái Bluedroid
+    esp_bluedroid_status_t bt_status = esp_bluedroid_get_status();
+
+    // Nếu Bluedroid đang được bật
+    if (bt_status == ESP_BLUEDROID_STATUS_ENABLED)
+    {
+        ESP_LOGI("BLUETOOTH", "Disabling Bluedroid...");
+
+        // Disable Bluedroid stack
+        err = esp_bluedroid_disable();
+        if (err != ESP_OK)
+        {
+            ESP_LOGE("BLUETOOTH", "Failed to disable Bluedroid: %s", esp_err_to_name(err));
+            return err; // Trả về lỗi nếu không thể disable
+        }
+        ESP_LOGI("BLUETOOTH", "Bluedroid disabled successfully.");
+        vTaskDelay(100 / portTICK_PERIOD_MS); // Thời gian chờ sau khi disable
+    }
+    else
+    {
+        ESP_LOGW("BLUETOOTH", "Bluedroid is already disabled, skipping disable.");
+    }
+
+    // Kiểm tra trạng thái Bluedroid trước khi deinitialize
+    if (bt_status != ESP_BLUEDROID_STATUS_UNINITIALIZED)
+    {
+        ESP_LOGI("BLUETOOTH", "Deinitializing Bluedroid...");
+
+        // Deinitialize Bluedroid stack
+        err = esp_bluedroid_deinit();
+        if (err != ESP_OK)
+        {
+            ESP_LOGE("BLUETOOTH", "Failed to deinitialize Bluedroid: %s", esp_err_to_name(err));
+            return err; // Trả về lỗi nếu không thể deinit
+        }
+        ESP_LOGI("BLUETOOTH", "Bluedroid deinitialized successfully.");
+    }
+    else
+    {
+        ESP_LOGW("BLUETOOTH", "Bluedroid is already uninitialized, skipping deinit.");
+    }
+
+    // Tắt bộ điều khiển Bluetooth (controller)
+    err = esp_bt_controller_disable();
+    if (err != ESP_OK)
+    {
+        ESP_LOGE("BLUETOOTH", "Failed to disable Bluetooth controller: %s", esp_err_to_name(err));
+        return err; // Trả về lỗi nếu không thể disable controller
+    }
+    ESP_LOGI("BLUETOOTH", "Bluetooth controller disabled successfully.");
+
+    // Giải phóng bộ nhớ của bộ điều khiển Bluetooth
+    err = esp_bt_controller_mem_release(ESP_BT_MODE_BLE);
+    if (err != ESP_OK)
+    {
+        ESP_LOGE("BLUETOOTH", "Failed to release Bluetooth controller memory: %s", esp_err_to_name(err));
+        return err; // Trả về lỗi nếu không thể giải phóng bộ nhớ
+    }
+    ESP_LOGI("BLUETOOTH", "Bluetooth controller memory released successfully.");
+
+    vTaskDelay(100 / portTICK_PERIOD_MS); // Thời gian chờ sau khi giải phóng bộ nhớ
+
+    return ESP_OK; // Trả về kết quả thành công
 }
