@@ -6,5 +6,5 @@ set(EXTRA_COMPONENT_DIRS $ENV{IDF_PATH}/examples/bluetooth/esp_ble_mesh/common_c
                          $ENV{IDF_PATH}/examples/bluetooth/esp_ble_mesh/common_components/button components)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-project(onoff_server_s3)
+project(custom_server)
 target_compile_options(${lib} PRIVATE -Wno-error=format)

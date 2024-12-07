@@ -59,9 +59,11 @@ static esp_ble_mesh_client_t custom_sensor_client = {
 };
 
 //! Verificar "Publication Context"
+// Defind Addr
+ESP_BLE_MESH_MODEL_PUB_DEFINE(custom_client_pub, 3, ROLE_NODE);
 static esp_ble_mesh_model_t custom_models[] = {
     ESP_BLE_MESH_VENDOR_MODEL(CID_ESP, ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_ID_CLIENT,
-                              custom_sensor_op, NULL, &custom_sensor_client),
+                              custom_sensor_op, &custom_client_pub, &custom_sensor_client),
 };
 
 //* Colocamos o Config Server Model aqui como root model
@@ -89,7 +91,7 @@ static esp_ble_mesh_prov_t provision = {
 };
 
 /******************************************
- ****** Private Functions Prototypes ******
+ ****** Start Private Functions Prototypes ******
  ******************************************/
 
 /**
@@ -135,7 +137,20 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
  * @param  recv_param   Pointer to model callback received parameter
  * @param  parsed_data  Pointer to where the parsed data will be stored
  */
+
+bool is_client_provisioned(void);
+
 static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model_sensor_data_t *parsed_data);
+
+esp_err_t ble_mesh_custom_sensor_client_model_message_set(model_sensor_data_t set_data);
+
+esp_err_t ble_mesh_custom_sensor_client_model_message_get(uint16_t addr);
+
+void mqtt_data_callback(char *data, uint16_t length);
+
+/******************************************
+ ****** End Private Functions Prototypes ******
+ ******************************************/
 
 bool is_client_provisioned(void)
 {

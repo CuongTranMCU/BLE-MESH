@@ -60,10 +60,10 @@ static void air_sensor_task(void *arg)
         if ((ticks++ >= 5) && (is_client_provisioned()))
         {
             // if (ticks++ >= 5) {
-            ESP_LOGI(TAG, "TVOC: %d,  eCO2: %d", tvoc_baseline, eco2_baseline); // for set message
-            device_sensor_data.eCO2 = eco2_baseline;
-            device_sensor_data.tVOC = tvoc_baseline;
-            strcpy(device_sensor_data.device_name, "GW");
+            // ESP_LOGI(TAG, "TVOC: %d,  eCO2: %d", tvoc_baseline, eco2_baseline); // for set message
+            // device_sensor_data.CO2 = eco2_baseline;
+            // device_sensor_data.VOC = tvoc_baseline;
+            // strcpy(device_sensor_data.device_name, "GW");
 
             // ble_mesh_custom_sensor_client_model_message_set(device_sensor_data);
             ble_mesh_custom_sensor_client_model_message_get(0);
@@ -93,5 +93,5 @@ void app_main(void)
     {
         ESP_LOGE(TAG, "Bluetooth mesh init failed (err %d)", err);
     }
-    // xTaskCreate(air_sensor_task, "air_sensor_main_task", 2048 * 2, (void *)0, 20, NULL);
+    xTaskCreate(air_sensor_task, "air_sensor_main_task", 2048 * 2, (void *)0, 20, NULL);
 }

@@ -18,7 +18,6 @@
 #include "esp_bt_main.h"
 #include "esp_bt_device.h"
 #include "esp_ble_mesh_defs.h"
-#include "DHT11.h"
 static const char *TAG = "MESH_SERVER 02";
 
 /*******************************************
@@ -67,9 +66,13 @@ static model_sensor_data_t _server_model_state = {
 
 //* E agora a definiçao do model
 //! Verificar "Publication Context"
+
+// Defind Addr
+ESP_BLE_MESH_MODEL_PUB_DEFINE(custom_sensor_pub, 3, ROLE_NODE);
+
 static esp_ble_mesh_model_t custom_models[] = {
     ESP_BLE_MESH_VENDOR_MODEL(CID_ESP, ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_ID_SERVER,
-                              custom_sensor_op, NULL, &_server_model_state),
+                              custom_sensor_op, &custom_sensor_pub, &_server_model_state),
 };
 
 //* Apenas 1 element com os dois models definidos acima
@@ -90,7 +93,7 @@ static esp_ble_mesh_prov_t provision = {
 static bool is_server_provisioning = false;
 
 /******************************************
- ****** Private Functions Prototypes ******
+ ****** Start Private Functions Prototypes ******
  ******************************************/
 
 /**
@@ -136,7 +139,14 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
  * @param  recv_param   Pointer to model callback received parameter
  * @param  parsed_data  Pointer to where the parsed data will be stored
  */
+bool is_server_provisioned(void);
+void server_send_to_client(model_sensor_data_t server_model_state);
 static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model_sensor_data_t *parsed_data);
+static void get_data_from_sensors();
+
+/******************************************
+ ****** End Private Functions Prototypes ******
+ ******************************************/
 
 bool is_server_provisioned(void)
 {
@@ -268,18 +278,19 @@ static void ble_mesh_config_server_cb(esp_ble_mesh_cfg_server_cb_event_t event,
         }
     }
 }
-static void getTempAndHum()
+static void get_data_from_sensors()
 {
 
     model_sensor_data_t _received_data;
-    if (xQueueReceive(dht22_received_data_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
+    if (xQueueReceive(received_data_from_sensor_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
     {
         ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
-        ESP_LOGI(TAG, "    Humidity     %f", _received_data.humidity);
-        // ESP_LOGI(TAG, "    Humidity     %f", _received_data.humidity);
-        _server_model_state.humidity = hum;
-        _server_model_state.temperature = temp;
-        _server_model_state.CO = CO;
+        ESP_LOGI(TAG, "    Humidity:     %f", _received_data.humidity);
+        ESP_LOGI(TAG, "    CO:     %f", _received_data.CO);
+
+        _server_model_state.temperature = _received_data.temperature;
+        _server_model_state.humidity = _received_data.humidity;
+        _server_model_state.CO = _received_data.CO;
     }
 }
 static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t event,
@@ -311,7 +322,7 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
             // if (err) {
             //     ESP_LOGE(TAG, "%s -- Failed to send response with OPCODE 0x%06x", __func__, ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS);
             // }
-            getTempAndHum();
+            get_data_from_sensors();
             server_send_to_client(_server_model_state);
             break;
 

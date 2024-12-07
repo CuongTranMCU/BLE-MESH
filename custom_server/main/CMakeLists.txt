@@ -1,5 +1,5 @@
 set(srcs "main.c"
-        "board.c"
+        "../src/board.c"
         "../src/mesh_device_app.c"
         "../src/mesh_server.c")
 

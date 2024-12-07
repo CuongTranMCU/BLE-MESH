@@ -5,5 +5,6 @@
     "custom_sensor_model_defs.h": "c"
   },
   "idf.adapterTargetName": "esp32c6",
-  "idf.openOcdConfigs": ["board/esp32c6-ftdi.cfg"]
+  "idf.openOcdConfigs": ["board/esp32c6-ftdi.cfg"],
+  "idf.portWin": "COM9"
 }

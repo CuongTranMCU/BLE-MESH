@@ -6,6 +6,8 @@
   ],
   "files.associations": {
     "mesh_device_app.h": "c",
-    "dht11.h": "c"
-  }
+    "dht11.h": "c",
+    "dht22.h": "c"
+  },
+  "idf.portWin": "COM7"
 }
