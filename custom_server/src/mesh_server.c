@@ -18,6 +18,7 @@
 #include "esp_bt_main.h"
 #include "esp_bt_device.h"
 #include "esp_ble_mesh_defs.h"
+
 static const char *TAG = "MESH_SERVER 02";
 
 /*******************************************
@@ -144,6 +145,8 @@ void server_send_to_client(model_sensor_data_t server_model_state);
 static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model_sensor_data_t *parsed_data);
 static void get_data_from_sensors();
 
+void send_heartbeat_from_server(uint8_t count_log, uint8_t period_log);
+
 /******************************************
  ****** End Private Functions Prototypes ******
  ******************************************/
@@ -155,21 +158,79 @@ bool is_server_provisioned(void)
 
 void server_send_to_client(model_sensor_data_t server_model_state)
 {
-    esp_ble_mesh_msg_ctx_t _ctx = {0};
-    _ctx.send_ttl = 3;
+    esp_ble_mesh_msg_ctx_t ctx = {0};
 
+    // Lấy địa chỉ publish từ custom_models
     uint16_t publish_addr = custom_models[0].pub->publish_addr;
-    _ctx.addr = publish_addr;
 
-    //_ctx.addr = ESP_BLE_MESH_GROUP_GW_SUB_ADDR; // gateway
-    // _ctx.recv_dst = 0x0058;         // me
+    // Kiểm tra nếu địa chỉ publish chưa được cấu hình
+    if (publish_addr == ESP_BLE_MESH_ADDR_UNASSIGNED)
+    {
+        ESP_LOGE(TAG, "Publish address is not configured");
+        return;
+    }
 
-    _ctx.srv_send = 0;
+    // Thiết lập ngữ cảnh tin nhắn
+    ctx.addr = publish_addr; // Địa chỉ đích
+    ctx.send_ttl = 5;        // TTL value
+    ctx.net_idx = ESP_BLE_MESH_KEY_PRIMARY;
+    ctx.app_idx = custom_models[0].pub->app_idx;
 
-    esp_err_t err = esp_ble_mesh_server_model_send_msg(custom_models, &_ctx, ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS, sizeof(server_model_state), &server_model_state);
+    // Opcode của custom model
+    uint32_t opcode = ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS;
+
+    // Gửi tin nhắn từ server đến client
+    esp_err_t err = esp_ble_mesh_server_model_send_msg(custom_models, &ctx, opcode, sizeof(server_model_state), &server_model_state);
+
     if (err != ESP_OK)
     {
-        ESP_LOGE(TAG, "Send STATUS failed err 0x%04x", err);
+        ESP_LOGE(TAG, "Failed to send message, error code: 0x%04x", err);
+    }
+    else
+    {
+        ESP_LOGI(TAG, "Message sent successfully to 0x%04x", publish_addr);
+    }
+}
+
+void send_heartbeat_from_server(uint8_t count_log, uint8_t period_log)
+{
+    esp_ble_mesh_msg_ctx_t ctx = {0};
+
+    // Cấu hình thông điệp Heartbeat
+    uint16_t publish_addr = custom_models[0].pub->publish_addr;
+
+    // Kiểm tra nếu địa chỉ publish chưa được cấu hình
+    if (publish_addr == ESP_BLE_MESH_ADDR_UNASSIGNED)
+    {
+        ESP_LOGE(TAG, "Publish address is not configured");
+        return;
+    }
+
+    // Thiết lập ngữ cảnh tin nhắn
+    ctx.addr = 0x0021;                           // Địa chỉ đích
+    ctx.send_ttl = 3;                            // TTL cho Heartbeat
+    ctx.net_idx = ESP_BLE_MESH_KEY_PRIMARY;      // NetKey Index
+    ctx.app_idx = custom_models[0].pub->app_idx; // AppKey Index
+
+    // Các thông tin khác (có thể thay đổi tùy theo ứng dụng)
+    uint32_t opcode = ESP_BLE_MESH_MODEL_OP_HEARTBEAT_PUB_SET; // Opcode cho Heartbeat
+
+    esp_ble_mesh_cfg_heartbeat_pub_set_t heartbeat_data = {
+        .count = count_log,   // Số lượng heartbeat (0x00 dừng, 0xFF gửi vô hạn)
+        .period = period_log, // Thời gian giữa các heartbeat
+        .ttl = 3              // TTL
+    };
+
+    // Gửi Heartbeat tới client
+    esp_err_t err = esp_ble_mesh_server_model_send_msg(custom_models, &ctx, opcode, sizeof(heartbeat_data), &heartbeat_data);
+
+    if (err != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Failed to send heartbeat: 0x%04x", err);
+    }
+    else
+    {
+        ESP_LOGI(TAG, "Heartbeat sent successfully to 0x%04x", publish_addr);
     }
 }
 
@@ -324,6 +385,7 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
             // }
             get_data_from_sensors();
             server_send_to_client(_server_model_state);
+            // send_heartbeat_from_server(0xFF, 3);
             break;
 
         case ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_SET:
