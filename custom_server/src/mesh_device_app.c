@@ -6,17 +6,16 @@
 
 #define TAG "MESH-DEVICE-APP"
 
-esp_err_t ble_mesh_device_init(void) {
-    #if CONFIG_COENV_NODE_TYPE_SENSOR
-    // INIT CLIENT MODEL
-    return ble_mesh_device_init_server();
+esp_err_t ble_mesh_device_init(void)
+{
+    esp_err_t err = ESP_OK;
 
-    #elif CONFIG_COENV_NODE_TYPE_GATEWAY
-    //Init Sensor MOdel
-    return ble_mesh_device_init_client();
-    #else
-    // Invalid configuration
-    ESP_LOGE(TAG, "Invalid Kconfig Device Type! Please reconfigure your project");
-    return ESP_FAIL;
-    #endif
+    err = ble_mesh_device_init_server();
+    if (err)
+    {
+        ESP_LOGE(TAG, "Invalid Kconfig Device Type! Please reconfigure your project");
+        return ESP_FAIL;
+    }
+    else
+        return err;
 }

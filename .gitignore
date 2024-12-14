@@ -1,5 +1,8 @@
-custom_client/.vscode
 custom_client/build
+custom_client/.vscode
+custom_client/.devcontainer
 
-custom_server/.vscode
 custom_server/build
+custom_server/.vscode
+custom_server/.devcontainer
+

@@ -1,10 +1,13 @@
 #include "MQ7.h"
+
 static float R0 = 8.00;
 // Đọc giá trị ADC từ MQ7
-int Get_ADCValue_MQ7(void) {
+int Get_ADCValue_MQ7(void)
+{
     uint32_t adc_reading = 0;
-    for (int i = 0; i < 10; i++) {
-        adc_reading += adc1_get_raw((adc1_channel_t)ADC_CHANNEL); 
+    for (int i = 0; i < 10; i++)
+    {
+        adc_reading += adc1_get_raw((adc1_channel_t)ADC_CHANNEL);
     }
     adc_reading /= 10;
     // Chuyển đổi giá trị ADC thô sang điện áp
@@ -12,8 +15,9 @@ int Get_ADCValue_MQ7(void) {
     return voltage;
 }
 // Khởi tạo MQ7
-void Init_MQ7(void) {
-    adc1_config_width(ADC_WIDTH);// 12 bit: => 4096
+void Init_MQ7(void)
+{
+    adc1_config_width(ADC_WIDTH);                      // 12 bit: => 4096
     adc1_config_channel_atten(ADC_CHANNEL, ADC_ATTEN); // adc_atten: ADC_ATTEN_DB_11
 
     // Tạo bộ nhớ cho đặc tính hiệu chuẩn ADC
@@ -22,12 +26,13 @@ void Init_MQ7(void) {
     int adcValue = Get_ADCValue_MQ7();
     float Vrl = 3.3f * adcValue / 4096.f;
     float RS = (3.3f - Vrl) / Vrl * RL;
-    R0 = RS /pow(CAL_PPM / 98.43, 1 / -1.523f); 
+    R0 = RS / pow(CAL_PPM / 98.43, 1 / -1.523f);
 }
 // Lấy giá trị PPM của khí CO từ cảm biến MQ7
-float MQ7_GetPPM(void) {
-    float Vrl = 3.3f * Get_ADCValue_MQ7() / 4096.f; 
+float MQ7_GetPPM(void)
+{
+    float Vrl = 3.3f * Get_ADCValue_MQ7() / 4096.f;
     float RS = (3.3f - Vrl) / Vrl * RL;
-    float ppm = 98.43f * pow(RS/R0, -1.523f);
+    float ppm = 98.43f * pow(RS / R0, -1.523f);
     return ppm;
 }

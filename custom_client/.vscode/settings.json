@@ -1,0 +1,10 @@
+{
+  "C_Cpp.intelliSenseEngine": "default",
+  "files.associations": {
+    "esp_log.h": "c",
+    "custom_sensor_model_defs.h": "c"
+  },
+  "idf.adapterTargetName": "esp32c6",
+  "idf.openOcdConfigs": ["board/esp32c6-ftdi.cfg"],
+  "idf.portWin": "COM9"
+}

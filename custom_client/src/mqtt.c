@@ -23,8 +23,8 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     {
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
-        msg_id = esp_mqtt_client_subscribe(client, "data-sub", 0);
-        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+        // msg_id = esp_mqtt_client_subscribe(client, "ReceiveControl", 0);
+        // ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
         break;
 
     case MQTT_EVENT_DISCONNECTED:
@@ -70,15 +70,21 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 void mqtt_app_start(void)
 {
     const esp_mqtt_client_config_t mqtt_cfg = {
-        .broker.address.uri = "mqtt://mqtt.flespi.io",
-        .credentials.username = "oiGjHdBbBIvM0gOgrc0oLFTFt5ev1frmO6r8SOQURW1Gr7qYjFflB5IdeKutDcUk"
-        };
+        .broker.address.uri = EXAMPLE_ESP_MQQT_BORKER_URI,
+        .broker.address.port = EXAMPLE_ESP_MQQT_BORKER_PORT,
+        .credentials.username = EXAMPLE_ESP_MQQT_CREDENTIALS_USERNAME,
+    };
 
     ESP_LOGI(TAG, "[APP] Free memory: %ld bytes", esp_get_free_heap_size());
     global_client = esp_mqtt_client_init(&mqtt_cfg);
     /* The last argument may be used to pass data to the event handler, in this example mqtt_event_handler */
     esp_mqtt_client_register_event(global_client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
     esp_mqtt_client_start(global_client);
+}
+
+esp_mqtt_client_handle_t mqtt_get_global_client(void)
+{
+    return global_client;
 }
 
 void mqtt_data_pt_set_callback(void *cb)
@@ -89,29 +95,33 @@ void mqtt_data_pt_set_callback(void *cb)
     }
 }
 
-void mqtt_data_publish_callback(char *data,char * topic)
+void mqtt_data_publish_callback(char *topic, char *data, int length)
 {
-    int msg_id;
-    msg_id = esp_mqtt_client_publish(global_client, topic, data, 0, 1, 0);
-    ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+    esp_mqtt_client_handle_t client = mqtt_get_global_client();
+
+    esp_mqtt_client_publish(client, topic, data, length, 0, 0);
+    // ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 }
 
 char *convert_model_sensor_to_json(model_sensor_data_t *received_data)
 {
-   // create a new cJSON object
+    // create a new cJSON object
     cJSON *json = cJSON_CreateObject();
     if (json == NULL)
     {
-        printf("Error: Failed to create cJSON object\n");
-        return NULL;
+        const char *error_ptr = cJSON_GetErrorPtr();
+        if (error_ptr != NULL)
+        {
+            printf("Error: %s\n", error_ptr);
+        }
+        cJSON_Delete(json);
+        return 1;
     }
-   
 
     // modify the JSON data
     cJSON_AddNumberToObject(json, "temperature", received_data->temperature);
     cJSON_AddNumberToObject(json, "humidity", received_data->humidity);
     cJSON_AddNumberToObject(json, "CO", received_data->CO);
-    
 
     // convert the cJSON object to a JSON string
     char *json_str = cJSON_Print(json);
@@ -120,4 +130,40 @@ char *convert_model_sensor_to_json(model_sensor_data_t *received_data)
     cJSON_Delete(json);
 
     return json_str;
+}
+
+control_sensor_model_t convert_json_to_control_model_sensor(char *data)
+{
+    control_sensor_model_t temp;
+    memset(&temp, 0, sizeof(control_sensor_model_t)); // Khởi tạo struct với giá trị 0
+
+    cJSON *json = cJSON_Parse(data);
+    if (json == NULL)
+    {
+        const char *error_ptr = cJSON_GetErrorPtr();
+        if (error_ptr != NULL)
+        {
+            printf("Error: %s\n", error_ptr);
+        }
+        cJSON_Delete(json);
+        return temp;
+    }
+
+    // access the JSON data
+    cJSON *addr = cJSON_GetObjectItemCaseSensitive(json, "addr");
+    if (cJSON_IsNumber(addr))
+    {
+        temp.addr = (uint16_t)addr->valueint;
+        printf("Addr: %u\n", temp.addr);
+    }
+
+    cJSON *status = cJSON_GetObjectItemCaseSensitive(json, "status");
+    if (cJSON_IsNumber(status))
+    {
+        temp.status = status->valueint;
+        printf("Status: %d\n", temp.status);
+    }
+
+    cJSON_Delete(json);
+    return temp;
 }

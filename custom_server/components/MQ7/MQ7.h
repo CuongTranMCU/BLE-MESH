@@ -6,7 +6,7 @@
 #define RL 10
 
 // Cấu hình ADC (thay đổi các giá trị này cho phù hợp với phần cứng của bạn)
-#define ADC_CHANNEL ADC1_CHANNEL_6 
+#define ADC_CHANNEL ADC1_CHANNEL_6
 #define ADC_ATTEN ADC_ATTEN_DB_11
 #define ADC_WIDTH ADC_WIDTH_BIT_12
 #define DEFAULT_VREF 1100 // Sử dụng giá trị mặc định của ESP32// điện áp mặc định của ADC là 1.1V
