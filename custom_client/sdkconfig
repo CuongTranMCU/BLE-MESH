@@ -899,8 +899,8 @@ CONFIG_BLE_MESH_CLIENT_MSG_TIMEOUT=4000
 #
 # Support for BLE Mesh Foundation models
 #
-# CONFIG_BLE_MESH_CFG_CLI is not set
-# CONFIG_BLE_MESH_HEALTH_CLI is not set
+CONFIG_BLE_MESH_CFG_CLI=y
+CONFIG_BLE_MESH_HEALTH_CLI=y
 CONFIG_BLE_MESH_HEALTH_SRV=y
 # end of Support for BLE Mesh Foundation models
 

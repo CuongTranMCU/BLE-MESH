@@ -146,11 +146,17 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_set(model_sensor_data_t se
 
 esp_err_t ble_mesh_custom_sensor_client_model_message_get(uint16_t addr);
 
+static void configure_heartbeat_subscription(uint16_t src_addr, uint16_t dst_addr, uint8_t period_log);
+
 void mqtt_data_callback(char *data, uint16_t length);
 
 /******************************************
  ****** End Private Functions Prototypes ******
  ******************************************/
+
+/*******************************************
+ ****** Private Functions Definitions ******
+ *******************************************/
 
 bool is_client_provisioned(void)
 {
@@ -166,24 +172,28 @@ static void reset_node()
         return;
     }
 
-    // Kiểm tra kích thước phân vùng và địa chỉ hợp lệ
-    ESP_LOGI(TAG, "Partition address: 0x%08x, size: 0x%08x", partition->address, partition->size);
+static void configure_heartbeat_subscription(uint16_t src_addr, uint16_t dst_addr, uint8_t period_log)
+{
+    esp_ble_mesh_cfg_client_set_state_t set_state = {
+        .heartbeat_sub_set = {
+            .src = src_addr,      // Địa chỉ nguồn (Server gửi Heartbeat)
+            .dst = dst_addr,      // Địa chỉ đích (Client nhận Heartbeat)
+            .period = period_log, // Thời gian nhận (log base 2)
+        },
+    };
 
-    // Xóa phân vùng được tìm thấy
-    esp_err_t ret = esp_flash_erase_region(esp_flash_default_chip, partition->address, partition->size);
-    if (ret != ESP_OK) {
-        ESP_LOGE(TAG, "Failed to erase flash region: %s", esp_err_to_name(ret));
-        return;
+    esp_err_t err = esp_ble_mesh_config_client_set_state(NULL, &set_state);
+
+    if (err == ESP_OK)
+    {
+        ESP_LOGI(TAG, "Heartbeat subscription configured: src=0x%04x, dst=0x%04x, period=0x%02x",
+                 src_addr, dst_addr, period_log);
     }
-    ESP_LOGI(TAG, "Flash region erased successfully");
-
-    // Tiếp tục khởi tạo BLE Mesh hoặc các phần khác của hệ thống
-    ble_mesh_device_init_client();
-    ESP_LOGI(TAG, "BLE Mesh Device has been initialized successfully");
+    else
+    {
+        ESP_LOGE(TAG, "Failed to configure heartbeat subscription: %d", err);
+    }
 }
-/*******************************************
- ****** Private Functions Definitions ******
- *******************************************/
 
 static void prov_complete(uint16_t net_idx, uint16_t addr, uint8_t flags, uint32_t iv_index)
 {
@@ -204,6 +214,7 @@ static void ble_mesh_provisioning_cb(esp_ble_mesh_prov_cb_event_t event,
 
     case ESP_BLE_MESH_NODE_PROV_ENABLE_COMP_EVT:
         ESP_LOGI(TAG, "ESP_BLE_MESH_NODE_PROV_ENABLE_COMP_EVT, err_code %d", param->node_prov_enable_comp.err_code);
+
         break;
 
     case ESP_BLE_MESH_NODE_PROV_LINK_OPEN_EVT:
@@ -220,6 +231,7 @@ static void ble_mesh_provisioning_cb(esp_ble_mesh_prov_cb_event_t event,
         ESP_LOGI(TAG, "ESP_BLE_MESH_NODE_PROV_COMPLETE_EVT");
         prov_complete(param->node_prov_complete.net_idx, param->node_prov_complete.addr,
                       param->node_prov_complete.flags, param->node_prov_complete.iv_index);
+
         break;
 
     case ESP_BLE_MESH_NODE_PROV_RESET_EVT:
@@ -233,6 +245,32 @@ static void ble_mesh_provisioning_cb(esp_ble_mesh_prov_cb_event_t event,
 
     case ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT:
         ESP_LOGI(TAG, "ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT, Name: %s, err_code %d", BLE_MESH_DEVICE_NAME, param->node_set_unprov_dev_name_comp.err_code);
+        break;
+
+    case ESP_BLE_MESH_PROVISIONER_ENABLE_HEARTBEAT_RECV_COMP_EVT:
+        ESP_LOGI(TAG, "ESP_BLE_MESH_PROVISIONER_ENABLE_HEARTBEAT_RECV_COMP_EVT, Name: %s, err_code: %d",
+                 BLE_MESH_DEVICE_NAME, param->provisioner_enable_heartbeat_recv_comp.err_code);
+        break;
+
+    case ESP_BLE_MESH_PROVISIONER_SET_HEARTBEAT_FILTER_TYPE_COMP_EVT:
+        ESP_LOGI(TAG, "ESP_BLE_MESH_PROVISIONER_SET_HEARTBEAT_FILTER_TYPE_COMP_EVT, Name: %s, err_code: %d",
+                 BLE_MESH_DEVICE_NAME, param->provisioner_set_heartbeat_filter_type_comp.err_code);
+        break;
+
+    case ESP_BLE_MESH_PROVISIONER_SET_HEARTBEAT_FILTER_INFO_COMP_EVT:
+        ESP_LOGI(TAG, "ESP_BLE_MESH_PROVISIONER_SET_HEARTBEAT_FILTER_INFO_COMP_EVT, Name: %s, err_code: %d",
+                 BLE_MESH_DEVICE_NAME, param->provisioner_set_heartbeat_filter_info_comp.err_code);
+        break;
+
+    case ESP_BLE_MESH_PROVISIONER_RECV_HEARTBEAT_MESSAGE_EVT:
+        ESP_LOGI(TAG, "ESP_BLE_MESH_PROVISIONER_RECV_HEARTBEAT_MESSAGE_EVT, Name: %s", BLE_MESH_DEVICE_NAME);
+
+        uint16_t hb_src = param->provisioner_recv_heartbeat.hb_src;
+        uint8_t hops = param->provisioner_recv_heartbeat.hops;
+        int8_t rssi = param->provisioner_recv_heartbeat.rssi;
+
+        ESP_LOGI(TAG, "Heartbeat PROViSONER from 0x%04x, hops %d, rssi %d", hb_src, hops, rssi);
+
         break;
 
     default:
@@ -275,10 +313,11 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
 {
     switch (event)
     {
-    case ESP_BLE_MESH_MODEL_OPERATION_EVT: // P2P Received message from server
+    case ESP_BLE_MESH_MODEL_OPERATION_EVT: // (GET) P2P Received message from server
         switch (param->model_operation.opcode)
         {
         case ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS:
+
             ESP_LOGI(TAG, "OP_STATUS -- Mensagem recebida: 0x%06x", param->model_operation.opcode);
             ESP_LOG_BUFFER_HEX(TAG, param->model_operation.msg, param->model_operation.length);
             // ESP_LOGI(TAG, "\t Mensagem recebida: 0x%06x", param->model_operation.msg);
@@ -290,7 +329,7 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
         }
         break;
 
-    case ESP_BLE_MESH_MODEL_SEND_COMP_EVT: // Set  Send message completion
+    case ESP_BLE_MESH_MODEL_SEND_COMP_EVT: // (Set)  Send message completion
         if (param->model_send_comp.err_code)
         {
             ESP_LOGE(TAG, "Failed to send message 0x%06x", param->model_send_comp.opcode);
@@ -300,12 +339,15 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
 
         break;
 
-    case ESP_BLE_MESH_CLIENT_MODEL_RECV_PUBLISH_MSG_EVT: // Get STATUS FROM GROUP
+    case ESP_BLE_MESH_CLIENT_MODEL_RECV_PUBLISH_MSG_EVT: // GET STATUS SENSOR FROM GROUP
         switch (param->client_recv_publish_msg.opcode)
         {
         case ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS:
+
             ESP_LOGI(TAG, "OP_STATUS -- Message received: 0x%06x", param->client_recv_publish_msg.opcode);
-            ESP_LOGI(TAG, "src: 0x%04x, dst: 0x%04x", param->client_recv_publish_msg.ctx->addr, param->client_recv_publish_msg.ctx->recv_dst);
+            ESP_LOGI(TAG, "rsc: 0x%04x, dst: 0x%04x, ", param->client_recv_publish_msg.ctx->addr, param->client_recv_publish_msg.ctx->recv_dst);
+            ESP_LOGI(TAG, "RSSI: %d, TTL: %d, ", param->client_recv_publish_msg.ctx->recv_rssi, param->client_recv_publish_msg.ctx->recv_ttl);
+
             ESP_LOG_BUFFER_HEX(TAG, param->client_recv_publish_msg.msg, param->client_recv_publish_msg.length);
 
             model_sensor_data_t received_data;
@@ -459,6 +501,12 @@ esp_err_t ble_mesh_device_init_client(void)
     mqtt_data_pt_set_callback(mqtt_get_data_callback);
 
     ESP_LOGI(TAG, "BLE Mesh Node initialized");
+
+    if (err)
+    {
+        ESP_LOGE(TAG, "Failed to enable heartbeat, error: %s", esp_err_to_name(err));
+        return err;
+    }
 
     // Cấu hình callback MQTT
     mqtt_data_pt_set_callback(mqtt_data_callback);

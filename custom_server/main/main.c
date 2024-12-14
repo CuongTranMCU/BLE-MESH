@@ -22,7 +22,7 @@ QueueHandle_t received_data_from_sensor_queue = NULL;
 
 static void read_received_items(void *arg)
 {
-    ESP_LOGI(TAG, "Task initializing..");
+    ESP_LOGI(TAG, "Task initializing...");
 
     model_sensor_data_t _received_data;
 
@@ -45,7 +45,7 @@ static void read_data_from_sensors(void *arg)
     model_sensor_data_t _received_data;
     while (1)
     {
-        ESP_LOGI(TAG, "Task initializing..");
+        ESP_LOGI(TAG, "Task initializing...");
 
         // int ret = readDHT();
         // errorHandler(ret);
