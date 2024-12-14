@@ -21,6 +21,10 @@
 #include "esp_ble_mesh_generic_model_api.h"
 
 #include "custom_sensor_model_defs.h"
+#include "esp_flash.h"
+#include "esp_err.h"
+#include "esp_system.h"
+#include "nvs_flash.h"
 
 /**
  * @brief Initializes BLE Mesh stack, initializing Models and it's callback functions
