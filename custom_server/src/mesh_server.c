@@ -62,7 +62,7 @@ static esp_ble_mesh_model_op_t custom_sensor_op[] = {
 };
 
 static model_sensor_data_t _server_model_state = {
-    .device_name = "esp_server 02",
+    .device_name = "esp_server 03",
 };
 
 //* E agora a definiçao do model

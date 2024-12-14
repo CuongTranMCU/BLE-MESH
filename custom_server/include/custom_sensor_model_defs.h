@@ -17,7 +17,7 @@
 
 #include "esp_ble_mesh_common_api.h"
 
-#define BLE_MESH_DEVICE_NAME "ESP-SERVER MESH 02" /*!< Device Advertising Name */
+#define BLE_MESH_DEVICE_NAME "ESP-SERVER MESH 03" /*!< Device Advertising Name */
 #define CID_ESP 0x02E5                            /*!< Espressif Component ID */
 
 //* Definicao dos IDs dos Models (Server e Client)
