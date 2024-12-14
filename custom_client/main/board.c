@@ -64,7 +64,7 @@ static void board_led_init(void)
 
 static void button_tap_cb(void* arg)
 {
-     ESP_LOGI(TAG, "Button tapped, performing flash erase.");
+    ESP_LOGI(TAG, "Button tapped, performing flash erase.");
 
     // Lấy thông tin phân vùng
     const esp_partition_t* partition = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_ANY, NULL);

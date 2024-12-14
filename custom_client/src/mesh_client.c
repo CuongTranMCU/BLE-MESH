@@ -18,6 +18,11 @@
 #include "esp_bt_main.h"
 #include "esp_bt_device.h"
 #include "esp_ble_mesh_defs.h"
+#include "esp_timer.h"
+#include "esp_flash.h"
+#include "esp_err.h"
+#include "esp_system.h"
+#include "nvs_flash.h"
 
 
 // 
@@ -160,7 +165,31 @@ bool is_client_provisioned(void)
 {
     return is_provisioning;
 }
+// Reset node:
+static void reset_node()
+{
+    // Lấy thông tin phân vùng
+    const esp_partition_t* partition = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_ANY, NULL);
+    if (partition == NULL) {
+        ESP_LOGE(TAG, "Failed to find partition");
+        return;
+    }
 
+    // Kiểm tra kích thước phân vùng và địa chỉ hợp lệ
+    ESP_LOGI(TAG, "Partition address: 0x%08x, size: 0x%08x", partition->address, partition->size);
+
+    // Xóa phân vùng được tìm thấy
+    esp_err_t ret = esp_flash_erase_region(esp_flash_default_chip, partition->address, partition->size);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to erase flash region: %s", esp_err_to_name(ret));
+        return;
+    }
+    ESP_LOGI(TAG, "Flash region erased successfully");
+
+    // Tiếp tục khởi tạo BLE Mesh hoặc các phần khác của hệ thống
+    ble_mesh_device_init_client();
+    ESP_LOGI(TAG, "BLE Mesh Device has been initialized successfully");
+}
 /*******************************************
  ****** Private Functions Definitions ******
  *******************************************/
@@ -201,6 +230,12 @@ static void ble_mesh_provisioning_cb(esp_ble_mesh_prov_cb_event_t event,
         break;
         
         case ESP_BLE_MESH_NODE_PROV_RESET_EVT:
+            esp_timer_handle_t reset_timer;
+            esp_timer_create_args_t timer_args = {
+            .callback = &reset_node
+             };
+            esp_timer_create(&timer_args, &reset_timer);
+            esp_timer_start_once(reset_timer, 5000000);  // Trì hoãn 5 giây
         break;
         
         case ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT:
