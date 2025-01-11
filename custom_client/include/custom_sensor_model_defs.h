@@ -40,8 +40,8 @@ typedef struct __attribute__((packed))
 {
     char device_name[20];
     float temperature;
-    float CO;
     float humidity;
+    float smoke;
 
     /**< Feedback answers */
     uint8_t feedback; /*!< Each bit corresponds to an answer: (NEW_DATA | X | X | TEMP_COMF | HIGH_TEMP | SOUND_COMF | LIGHT_COMF | LIGHTNESS) */

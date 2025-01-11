@@ -99,34 +99,49 @@ void mqtt_data_publish_callback(char *topic, char *data, int length)
 {
     esp_mqtt_client_handle_t client = mqtt_get_global_client();
 
-    esp_mqtt_client_publish(client, topic, data, length, 0, 0);
-    // ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+    int msg_id = esp_mqtt_client_publish(client, topic, data, length, 0, 0);
+    if (msg_id >= 0)
+    {
+        ESP_LOGI(TAG, "Sent publish successful, msg_id=%d", msg_id);
+    }
+    else
+    {
+        ESP_LOGE(TAG, "Failed to publish message");
+    }
 }
 
-char *convert_model_sensor_to_json(model_sensor_data_t *received_data)
+char *convert_model_sensor_to_json(model_sensor_data_t *received_data, int rssi)
 {
     // create a new cJSON object
     cJSON *json = cJSON_CreateObject();
     if (json == NULL)
     {
-        const char *error_ptr = cJSON_GetErrorPtr();
-        if (error_ptr != NULL)
-        {
-            printf("Error: %s\n", error_ptr);
-        }
-        cJSON_Delete(json);
-        return 1;
+        printf("Error: Failed to create JSON object.\n");
+        return NULL;
     }
 
-    // modify the JSON data
-    cJSON_AddNumberToObject(json, "temperature", received_data->temperature);
-    cJSON_AddNumberToObject(json, "humidity", received_data->humidity);
-    cJSON_AddNumberToObject(json, "CO", received_data->CO);
+    // create a nested JSON object for the device
+    cJSON *device_data = cJSON_CreateObject();
+    if (device_data == NULL)
+    {
+        printf("Error: Failed to create nested JSON object.\n");
+        cJSON_Delete(json);
+        return NULL;
+    }
+
+    // add sensor data to the nested object
+    cJSON_AddNumberToObject(device_data, "humidity", received_data->humidity);
+    cJSON_AddNumberToObject(device_data, "temperature", received_data->temperature);
+    cJSON_AddNumberToObject(device_data, "smoke", received_data->smoke);
+    cJSON_AddNumberToObject(device_data, "rssi", rssi);
+
+    // add the nested object to the main JSON object with the device name as the key
+    cJSON_AddItemToObject(json, received_data->device_name, device_data);
 
     // convert the cJSON object to a JSON string
     char *json_str = cJSON_Print(json);
 
-    // free the JSON string and cJSON object
+    // free the JSON object
     cJSON_Delete(json);
 
     return json_str;

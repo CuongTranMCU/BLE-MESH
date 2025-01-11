@@ -19,7 +19,7 @@
 #include "esp_bt_device.h"
 #include "esp_ble_mesh_defs.h"
 
-static const char *TAG = "MESH_SERVER 02";
+static const char *TAG = "MESH SERVER";
 
 /*******************************************
  ****** Private Variables Definitions ******
@@ -62,7 +62,7 @@ static esp_ble_mesh_model_op_t custom_sensor_op[] = {
 };
 
 static model_sensor_data_t _server_model_state = {
-    .device_name = "esp_server 03",
+    .device_name = "Server",
 };
 
 //* E agora a definiçao do model
@@ -346,12 +346,12 @@ static void get_data_from_sensors()
     if (xQueueReceive(received_data_from_sensor_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
     {
         ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
-        ESP_LOGI(TAG, "    Humidity:     %f", _received_data.humidity);
-        ESP_LOGI(TAG, "    CO:     %f", _received_data.CO);
+        ESP_LOGI(TAG, "    Humidity:    %f", _received_data.humidity);
+        ESP_LOGI(TAG, "    Somke:       %f", _received_data.smoke);
 
         _server_model_state.temperature = _received_data.temperature;
         _server_model_state.humidity = _received_data.humidity;
-        _server_model_state.CO = _received_data.CO;
+        _server_model_state.smoke = _received_data.smoke;
     }
 }
 static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t event,
@@ -431,8 +431,8 @@ static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model
 
     ESP_LOGW("PARSED_DATA", "Device Name = %s", parsed_data->device_name);
     ESP_LOGW("PARSED_DATA", "Temperature = %f", parsed_data->temperature);
-    ESP_LOGW("PARSED_DATA", "CO          = %f", parsed_data->CO);
     ESP_LOGW("PARSED_DATA", "Humidity    = %f", parsed_data->humidity);
+    ESP_LOGW("PARSED_DATA", "Smoke       = %f", parsed_data->smoke);
 
     xQueueSendToBack(ble_mesh_received_data_queue, parsed_data, portMAX_DELAY);
 }

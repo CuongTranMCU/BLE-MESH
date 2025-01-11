@@ -66,6 +66,8 @@ static void air_sensor_task(void *arg)
             // strcpy(device_sensor_data.device_name, "GW");
 
             // ble_mesh_custom_sensor_client_model_message_set(device_sensor_data);
+            // ble_mesh_custom_sensor_client_model_message_get(0xC005);
+            // ble_mesh_custom_sensor_client_model_message_get(0xC001);
             ble_mesh_custom_sensor_client_model_message_get(0);
 
             ticks = 0;
@@ -86,6 +88,7 @@ void app_main(void)
     }
     ESP_ERROR_CHECK(err);
     board_init();
+
     wifi_init();
 
     err = ble_mesh_device_init();
@@ -93,5 +96,6 @@ void app_main(void)
     {
         ESP_LOGE(TAG, "Bluetooth mesh init failed (err %d)", err);
     }
+
     xTaskCreate(air_sensor_task, "air_sensor_main_task", 2048 * 2, (void *)0, 20, NULL);
 }

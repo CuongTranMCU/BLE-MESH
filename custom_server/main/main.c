@@ -10,15 +10,14 @@
 #include "freertos/task.h"
 
 #include "DHT22.h"
-#include "MQ7.h"
 #include "board.h"
 
 static const char *TAG = "MESH-SERVER-EXAMPLE";
 
-esp_adc_cal_characteristics_t *adc_chars; // MQ7
-
 QueueHandle_t ble_mesh_received_data_queue = NULL;
 QueueHandle_t received_data_from_sensor_queue = NULL;
+
+#define BUZZER_PIN 21
 
 static void read_received_items(void *arg)
 {
@@ -34,8 +33,8 @@ static void read_received_items(void *arg)
         {
             ESP_LOGI(TAG, "    Device Name: %s", _received_data.device_name);
             ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
-            ESP_LOGI(TAG, "    CO         : %f", _received_data.CO);
             ESP_LOGI(TAG, "    Humidity   : %f", _received_data.humidity);
+            ESP_LOGI(TAG, "    Smoke         : %f", _received_data.smoke);
         }
     }
 }
@@ -47,15 +46,19 @@ static void read_data_from_sensors(void *arg)
     {
         ESP_LOGI(TAG, "Task initializing...");
 
-        // int ret = readDHT();
+        int ret = readDHT();
         // errorHandler(ret);
         // float CO = MQ7_GetPPM();
-        // float hum = getHumidity();
-        // float temp = getTemperature();
+        float hum = getHumidity();
+        float temp = getTemperature();
 
-        _received_data.temperature = 5.6;
-        _received_data.humidity = 4.2;
-        _received_data.CO = 30.7;
+        _received_data.temperature = temp;
+        _received_data.humidity = hum;
+        _received_data.smoke = 30.7;
+
+        ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
+        ESP_LOGI(TAG, "    Humidity   : %f", _received_data.humidity);
+        ESP_LOGI(TAG, "    Smoke      : %f", _received_data.smoke);
 
         xQueueSendToBack(received_data_from_sensor_queue, &_received_data, portMAX_DELAY);
         vTaskDelay(5000 / portTICK_PERIOD_MS);
@@ -68,8 +71,20 @@ void app_main(void)
 
     ESP_LOGI(TAG, "Initializing...");
 
+    gpio_config_t io_conf;
+
+    // Configure LED pin as output
+    io_conf.intr_type = GPIO_INTR_DISABLE;
+    io_conf.mode = GPIO_MODE_OUTPUT;
+    io_conf.pin_bit_mask = (1ULL << BUZZER_PIN);
+    io_conf.pull_down_en = GPIO_PULLDOWN_ENABLE;
+    io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
+    gpio_config(&io_conf);
+    gpio_set_direction(BUZZER_PIN, GPIO_MODE_OUTPUT);
+    gpio_set_level(BUZZER_PIN, 0);
+
     ble_mesh_received_data_queue = xQueueCreate(5, sizeof(model_sensor_data_t));
-    received_data_from_sensor_queue = xQueueCreate(1, sizeof(model_sensor_data_t));
+    received_data_from_sensor_queue = xQueueCreate(5, sizeof(model_sensor_data_t));
 
     err = nvs_flash_init();
     if (err == ESP_ERR_NVS_NO_FREE_PAGES)
@@ -80,10 +95,9 @@ void app_main(void)
     ESP_ERROR_CHECK(err);
 
     // HUMIDITY, TEMPERATURE
-    setDHTgpio(GPIO_NUM_5);
+    setDHTgpio(GPIO_NUM_2);
     ESP_LOGI(TAG, "Starting DHT Task\n\n");
 
-    Init_MQ7();
     board_init();
 
     err = ble_mesh_device_init();

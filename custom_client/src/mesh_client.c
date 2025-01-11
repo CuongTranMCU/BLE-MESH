@@ -341,18 +341,18 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
 
             ESP_LOG_BUFFER_HEX(TAG, param->client_recv_publish_msg.msg, param->client_recv_publish_msg.length);
 
+            char rsc[8];
+            sprintf(rsc, " 0x%04x", param->client_recv_publish_msg.ctx->addr);
+
             model_sensor_data_t received_data;
             parse_received_data(param, &received_data);
 
-            char *json_data = convert_model_sensor_to_json(&received_data);
-            if (strcmp(received_data.device_name, "esp_server 01") == 0)
-            {
-                mqtt_data_publish_callback("node-01", json_data, 0);
-            }
-            else if (strcmp(received_data.device_name, "esp_server 02") == 0)
-            {
-                mqtt_data_publish_callback("node-02", json_data, 0);
-            }
+            strcat(received_data.device_name, rsc);
+
+            char *json_data = convert_model_sensor_to_json(&received_data, param->client_recv_publish_msg.ctx->recv_rssi);
+
+            mqtt_data_publish_callback("Send Data", json_data, 0);
+
             free(json_data);
 
             break;
@@ -387,8 +387,8 @@ static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model
 
     ESP_LOGW("PARSED_DATA", "Device Name = %s", parsed_data->device_name);
     ESP_LOGW("PARSED_DATA", "Temperature = %f", parsed_data->temperature);
-    ESP_LOGW("PARSED_DATA", "CO          = %f", parsed_data->CO);
     ESP_LOGW("PARSED_DATA", "Humidity    = %f", parsed_data->humidity);
+    ESP_LOGW("PARSED_DATA", "Smoke       = %f", parsed_data->smoke);
 }
 
 static void ble_mesh_get_dev_uuid(uint8_t *dev_uuid)
