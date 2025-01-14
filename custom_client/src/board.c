@@ -16,8 +16,8 @@
 extern void example_ble_mesh_send_gen_onoff_set(void);
 extern void example_ble_mesh_send_gen_onoff_get(void);
 
-static void erase_entire_flash(void);
-static void erase_ble_mesh_data(void);
+// static void erase_entire_flash(void);
+// static void erase_ble_mesh_data(void);
 
 void retrieve_all_entries_in_nvs();
 void erase_all_data_in_namespace(const char *namespace);
@@ -106,14 +106,11 @@ static void button_tap_cb(void *arg)
         {
             ledStatus = !ledStatus;
             gpio_set_level(LED_PIN, ledStatus);
-            // retrieve_entry_data("nvs.net80211");
-            // retrieve_entry_data("mesh_core");
-
+            // Stop Wifi
             clear_wifi_credentials();
-            get_wifi_configuration();
-            check_wifi_connection();
+            // get_wifi_configuration();
 
-            // // Stop BLE Mesh
+            // Stop BLE Mesh
             // esp_err_t err;
             // err = stop_ble_mesh();
             // if (err == ESP_OK)
@@ -275,15 +272,9 @@ void clear_wifi_credentials()
 {
     erase_all_data_in_namespace("nvs.net80211");
 
-    // Khởi động lại Wi-Fi để áp dụng thay đổi
     esp_wifi_stop();
     check_wifi_connection();
-    // esp_wifi_start();
-
-    // // Restart esp32c6
-    // printf("Restarting now.\n");
-    // fflush(stdout);
-    // esp_restart();
+    esp_restart();
 }
 
 void get_wifi_configuration()
@@ -295,7 +286,6 @@ void get_wifi_configuration()
     ESP_LOGI(TAG, "WIFI SSID: %s", (char *)wifi_cfg.sta.ssid);
     ESP_LOGI(TAG, "WIFI Password: %s", (char *)wifi_cfg.sta.password);
 
-    // clear_wifi_credentials();
 }
 
 void check_wifi_connection()

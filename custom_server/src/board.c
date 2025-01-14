@@ -20,7 +20,7 @@
 #include "nvs_flash.h"
 
 #define TAG "BOARD"
-#define BUTTON_IO_NUM 0
+#define BUTTON_IO_NUM 9
 #define BUTTON_ACTIVE_LEVEL 0
 struct _led_state led_state[3] = {
     {LED_OFF, LED_OFF, LED_R, "red"},

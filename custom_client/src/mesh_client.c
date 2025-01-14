@@ -21,7 +21,7 @@ static uint8_t dev_uuid[16] = {0xdd, 0xdd}; /**< Device UUID */
 static bool is_provisioning = false; /**<Provision flags> */
 
 // Definicao do Configuration Server Model
-    static esp_ble_mesh_cfg_srv_t config_server = {
+static esp_ble_mesh_cfg_srv_t config_server = {
     .relay = ESP_BLE_MESH_RELAY_DISABLED,
     .beacon = ESP_BLE_MESH_BEACON_ENABLED,
 #if defined(CONFIG_BLE_MESH_FRIEND)
@@ -162,15 +162,6 @@ bool is_client_provisioned(void)
 {
     return is_provisioning;
 }
-// Reset node:
-static void reset_node()
-{
-    // Lấy thông tin phân vùng
-    const esp_partition_t* partition = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_ANY, NULL);
-    if (partition == NULL) {
-        ESP_LOGE(TAG, "Failed to find partition");
-        return;
-    }
 
 static void configure_heartbeat_subscription(uint16_t src_addr, uint16_t dst_addr, uint8_t period_log)
 {
@@ -350,18 +341,18 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
 
             ESP_LOG_BUFFER_HEX(TAG, param->client_recv_publish_msg.msg, param->client_recv_publish_msg.length);
 
+            char rsc[8];
+            sprintf(rsc, " 0x%04x", param->client_recv_publish_msg.ctx->addr);
+
             model_sensor_data_t received_data;
             parse_received_data(param, &received_data);
 
-            char *json_data = convert_model_sensor_to_json(&received_data);
-            if (strcmp(received_data.device_name, "esp_server 01") == 0)
-            {
-                mqtt_data_publish_callback("node-01", json_data, 0);
-            }
-            else if (strcmp(received_data.device_name, "esp_server 02") == 0)
-            {
-                mqtt_data_publish_callback("node-02", json_data, 0);
-            }
+            strcat(received_data.device_name, rsc);
+
+            char *json_data = convert_model_sensor_to_json(&received_data, param->client_recv_publish_msg.ctx->recv_rssi);
+
+            mqtt_data_publish_callback("Send Data", json_data, 0);
+
             free(json_data);
 
             break;
@@ -396,8 +387,8 @@ static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model
 
     ESP_LOGW("PARSED_DATA", "Device Name = %s", parsed_data->device_name);
     ESP_LOGW("PARSED_DATA", "Temperature = %f", parsed_data->temperature);
-    ESP_LOGW("PARSED_DATA", "CO          = %f", parsed_data->CO);
     ESP_LOGW("PARSED_DATA", "Humidity    = %f", parsed_data->humidity);
+    ESP_LOGW("PARSED_DATA", "Smoke       = %f", parsed_data->smoke);
 }
 
 static void ble_mesh_get_dev_uuid(uint8_t *dev_uuid)
@@ -497,8 +488,6 @@ esp_err_t ble_mesh_device_init_client(void)
 
     // Bật provisioning cho thiết bị Mesh (advertising và GATT)
     esp_ble_mesh_node_prov_enable(ESP_BLE_MESH_PROV_ADV | ESP_BLE_MESH_PROV_GATT);
-    wifi_init_sta();
-    mqtt_data_pt_set_callback(mqtt_get_data_callback);
 
     ESP_LOGI(TAG, "BLE Mesh Node initialized");
 
@@ -555,8 +544,7 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_get(uint16_t addr)
     esp_err_t err;
 
     opcode = ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_GET;
-    uint16_t publish_addr = custom_sensor_client.model->pub->publish_addr;
-    ctx.addr = publish_addr;
+
     ctx.net_idx = 0;
     ctx.app_idx = 0;
 

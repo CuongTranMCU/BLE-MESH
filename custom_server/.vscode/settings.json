@@ -1,14 +1,21 @@
 {
   "idf.adapterTargetName": "esp32",
   "idf.openOcdConfigs": [
-    "interface/ftdi/esp32_devkitj_v1.cfg",
-    "target/esp32.cfg"
+    "board/esp32c6-ftdi.cfg"
   ],
   "files.associations": {
     "mesh_device_app.h": "c",
     "dht11.h": "c",
     "dht22.h": "c",
-    "esp_ble_mesh_config_model_api.h": "c"
+    "mp2.h": "c",
+    "esp_ble_mesh_config_model_api.h": "c",
+    "board.h": "c",
+    "freertos.h": "c",
+    "esp_log.h": "c",
+    "mesh_server.h": "c",
+    "stdlib.h": "c",
+    "flame.h": "c",
+    "gpio.h": "c"
   },
-  "idf.portWin": "COM7"
+  "idf.portWin": "COM13"
 }
