@@ -13,6 +13,7 @@
 #include "driver/gpio.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/timers.h"
 #include "esp_log.h"
 #include "esp_flash.h"
 #include "esp_timer.h"
@@ -20,9 +21,10 @@
 #include "esp_system.h"
 #include "nvs_flash.h"
 #include "iot_button.h"
-
 #include "esp_ble_mesh_defs.h"
 #include "wifi.h"
+
+#include <stdio.h>
 
 // Define LED pins based on ESP32 board configuration
 #if defined(CONFIG_BLE_MESH_ESP_WROOM_32)
@@ -70,6 +72,14 @@ typedef struct __attribute__((packed))
     uint8_t pin;
     char *name;
 } led_state_t;
+
+typedef enum states
+{
+    INIT_STATE,
+    BEFORE_800ms,
+    AFTER_800ms,
+    LONG_PRESSED
+} button_state_t;
 
 // Function declarations
 void board_led_operation(uint8_t pin, uint8_t onoff);

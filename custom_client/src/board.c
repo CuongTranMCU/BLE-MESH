@@ -8,9 +8,7 @@
  */
 
 #include "board.h"
-#define WIFI_SSID_KEY "wifi_ssid"
-#define WIFI_PASSWORD_KEY "wifi_password"
-#define APP_KEY_KEY "app_key"
+
 #define TAG "WiFiProvision"
 
 extern void example_ble_mesh_send_gen_onoff_set(void);
@@ -28,13 +26,23 @@ void clear_wifi_credentials();
 void check_wifi_connection();
 void get_wifi_configuration();
 
+void button_press_cb(void *arg);
+void button_release_cb(void *arg);
+void vTimerCallback_800ms(TimerHandle_t xTimer);
+void vTimerCallback_3s();
+
 static void board_led_init(void);
 static void board_button_init(void);
-static void button_tap_cb(void *arg);
 
 bool buttonPressed = false;
 TickType_t lastClickTime = 0;
 bool ledStatus = false;
+
+int count = 0;
+button_state_t state = INIT_STATE;
+
+TimerHandle_t buttonTimer_800ms = NULL;
+TimerHandle_t buttonTimer_3s = NULL;
 
 led_state_t led_state[3] = {
     {LED_OFF, LED_OFF, LED_R, "red"},
@@ -88,54 +96,6 @@ void wifi_reprovisioning(void)
 {
     wifi_prov_mgr_reset_sm_state_for_reprovision();
     xEventGroupWaitBits(wifi_event_group, WIFI_CONNECTED_EVENT, true, true, portMAX_DELAY);
-}
-
-static void button_tap_cb(void *arg)
-{
-
-    if (buttonPressed)
-    {
-
-        buttonPressed = false;
-        TickType_t now = xTaskGetTickCount();
-        if ((now - lastClickTime) > pdMS_TO_TICKS(2000))
-        {
-            buttonPressed = true;
-        }
-        else if ((now - lastClickTime) < pdMS_TO_TICKS(DOUBLE_CLICK_TIME))
-        {
-            ledStatus = !ledStatus;
-            gpio_set_level(LED_PIN, ledStatus);
-            // retrieve_entry_data("nvs.net80211");
-            // retrieve_entry_data("mesh_core");
-
-            clear_wifi_credentials();
-            get_wifi_configuration();
-            check_wifi_connection();
-
-            // // Stop BLE Mesh
-            // esp_err_t err;
-            // err = stop_ble_mesh();
-            // if (err == ESP_OK)
-            // {
-            //     ESP_LOGI("BLE MESH", "Stopped!");
-            // }
-            // else
-            // {
-            //     ESP_LOGE("BLE MESH", "Failed to stop BLE Mesh.");
-            // }
-
-            // esp_restart();
-        }
-        lastClickTime = now;
-    }
-    else
-    {
-        buttonPressed = true;
-        lastClickTime = xTaskGetTickCount();
-    }
-
-    return;
 }
 
 void retrieve_entry_data(const char *namespace)
@@ -278,12 +238,11 @@ void clear_wifi_credentials()
     // Khởi động lại Wi-Fi để áp dụng thay đổi
     esp_wifi_stop();
     check_wifi_connection();
-    // esp_wifi_start();
 
-    // // Restart esp32c6
-    // printf("Restarting now.\n");
-    // fflush(stdout);
-    // esp_restart();
+    // Restart esp32c6
+    printf("Restarting now.\n");
+    fflush(stdout);
+    esp_restart();
 }
 
 void get_wifi_configuration()
@@ -294,8 +253,6 @@ void get_wifi_configuration()
     esp_wifi_get_config(ESP_IF_WIFI_STA, &wifi_cfg);
     ESP_LOGI(TAG, "WIFI SSID: %s", (char *)wifi_cfg.sta.ssid);
     ESP_LOGI(TAG, "WIFI Password: %s", (char *)wifi_cfg.sta.password);
-
-    // clear_wifi_credentials();
 }
 
 void check_wifi_connection()
@@ -318,8 +275,9 @@ static void board_button_init(void)
     button_handle_t btn_handle = iot_button_create(BUTTON_IO_NUM, BUTTON_ACTIVE_LEVEL);
     if (btn_handle)
     {
+        iot_button_set_evt_cb(btn_handle, BUTTON_CB_PUSH, button_press_cb, "PRESS");
 
-        iot_button_set_evt_cb(btn_handle, BUTTON_CB_RELEASE, button_tap_cb, "RELEASE");
+        iot_button_set_evt_cb(btn_handle, BUTTON_CB_RELEASE, button_release_cb, "RELEASE");
     }
 }
 
@@ -327,4 +285,80 @@ void board_init(void)
 {
     board_led_init();
     board_button_init();
+}
+
+void button_release_cb(void *arg)
+{
+
+    ESP_LOGI(TAG, "Button released");
+
+    if (state == LONG_PRESSED)
+    {
+        ESP_LOGI(TAG, "Long press detected");
+        state = INIT_STATE;
+    }
+    else
+    {
+        if (xTimerStop(buttonTimer_3s, 0) == pdPASS)
+        {
+            if (state < AFTER_800ms)
+            {
+                count += 1;
+            }
+            state = INIT_STATE;
+        }
+    }
+}
+
+void button_press_cb(void *arg)
+{
+    ESP_LOGI(TAG, "Button pressed");
+    buttonTimer_800ms = xTimerCreate("Timer", pdMS_TO_TICKS(800), pdFALSE, (void *)0, vTimerCallback_800ms);
+    xTimerStart(buttonTimer_800ms, 0);
+
+    buttonTimer_3s = xTimerCreate("Timer", pdMS_TO_TICKS(3000), pdFALSE, NULL, vTimerCallback_3s);
+    state = BEFORE_800ms;
+    xTimerStart(buttonTimer_3s, 0);
+    return;
+}
+
+void vTimerCallback_800ms(TimerHandle_t xTimer)
+{
+    uint32_t ulCount;
+    configASSERT(xTimer);
+    ulCount = (uint32_t)pvTimerGetTimerID(xTimer);
+    if (ulCount == 0)
+    {
+        if (count == 1)
+        {
+            ESP_LOGI("BUTTON", "Single click detected");
+        }
+        else if (count == 2)
+        {
+            ESP_LOGI("BUTTON", "Double click detected");
+            clear_wifi_credentials();
+        }
+        else if (count == 3)
+        {
+            ESP_LOGI("BUTTON", "Triple click detected");
+            clear_ble_mesh_data();
+        }
+    }
+    count = 0;
+
+    if (state == BEFORE_800ms)
+    {
+        state = AFTER_800ms;
+    }
+
+    return;
+}
+
+void vTimerCallback_3s()
+{
+    if (state == AFTER_800ms)
+    {
+        state = LONG_PRESSED;
+    }
+    return;
 }
