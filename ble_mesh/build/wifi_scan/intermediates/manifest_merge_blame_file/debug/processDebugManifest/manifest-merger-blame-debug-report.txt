@@ -1,0 +1,22 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="dev.flutternetwork.wifi.wifi_scan" >
+4
+5    <uses-sdk android:minSdkVersion="16" />
+6    <!-- required for: `WifiManager.getScanResult` -->
+7    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+7-->C:\Users\asus\AppData\Local\Pub\Cache\hosted\pub.dev\wifi_scan-0.4.1+1\android\src\main\AndroidManifest.xml:3:5-75
+7-->C:\Users\asus\AppData\Local\Pub\Cache\hosted\pub.dev\wifi_scan-0.4.1+1\android\src\main\AndroidManifest.xml:3:22-73
+8    <!-- required for: `WifiManager.startScan` -->
+9    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+9-->C:\Users\asus\AppData\Local\Pub\Cache\hosted\pub.dev\wifi_scan-0.4.1+1\android\src\main\AndroidManifest.xml:5:5-75
+9-->C:\Users\asus\AppData\Local\Pub\Cache\hosted\pub.dev\wifi_scan-0.4.1+1\android\src\main\AndroidManifest.xml:5:22-73
+10    <!-- required for: `WifiManager.getScanResult`, `WifiManager.startScan` -->
+11    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+11-->C:\Users\asus\AppData\Local\Pub\Cache\hosted\pub.dev\wifi_scan-0.4.1+1\android\src\main\AndroidManifest.xml:7:5-80
+11-->C:\Users\asus\AppData\Local\Pub\Cache\hosted\pub.dev\wifi_scan-0.4.1+1\android\src\main\AndroidManifest.xml:7:22-78
+12    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+12-->C:\Users\asus\AppData\Local\Pub\Cache\hosted\pub.dev\wifi_scan-0.4.1+1\android\src\main\AndroidManifest.xml:8:5-78
+12-->C:\Users\asus\AppData\Local\Pub\Cache\hosted\pub.dev\wifi_scan-0.4.1+1\android\src\main\AndroidManifest.xml:8:22-76
+13
+14</manifest>
