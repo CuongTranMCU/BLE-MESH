@@ -1,26 +1,39 @@
-#ifndef FLAME_SENSOR_H
-#define FLAME_SENSOR_H
+// flame.h
+#ifndef _FLAME_SENSOR_H_
+#define _FLAME_SENSOR_H_
 
+#include "driver/gpio.h"
 #include "esp_err.h"
-#include <stdbool.h>
-#include <stdio.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "esp_log.h"
-// Define GPIO pin for flame sensor
-#define FLAME_SENSOR_GPIO 10  // Change this to your actual GPIO pin
 
-// Initialize flame sensor
-esp_err_t flame_sensor_init(void);
+typedef struct {
+    gpio_num_t gpio_pin;  // GPIO pin number where flame sensor is connected
+} flame_sensor_config_t;
 
-// Read flame sensor state
-bool flame_sensor_read(void);
+typedef struct {
+    gpio_num_t gpio_pin;
+} flame_sensor_handle_t;
 
-// Register callback for flame detection
-typedef void (*flame_callback_t)(void);
-esp_err_t flame_sensor_register_callback(flame_callback_t callback);
+/**
+ * @brief Initialize flame sensor
+ * @param config Pointer to flame sensor configuration
+ * @param handle Pointer to flame sensor handle
+ * @return ESP_OK on success
+ */
+esp_err_t flame_sensor_init(const flame_sensor_config_t *config, flame_sensor_handle_t *handle);
 
-// Enable/disable flame detection interrupt
-esp_err_t flame_sensor_enable_interrupt(bool enable);
+/**
+ * @brief Deinitialize flame sensor
+ * @param handle Pointer to flame sensor handle
+ * @return ESP_OK on success
+ */
+esp_err_t flame_sensor_deinit(flame_sensor_handle_t *handle);
 
-#endif // FLAME_SENSOR_H
+/**
+ * @brief Read flame sensor state
+ * @param handle Pointer to flame sensor handle
+ * @param flame_detected Pointer to store result (true if flame detected, false otherwise)
+ * @return ESP_OK on success
+ */
+esp_err_t flame_sensor_read(flame_sensor_handle_t *handle, bool *flame_detected);
+
+#endif // _FLAME_SENSOR_H_

@@ -15,7 +15,9 @@
     "mesh_server.h": "c",
     "stdlib.h": "c",
     "flame.h": "c",
-    "gpio.h": "c"
+    "gpio.h": "c",
+    "nvs_flash.h": "c",
+    "esp_ble_mesh_networking_api.h": "c"
   },
-  "idf.portWin": "COM13"
+  "idf.portWin": "COM15"
 }

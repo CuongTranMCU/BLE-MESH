@@ -18,8 +18,10 @@
 #include "esp_system.h"
 #include "mesh_device_app.h"
 #include "nvs_flash.h"
-
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 #define TAG "BOARD"
+static TaskHandle_t blink_task_handle = NULL;
 #define BUTTON_IO_NUM 9
 #define BUTTON_ACTIVE_LEVEL 0
 struct _led_state led_state[3] = {
@@ -98,7 +100,75 @@ static void board_button_init(void)
 }
 void board_init(void)
 {
-    // board_led_init();
+    gpio_config_t io_conf = {
+        .intr_type = GPIO_INTR_DISABLE,
+        .mode = GPIO_MODE_OUTPUT,
+        .pin_bit_mask = (1ULL << LED_RED_GPIO) | 
+                       (1ULL << LED_GREEN_GPIO) | 
+                       (1ULL << LED_BLUE_GPIO),
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .pull_up_en = GPIO_PULLUP_DISABLE
+    };
+    gpio_config(&io_conf);
+
+    // Initially turn off all LEDs
+    led_off();
+
+    board_led_init();
     //  server gửi => thêm nút nhấn:
     board_button_init();
+}
+// Turn off all LEDs
+void led_off(void)
+{
+    gpio_set_level(LED_RED_GPIO, 1);
+    gpio_set_level(LED_GREEN_GPIO, 1);
+    gpio_set_level(LED_BLUE_GPIO, 1);
+}
+// Blink task for unprovisioned state
+static void led_blink_task(void *arg)
+{
+    while (1) {
+        // Turn on blue LED
+        gpio_set_level(LED_BLUE_GPIO, 1);
+        vTaskDelay(pdMS_TO_TICKS(500));  // On for 0.5 second
+        
+        // Turn off blue LED
+        gpio_set_level(LED_BLUE_GPIO, 0);
+        vTaskDelay(pdMS_TO_TICKS(500));  // Off for 0.5 second
+    }
+}
+
+// Function to indicate not provisioned state (blinking blue)
+void led_indicate_not_provisioned(void)
+{
+    // Stop any existing blink task
+    if (blink_task_handle != NULL) {
+        vTaskDelete(blink_task_handle);
+        blink_task_handle = NULL;
+    }
+
+    // Turn off all LEDs first
+    led_off();
+
+    // Create blinking task
+    xTaskCreate(led_blink_task, "led_blink", 2048, NULL, 5, &blink_task_handle);
+    ESP_LOGI(TAG, "Started LED blinking for unprovisioned state");
+}
+
+// Function to indicate provisioned state (solid green)
+void led_indicate_provisioned(void)
+{
+    // Stop blinking task if it exists
+    if (blink_task_handle != NULL) {
+        vTaskDelete(blink_task_handle);
+        blink_task_handle = NULL;
+    }
+
+    // Turn off all LEDs first
+    led_off();
+
+    // Turn on green LED
+    gpio_set_level(LED_GREEN_GPIO, 0);
+    ESP_LOGI(TAG, "LED set to solid green for provisioned state");
 }

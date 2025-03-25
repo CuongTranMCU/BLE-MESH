@@ -35,5 +35,8 @@ extern QueueHandle_t received_data_from_sensor_queue;
 esp_err_t ble_mesh_device_init_server(void);
 
 bool is_server_provisioned(void);
-
+void server_send_to_client(model_sensor_data_t server_model_state);
+static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model_sensor_data_t *parsed_data);
+static void get_data_from_sensors();
+void send_heartbeat_from_server(uint8_t count_log, uint8_t period_log);
 #endif // __MESH_SERVER_H__

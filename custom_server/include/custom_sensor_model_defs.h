@@ -1,4 +1,3 @@
-
 /**
  * @file custom_sensor_model_defs.h
  *
@@ -17,8 +16,8 @@
 #include "sdkconfig.h"
 
 #include "esp_ble_mesh_common_api.h"
+#define BLE_MESH_DEVICE_NAME "SERVER" /*!< Device Advertising Name */
 
-#define BLE_MESH_DEVICE_NAME "ESP-SERVER MESH 01" /*!< Device Advertising Name */
 #define CID_ESP 0x02E5                            /*!< Espressif Component ID */
 
 //* Definicao dos IDs dos Models (Server e Client)
@@ -40,6 +39,8 @@
 typedef struct __attribute__((packed))
 {
     char device_name[20];
+    char mac_addr[6];
+    uint16_t addr;
     float temperature;
     float humidity;
     float smoke;

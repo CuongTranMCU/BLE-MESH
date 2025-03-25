@@ -9,7 +9,7 @@
  */
 
 #include "mesh_server.h"
-
+#include "board.h"
 #include <sdkconfig.h>
 
 #include "esp_log.h"
@@ -18,8 +18,21 @@
 #include "esp_bt_main.h"
 #include "esp_bt_device.h"
 #include "esp_ble_mesh_defs.h"
+#include "esp_ble_mesh_networking_api.h"
+#include "esp_ble_mesh_local_data_operation_api.h"
+#include <inttypes.h>
+// 
+#include "esp_mac.h"
 
-static const char *TAG = "MESH_SERVER 02";
+static const char *TAG = "MESH_SERVER 01";
+
+// Static buffer to store the device name with MAC
+
+// char* get_device_name_with_mac(const uint8_t mac_addr[6]) {
+//     snprintf(device_name_with_mac, sizeof(device_name_with_mac), "SERVER_%02X%02X%02X%02X%02X%02X",
+//              mac_addr[0], mac_addr[1], mac_addr[2], mac_addr[3], mac_addr[4], mac_addr[5]);
+//     return device_name_with_mac;
+// }
 
 /*******************************************
  ****** Private Variables Definitions ******
@@ -62,8 +75,9 @@ static esp_ble_mesh_model_op_t custom_sensor_op[] = {
     ESP_BLE_MESH_MODEL_OP_END,
 };
 
-static model_sensor_data_t _server_model_state = {
-    .device_name = "esp_server 03",
+model_sensor_data_t _server_model_state = {
+    .device_name = "SERVER_",
+
 };
 
 //* E agora a definiçao do model
@@ -141,12 +155,7 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
  * @param  recv_param   Pointer to model callback received parameter
  * @param  parsed_data  Pointer to where the parsed data will be stored
  */
-bool is_server_provisioned(void);
-void server_send_to_client(model_sensor_data_t server_model_state);
-static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model_sensor_data_t *parsed_data);
-static void get_data_from_sensors();
 
-void send_heartbeat_from_server(uint8_t count_log, uint8_t period_log);
 
 /******************************************
  ****** End Private Functions Prototypes ******
@@ -176,10 +185,8 @@ void server_send_to_client(model_sensor_data_t server_model_state)
     ctx.send_ttl = 5;        // TTL value
     ctx.net_idx = ESP_BLE_MESH_KEY_PRIMARY;
     ctx.app_idx = custom_models[0].pub->app_idx;
-
     // Opcode của custom model
     uint32_t opcode = ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS;
-
     // Gửi tin nhắn từ server đến client
     esp_err_t err = esp_ble_mesh_server_model_send_msg(custom_models, &ctx, opcode, sizeof(server_model_state), &server_model_state);
     
@@ -258,6 +265,8 @@ static void ble_mesh_provisioning_cb(esp_ble_mesh_prov_cb_event_t event,
     {
     case ESP_BLE_MESH_PROV_REGISTER_COMP_EVT:
         ESP_LOGI(TAG, "ESP_BLE_MESH_PROV_REGISTER_COMP_EVT, err_code %d", param->prov_register_comp.err_code);
+        // When device starts up, not provisioned
+        led_indicate_not_provisioned();
         break;
 
     case ESP_BLE_MESH_NODE_PROV_ENABLE_COMP_EVT:
@@ -278,6 +287,8 @@ static void ble_mesh_provisioning_cb(esp_ble_mesh_prov_cb_event_t event,
         ESP_LOGI(TAG, "ESP_BLE_MESH_NODE_PROV_COMPLETE_EVT");
         prov_complete(param->node_prov_complete.net_idx, param->node_prov_complete.addr,
                       param->node_prov_complete.flags, param->node_prov_complete.iv_index);
+        // When device gets provisioned
+        led_indicate_provisioned();              
         break;
 
     case ESP_BLE_MESH_NODE_PROV_RESET_EVT:
@@ -290,7 +301,9 @@ static void ble_mesh_provisioning_cb(esp_ble_mesh_prov_cb_event_t event,
         break;
 
     case ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT:
-        ESP_LOGI(TAG, "ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT, Name: %s, err_code %d", BLE_MESH_DEVICE_NAME, param->node_set_unprov_dev_name_comp.err_code);
+        ESP_LOGI(TAG, "ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT, Name: %s, err_code %d", 
+            _server_model_state.device_name, 
+                 param->node_set_unprov_dev_name_comp.err_code);
         break;
 
     default:
@@ -353,14 +366,42 @@ static void get_data_from_sensors()
     {
         ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
         ESP_LOGI(TAG, "    Humidity:     %f", _received_data.humidity);
-        ESP_LOGI(TAG, "    CO:     %f", _received_data.CO);
+        ESP_LOGI(TAG, "    Flame:     %d", _received_data.isFlame);
 
         _server_model_state.temperature = _received_data.temperature;
         _server_model_state.humidity = _received_data.humidity;
-        _server_model_state.CO = _received_data.CO;
+        _server_model_state.isFlame = _received_data.isFlame;
     }
 }
-
+static void set_mac_address()
+{
+    esp_err_t ret = ESP_OK;
+    uint8_t base_mac_addr[6];
+    ret = esp_efuse_mac_get_default(base_mac_addr);
+    if(ret != ESP_OK){
+            ESP_LOGE(TAG, "Failed to get base MAC address from EFUSE BLK0. (%s)", esp_err_to_name(ret));
+            ESP_LOGE(TAG, "Aborting");
+            abort();
+        } 
+    uint8_t index = 0;
+    for(uint8_t i=0; i<6; i++){
+        index += sprintf(&_server_model_state.mac_addr[index], "%02x", base_mac_addr[i]);
+            }
+    ESP_LOGI(TAG, "macId = %s", _server_model_state.mac_addr);
+}
+static void set_ble_mesh_addr()
+{
+    // Add the mesh address to the data structure
+    _server_model_state.addr = esp_ble_mesh_get_primary_element_address();
+    ESP_LOGI(TAG, "Mesh Address: 0x%04x", _server_model_state.addr);
+}
+static void set_provision_name(){
+    char device_name_with_mac[20];
+    snprintf(device_name_with_mac, sizeof(device_name_with_mac), "SERVER_%s",
+             _server_model_state.mac_addr);
+    strcpy(_server_model_state.device_name, device_name_with_mac);
+    ESP_LOGI(TAG, "Device Name: %s", _server_model_state.device_name);
+}
 static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t event,
                                                    esp_ble_mesh_model_cb_param_t *param)
 {
@@ -438,8 +479,8 @@ static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model
 
     ESP_LOGW("PARSED_DATA", "Device Name = %s", parsed_data->device_name);
     ESP_LOGW("PARSED_DATA", "Temperature = %f", parsed_data->temperature);
-    ESP_LOGW("PARSED_DATA", "CO          = %f", parsed_data->CO);
     ESP_LOGW("PARSED_DATA", "Humidity    = %f", parsed_data->humidity);
+    ESP_LOGW("PARSED_DATA", "Flame       = %d", parsed_data->isFlame);
 
     xQueueSendToBack(ble_mesh_received_data_queue, parsed_data, portMAX_DELAY);
 }
@@ -520,21 +561,23 @@ esp_err_t ble_mesh_device_init_server(void)
     esp_ble_mesh_register_config_server_callback(ble_mesh_config_server_cb);
 
     esp_ble_mesh_register_custom_model_callback(ble_mesh_custom_sensor_server_model_cb);
-
+    //* Set device name with MAC address
+    set_mac_address();
+    set_provision_name();
     //* Initializes BLE Mesh stack
     err = esp_ble_mesh_init(&provision, &composition);
     if (err)
+
     {
         ESP_LOGE(TAG, "Initializing mesh failed (err %d)", err);
         return err;
     }
 
-    //* Set device name
-    esp_ble_mesh_set_unprovisioned_device_name(BLE_MESH_DEVICE_NAME);
+    esp_ble_mesh_set_unprovisioned_device_name(_server_model_state.device_name);
 
     //* Enable provisioning
     esp_ble_mesh_node_prov_enable(ESP_BLE_MESH_PROV_ADV | ESP_BLE_MESH_PROV_GATT);
-
+    set_ble_mesh_addr();
     ESP_LOGI(TAG, "BLE Mesh Node initialized!");
     return err;
 }

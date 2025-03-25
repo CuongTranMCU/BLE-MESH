@@ -1,7 +1,5 @@
 #include "mesh_device_app.h"
-
 #include "esp_log.h"
-
 #include "sdkconfig.h"
 
 #define TAG "MESH-DEVICE-APP"
