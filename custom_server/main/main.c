@@ -40,6 +40,10 @@ static void read_received_items(void *arg)
             ESP_LOGI(TAG, "    Humidity   : %f", _received_data.humidity);
             ESP_LOGI(TAG, "    Smoke         : %f", _received_data.smoke);
         }
+        else
+        {
+            ESP_LOGW(TAG, "No data received from ble_mesh_received_data_queue");
+        }
     }
 }
 
@@ -51,10 +55,8 @@ static void read_data_from_sensors(void *arg)
         ESP_LOGI(TAG, "Task initializing...");
 
         int ret = readDHT();
-        // errorHandler(ret);
         float hum = getHumidity();
         float temp = getTemperature();
-
         float smokePpm = MP2_GetSmokePPM();
 
         _received_data.temperature = temp;
@@ -69,27 +71,38 @@ static void read_data_from_sensors(void *arg)
 
         if (flame_sensor_read(&handle, &flame_detected) == ESP_OK)
         {
-            printf("Flame %s\n", flame_detected ? "DETECTED!" : "not detected");
+            ESP_LOGI(TAG, "Flame %s", flame_detected ? "DETECTED!" : "not detected");
         }
         else
         {
-            printf("Error reading flame sensor\n");
+            ESP_LOGI(TAG, "Flame %s", "Error reading flame sensor");
         }
 
-        //  xQueueSendToBack(received_data_from_sensor_queue, &_received_data, portMAX_DELAY);
+        xQueueSendToBack(received_data_from_sensor_queue, &_received_data, portMAX_DELAY);
+        get_data_from_sensors();
         vTaskDelay(5000 / portTICK_PERIOD_MS);
     }
 }
 
 void app_main(void)
 {
+
+    // Xem lại phần này
+    ble_mesh_received_data_queue = xQueueCreate(5, sizeof(model_sensor_data_t));
+    received_data_from_sensor_queue = xQueueCreate(5, sizeof(model_sensor_data_t));
+
+    if (ble_mesh_received_data_queue == NULL || received_data_from_sensor_queue == NULL)
+    {
+        ESP_LOGE(TAG, "Failed to create queues");
+        return;
+    }
+
     esp_err_t err;
 
-    ESP_LOGI(TAG, "Initializing...");
-
     gpio_config_t io_conf;
+    gpio_config_t bio_conf;
 
-    // Configure LED pin as output
+    // Configure Buzzer pin as output
     io_conf.intr_type = GPIO_INTR_DISABLE;
     io_conf.mode = GPIO_MODE_OUTPUT;
     io_conf.pin_bit_mask = (1ULL << BUZZER_PIN);
@@ -99,8 +112,24 @@ void app_main(void)
     gpio_set_direction(BUZZER_PIN, GPIO_MODE_OUTPUT);
     gpio_set_level(BUZZER_PIN, 0);
 
-    ble_mesh_received_data_queue = xQueueCreate(5, sizeof(model_sensor_data_t));
-    received_data_from_sensor_queue = xQueueCreate(5, sizeof(model_sensor_data_t));
+    // Configure DHT22 pin as input
+    setDHTgpio(GPIO_NUM_2);
+    ESP_LOGI(TAG, "Starting DHT Task\n\n");
+
+    // Configure Flame pin Analog as input
+    bio_conf.intr_type = GPIO_INTR_DISABLE;
+    bio_conf.mode = GPIO_MODE_INPUT;
+    bio_conf.pin_bit_mask = (1ULL << 11);
+    bio_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
+    bio_conf.pull_up_en = GPIO_PULLUP_DISABLE;
+    gpio_config(&bio_conf);
+
+    // Configure Flame pin Digital as output
+    flame_sensor_config_t config = {
+        .gpio_pin = FLAME_SENSOR_GPIO,
+    };
+
+    ESP_LOGI(TAG, "Initializing...");
 
     err = nvs_flash_init();
     if (err == ESP_ERR_NVS_NO_FREE_PAGES)
@@ -109,23 +138,6 @@ void app_main(void)
         err = nvs_flash_init();
     }
     ESP_ERROR_CHECK(err);
-
-    // HUMIDITY, TEMPERATURE
-    setDHTgpio(GPIO_NUM_2);
-    ESP_LOGI(TAG, "Starting DHT Task\n\n");
-
-    gpio_config_t bio_conf;
-
-    bio_conf.intr_type = GPIO_INTR_DISABLE;
-    bio_conf.mode = GPIO_MODE_INPUT;
-    bio_conf.pin_bit_mask = (1ULL << 11);
-    bio_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
-    bio_conf.pull_up_en = GPIO_PULLUP_DISABLE;
-    gpio_config(&bio_conf);
-
-    flame_sensor_config_t config = {
-        .gpio_pin = FLAME_SENSOR_GPIO,
-    };
 
     ESP_ERROR_CHECK(flame_sensor_init(&config, &handle));
 
@@ -139,6 +151,6 @@ void app_main(void)
         ESP_LOGE(TAG, "Bluetooth mesh init failed (err 0x%06x)", err);
     }
 
-    xTaskCreate(read_received_items, "Read queue task", 2048 * 2, (void *)0, 20, NULL);
-    xTaskCreate(read_data_from_sensors, "Read queue dht11 task", 2048 * 2, (void *)0, 20, NULL);
+    //   xTaskCreate(read_received_items, "read_received_items", 4096, NULL, 5, NULL);
+    xTaskCreate(read_data_from_sensors, "read_data_from_sensors", 4096, NULL, 5, NULL);
 }

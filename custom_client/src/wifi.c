@@ -58,11 +58,6 @@ static void event_handler(void *arg, esp_event_base_t event_base,
         xEventGroupSetBits(s_wifi_event_group, CONNECTED_BIT);
 
         mqtt_app_start();
-        esp_err_t err = ble_mesh_device_init();
-        if (err)
-        {
-            ESP_LOGE(TAG, "Bluetooth mesh init failed (err %d)", err);
-        }
     }
     else if (event_base == SC_EVENT && event_id == SC_EVENT_SCAN_DONE)
     {
@@ -161,7 +156,7 @@ esp_err_t get_wifi_configuration()
     return err;
 }
 
-void check_wifi_connection()
+esp_err_t check_wifi_connection()
 {
     wifi_ap_record_t ap_info;
     esp_err_t err = esp_wifi_sta_get_ap_info(&ap_info);
@@ -170,10 +165,12 @@ void check_wifi_connection()
     {
         ESP_LOGI("WiFiStatus", "Connected to Wi-Fi SSID: %s, Signal Strength: %d", ap_info.ssid, ap_info.rssi);
     }
-    else
-    {
-        ESP_LOGI("WiFiStatus", "Not connected to any Wi-Fi network.");
-    }
+    // else
+    // {
+    //     ESP_LOGI("WiFiStatus", "Not connected to any Wi-Fi network.");
+    // }
+
+    return err;
 }
 
 void wifi_clear_config()

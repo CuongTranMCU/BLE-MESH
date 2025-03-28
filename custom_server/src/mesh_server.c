@@ -140,18 +140,15 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
  * @param  recv_param   Pointer to model callback received parameter
  * @param  parsed_data  Pointer to where the parsed data will be stored
  */
-bool is_server_provisioned(void);
-void server_send_to_client(model_sensor_data_t server_model_state);
+static bool is_server_provisioned(void);
 static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model_sensor_data_t *parsed_data);
-static void get_data_from_sensors();
-
-void send_heartbeat_from_server(uint8_t count_log, uint8_t period_log);
+static void send_heartbeat_from_server(uint8_t count_log, uint8_t period_log);
 
 /******************************************
  ****** End Private Functions Prototypes ******
  ******************************************/
 
-bool is_server_provisioned(void)
+static bool is_server_provisioned(void)
 {
     return is_server_provisioning;
 }
@@ -339,12 +336,12 @@ static void ble_mesh_config_server_cb(esp_ble_mesh_cfg_server_cb_event_t event,
         }
     }
 }
-static void get_data_from_sensors()
+void get_data_from_sensors()
 {
-
     model_sensor_data_t _received_data;
     if (xQueueReceive(received_data_from_sensor_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
     {
+        ESP_LOGI(TAG, "Hello WORLD  ");
         ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
         ESP_LOGI(TAG, "    Humidity:    %f", _received_data.humidity);
         ESP_LOGI(TAG, "    Somke:       %f", _received_data.smoke);
@@ -352,6 +349,9 @@ static void get_data_from_sensors()
         _server_model_state.temperature = _received_data.temperature;
         _server_model_state.humidity = _received_data.humidity;
         _server_model_state.smoke = _received_data.smoke;
+
+        // Call event
+        server_send_to_client(_server_model_state);
     }
 }
 static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t event,
@@ -384,7 +384,6 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
             //     ESP_LOGE(TAG, "%s -- Failed to send response with OPCODE 0x%06x", __func__, ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS);
             // }
             get_data_from_sensors();
-            server_send_to_client(_server_model_state);
             // send_heartbeat_from_server(0xFF, 3);
             break;
 

@@ -20,6 +20,8 @@ static uint8_t dev_uuid[16] = {0xdd, 0xdd}; /**< Device UUID */
 
 static bool is_provisioning = false; /**<Provision flags> */
 
+static model_sensor_data_t _client_model_state;
+
 // Definicao do Configuration Server Model
 static esp_ble_mesh_cfg_srv_t config_server = {
     .relay = ESP_BLE_MESH_RELAY_DISABLED,
@@ -138,18 +140,15 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
  * @param  parsed_data  Pointer to where the parsed data will be stored
  */
 
-bool is_client_provisioned(void);
-
 static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model_sensor_data_t *parsed_data);
-
-esp_err_t ble_mesh_custom_sensor_client_model_message_set(model_sensor_data_t set_data);
-
-esp_err_t ble_mesh_custom_sensor_client_model_message_get(uint16_t addr);
 
 static void configure_heartbeat_subscription(uint16_t src_addr, uint16_t dst_addr, uint8_t period_log);
 
-void mqtt_data_callback(char *data, uint16_t length);
+static void mqtt_data_callback(char *data, uint16_t length);
 
+static void set_mac_address();
+static void set_ble_mesh_addr();
+static void set_provision_name();
 /******************************************
  ****** End Private Functions Prototypes ******
  ******************************************/
@@ -467,6 +466,10 @@ esp_err_t ble_mesh_device_init_client(void)
     esp_ble_mesh_register_config_server_callback(ble_mesh_config_server_cb);             // PUB/SUB/ APPKEY/NET_KEY
     esp_ble_mesh_register_custom_model_callback(ble_mesh_custom_sensor_client_model_cb); // GET/SET
 
+    //* Set device name with MAC address
+    set_mac_address();
+    set_provision_name();
+
     // Khởi tạo BLE Mesh
     err = esp_ble_mesh_init(&provision, &composition);
     if (err)
@@ -501,6 +504,39 @@ esp_err_t ble_mesh_device_init_client(void)
     mqtt_data_pt_set_callback(mqtt_data_callback);
 
     return err;
+}
+
+static void set_mac_address()
+{
+    esp_err_t ret = ESP_OK;
+    uint8_t base_mac_addr[6];
+    ret = esp_efuse_mac_get_default(base_mac_addr);
+    if (ret != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Failed to get base MAC address from EFUSE BLK0. (%s)", esp_err_to_name(ret));
+        ESP_LOGE(TAG, "Aborting");
+        abort();
+    }
+    uint8_t index = 0;
+    for (uint8_t i = 0; i < 6; i++)
+    {
+        index += sprintf(&_client_model_state.mac_addr[index], "%02x", base_mac_addr[i]);
+    }
+    ESP_LOGI(TAG, "macId = %s", _client_model_state.mac_addr);
+}
+static void set_ble_mesh_addr()
+{
+    // Add the mesh address to the data structure
+    _client_model_state.mesh_addr = esp_ble_mesh_get_primary_element_address();
+    ESP_LOGI(TAG, "Mesh Address: 0x%04x", _client_model_state.mesh_addr);
+}
+static void set_provision_name()
+{
+    char device_name_with_mac[20];
+    snprintf(device_name_with_mac, sizeof(device_name_with_mac), "Client_%s",
+             _client_model_state.mac_addr);
+    strcpy(_client_model_state.device_name, device_name_with_mac);
+    ESP_LOGI(TAG, "Device Name: %s", _client_model_state.device_name);
 }
 
 esp_err_t ble_mesh_custom_sensor_client_model_message_set(model_sensor_data_t set_data)
@@ -576,7 +612,7 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_get(uint16_t addr)
     return err;
 }
 
-void mqtt_data_callback(char *data, uint16_t length)
+static void mqtt_data_callback(char *data, uint16_t length)
 {
 
     control_sensor_model_t control_sensor = convert_json_to_control_model_sensor(data);

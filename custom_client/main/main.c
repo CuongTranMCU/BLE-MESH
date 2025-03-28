@@ -87,9 +87,19 @@ void app_main(void)
         err = nvs_flash_init();
     }
     ESP_ERROR_CHECK(err);
+
     board_init();
 
     wifi_init();
+    while (check_wifi_connection() != ESP_OK)
+    {
+        vTaskDelay(2000 / portTICK_PERIOD_MS);
+    }
 
+    err = ble_mesh_device_init();
+    if (err)
+    {
+        ESP_LOGE(TAG, "Bluetooth mesh init failed (err %d)", err);
+    }
     xTaskCreate(air_sensor_task, "air_sensor_main_task", 2048 * 2, (void *)0, 20, NULL);
 }

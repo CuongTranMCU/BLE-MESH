@@ -26,7 +26,7 @@ static void event_handler(void *arg, esp_event_base_t event_base,
 static void initialise_wifi(void);
 static void smartconfig_example_task(void *parm);
 esp_err_t get_wifi_configuration();
-void check_wifi_connection();
+esp_err_t check_wifi_connection();
 void wifi_init();
 void deinitialise_wifi();
 void wifi_clear_config();

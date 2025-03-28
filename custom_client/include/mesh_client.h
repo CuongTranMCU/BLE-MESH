@@ -30,6 +30,9 @@
 #include "custom_sensor_model_defs.h"
 #include <cJSON.h>
 #include "mqtt.h"
+#include "esp_ble_mesh_local_data_operation_api.h"
+#include <inttypes.h>
+#include "esp_mac.h"
 
 /**
  * @brief Initializes BLE Mesh stack, initializing Models and it's callback functions
@@ -52,5 +55,4 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_set(model_sensor_data_t se
 esp_err_t ble_mesh_custom_sensor_client_model_message_get(uint16_t addr);
 
 bool is_client_provisioned(void);
-void mqtt_data_callback(char *data, uint16_t length);
 #endif // __MESH_CLIENT_H__

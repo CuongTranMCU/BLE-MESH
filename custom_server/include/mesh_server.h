@@ -33,7 +33,6 @@ extern QueueHandle_t received_data_from_sensor_queue;
  *
  */
 esp_err_t ble_mesh_device_init_server(void);
-
-bool is_server_provisioned(void);
-
+void server_send_to_client(model_sensor_data_t server_model_state);
+void get_data_from_sensors();
 #endif // __MESH_SERVER_H__
