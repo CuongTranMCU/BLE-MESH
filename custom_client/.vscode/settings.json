@@ -3,9 +3,13 @@
   "files.associations": {
     "esp_log.h": "c",
     "custom_sensor_model_defs.h": "c",
-    "*.inc": "cpp"
+    "*.inc": "cpp",
+    "mesh_device_app.h": "c",
+    "board.h": "c",
+    "mesh_client.h": "c",
+    "freertos.h": "c"
   },
   "idf.adapterTargetName": "esp32c6",
   "idf.openOcdConfigs": ["board/esp32c6-ftdi.cfg"],
-  "idf.portWin": "COM19"
+  "idf.portWin": "COM9"
 }

@@ -11,92 +11,29 @@
 
 #define TAG "WiFiProvision"
 
-extern void example_ble_mesh_send_gen_onoff_set(void);
-extern void example_ble_mesh_send_gen_onoff_get(void);
-
-static void erase_entire_flash(void);
-static void erase_ble_mesh_data(void);
-
 void retrieve_all_entries_in_nvs();
 void erase_all_data_in_namespace(const char *namespace);
 
 void retrieve_entry_data(const char *namespace);
 
 void clear_wifi_credentials();
-void check_wifi_connection();
-void get_wifi_configuration();
+void reset_nvs_flash();
 
 void button_press_cb(void *arg);
 void button_release_cb(void *arg);
 void vTimerCallback_800ms(TimerHandle_t xTimer);
 void vTimerCallback_3s();
 
-static void board_led_init(void);
 static void board_button_init(void);
 
 bool buttonPressed = false;
 TickType_t lastClickTime = 0;
-bool ledStatus = false;
 
 int count = 0;
 button_state_t state = INIT_STATE;
 
 TimerHandle_t buttonTimer_800ms = NULL;
 TimerHandle_t buttonTimer_3s = NULL;
-
-led_state_t led_state[3] = {
-    {LED_OFF, LED_OFF, LED_R, "red"},
-    {LED_OFF, LED_OFF, LED_G, "green"},
-    {LED_OFF, LED_OFF, LED_B, "blue"},
-};
-
-void board_led_operation(uint8_t pin, uint8_t onoff)
-{
-    for (int i = 0; i < ARRAY_SIZE(led_state); i++)
-    {
-        if (led_state[i].pin != pin)
-        {
-            continue;
-        }
-        if (onoff == led_state[i].previous)
-        {
-            ESP_LOGW(TAG, "led %s is already %s",
-                     led_state[i].name, (onoff ? "on" : "off"));
-            return;
-        }
-        gpio_set_level(pin, onoff);
-        led_state[i].previous = onoff;
-        return;
-    }
-    ESP_LOGE(TAG, "LED is not found!");
-}
-
-static void board_led_init(void)
-{
-    gpio_config_t io_conf;
-
-    // Configure LED pin as output
-    io_conf.intr_type = GPIO_INTR_DISABLE;
-    io_conf.mode = GPIO_MODE_OUTPUT;
-    io_conf.pin_bit_mask = (1ULL << LED_PIN);
-    io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
-    io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
-    gpio_config(&io_conf);
-
-    for (int i = 0; i < ARRAY_SIZE(led_state); i++)
-    {
-        gpio_reset_pin(led_state[i].pin);
-        gpio_set_direction(led_state[i].pin, GPIO_MODE_OUTPUT);
-        gpio_set_level(led_state[i].pin, LED_OFF);
-        led_state[i].previous = LED_OFF;
-    }
-}
-
-void wifi_reprovisioning(void)
-{
-    wifi_prov_mgr_reset_sm_state_for_reprovision();
-    xEventGroupWaitBits(wifi_event_group, WIFI_CONNECTED_EVENT, true, true, portMAX_DELAY);
-}
 
 void retrieve_entry_data(const char *namespace)
 {
@@ -233,41 +170,57 @@ void clear_ble_mesh_data()
 
 void clear_wifi_credentials()
 {
-    erase_all_data_in_namespace("nvs.net80211");
 
-    // Khởi động lại Wi-Fi để áp dụng thay đổi
-    esp_wifi_stop();
-    check_wifi_connection();
+    ESP_LOGI(TAG, "Clearing Wi-Fi credentials...");
 
-    // Restart esp32c6
-    printf("Restarting now.\n");
-    fflush(stdout);
-    esp_restart();
-}
+    // Dừng MQTT để tránh lỗi disconnect đột ngột
+    mqtt_app_stop();
+    vTaskDelay(pdMS_TO_TICKS(200)); // Chờ một chút để MQTT đóng hoàn toàn
 
-void get_wifi_configuration()
-{
-
-    // Get Wi-Fi configuration
-    wifi_config_t wifi_cfg;
-    esp_wifi_get_config(ESP_IF_WIFI_STA, &wifi_cfg);
-    ESP_LOGI(TAG, "WIFI SSID: %s", (char *)wifi_cfg.sta.ssid);
-    ESP_LOGI(TAG, "WIFI Password: %s", (char *)wifi_cfg.sta.password);
-}
-
-void check_wifi_connection()
-{
+    // Kiểm tra trạng thái Wi-Fi trước khi ngắt kết nối
     wifi_ap_record_t ap_info;
-    esp_err_t err = esp_wifi_sta_get_ap_info(&ap_info);
-
-    if (err == ESP_OK)
+    if (esp_wifi_sta_get_ap_info(&ap_info) == ESP_OK)
     {
-        ESP_LOGI("WiFiStatus", "Connected to Wi-Fi SSID: %s, Signal Strength: %d", ap_info.ssid, ap_info.rssi);
+        ESP_LOGI(TAG, "Wi-Fi is connected. Disconnecting...");
+        ESP_ERROR_CHECK(esp_wifi_disconnect());
     }
     else
     {
-        ESP_LOGI("WiFiStatus", "Not connected to any Wi-Fi network.");
+        ESP_LOGW(TAG, "Wi-Fi is already disconnected.");
     }
+
+    // Xóa dữ liệu Wi-Fi trong NVS
+    erase_all_data_in_namespace("nvs.net80211");
+
+    // Dừng Wi-Fi để đảm bảo không còn kết nối
+    ESP_ERROR_CHECK(esp_wifi_stop());
+
+    // Khởi động lại thiết bị để áp dụng thay đổi
+    ESP_LOGI(TAG, "Restarting now...");
+    vTaskDelay(pdMS_TO_TICKS(100)); // Chờ để log được in ra đầy đủ
+    esp_restart();
+}
+
+void reset_nvs_flash()
+{
+    ESP_LOGI("Flash", "Erasing NVS flash...");
+
+    // Deinit trước khi xóa
+    nvs_flash_deinit();
+
+    esp_err_t ret = nvs_flash_erase();
+    if (ret == ESP_OK)
+    {
+        ESP_LOGI("Flash", "NVS flash erased successfully!");
+    }
+    else
+    {
+        ESP_LOGE("Flash", "Failed to erase NVS flash: %s", esp_err_to_name(ret));
+    }
+
+    printf("Restarting now.\n");
+    fflush(stdout);
+    esp_restart();
 }
 
 static void board_button_init(void)
@@ -283,7 +236,6 @@ static void board_button_init(void)
 
 void board_init(void)
 {
-    board_led_init();
     board_button_init();
 }
 
@@ -295,6 +247,9 @@ void button_release_cb(void *arg)
     if (state == LONG_PRESSED)
     {
         ESP_LOGI(TAG, "Long press detected");
+
+        reset_nvs_flash();
+
         state = INIT_STATE;
     }
     else

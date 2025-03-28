@@ -1,4 +1,8 @@
 {
   "idf.openOcdConfigs": ["board/esp32c6-ftdi.cfg"],
-  "idf.portWin": "COM18"
+  "idf.portWin": "COM19",
+  "files.associations": {
+    "dht22.h": "c",
+    "mp2.h": "c"
+  }
 }

@@ -82,7 +82,6 @@ typedef enum states
 } button_state_t;
 
 // Function declarations
-void board_led_operation(uint8_t pin, uint8_t onoff);
 void board_init(void);
 void wifi_reprovisioning(void);
 #endif /* _BOARD_H_ */

@@ -82,6 +82,18 @@ void mqtt_app_start(void)
     esp_mqtt_client_start(global_client);
 }
 
+void mqtt_app_stop(void)
+{
+    if (global_client != NULL)
+    {
+        esp_err_t err = esp_mqtt_client_stop(global_client);
+        if (err != ESP_OK)
+        {
+            ESP_LOGE(TAG, "Failed to stop MQTT client: %s", esp_err_to_name(err));
+        }
+    }
+}
+
 esp_mqtt_client_handle_t mqtt_get_global_client(void)
 {
     return global_client;

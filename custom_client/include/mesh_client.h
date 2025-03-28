@@ -51,9 +51,6 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_set(model_sensor_data_t se
  */
 esp_err_t ble_mesh_custom_sensor_client_model_message_get(uint16_t addr);
 
-esp_err_t stop_ble_mesh(void);
-esp_err_t stop_bluetooth(void);
-
 bool is_client_provisioned(void);
 void mqtt_data_callback(char *data, uint16_t length);
 #endif // __MESH_CLIENT_H__

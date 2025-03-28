@@ -11,6 +11,8 @@
 
 #include "DHT22.h"
 #include "board.h"
+#include "Flame.h"
+#include "MP2.h"
 
 static const char *TAG = "MESH-SERVER-EXAMPLE";
 
@@ -18,6 +20,8 @@ QueueHandle_t ble_mesh_received_data_queue = NULL;
 QueueHandle_t received_data_from_sensor_queue = NULL;
 
 #define BUZZER_PIN 21
+#define FLAME_SENSOR_GPIO GPIO_NUM_10 // Change this to your GPIO pin
+static flame_sensor_handle_t handle;
 
 static void read_received_items(void *arg)
 {
@@ -48,19 +52,31 @@ static void read_data_from_sensors(void *arg)
 
         int ret = readDHT();
         // errorHandler(ret);
-        // float CO = MQ7_GetPPM();
         float hum = getHumidity();
         float temp = getTemperature();
 
+        float smokePpm = MP2_GetSmokePPM();
+
         _received_data.temperature = temp;
         _received_data.humidity = hum;
-        _received_data.smoke = 30.7;
+        _received_data.smoke = smokePpm;
 
         ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
         ESP_LOGI(TAG, "    Humidity   : %f", _received_data.humidity);
         ESP_LOGI(TAG, "    Smoke      : %f", _received_data.smoke);
 
-        xQueueSendToBack(received_data_from_sensor_queue, &_received_data, portMAX_DELAY);
+        bool flame_detected;
+
+        if (flame_sensor_read(&handle, &flame_detected) == ESP_OK)
+        {
+            printf("Flame %s\n", flame_detected ? "DETECTED!" : "not detected");
+        }
+        else
+        {
+            printf("Error reading flame sensor\n");
+        }
+
+        //  xQueueSendToBack(received_data_from_sensor_queue, &_received_data, portMAX_DELAY);
         vTaskDelay(5000 / portTICK_PERIOD_MS);
     }
 }
@@ -97,6 +113,23 @@ void app_main(void)
     // HUMIDITY, TEMPERATURE
     setDHTgpio(GPIO_NUM_2);
     ESP_LOGI(TAG, "Starting DHT Task\n\n");
+
+    gpio_config_t bio_conf;
+
+    bio_conf.intr_type = GPIO_INTR_DISABLE;
+    bio_conf.mode = GPIO_MODE_INPUT;
+    bio_conf.pin_bit_mask = (1ULL << 11);
+    bio_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
+    bio_conf.pull_up_en = GPIO_PULLUP_DISABLE;
+    gpio_config(&bio_conf);
+
+    flame_sensor_config_t config = {
+        .gpio_pin = FLAME_SENSOR_GPIO,
+    };
+
+    ESP_ERROR_CHECK(flame_sensor_init(&config, &handle));
+
+    Init_MP2();
 
     board_init();
 
