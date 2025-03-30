@@ -22,6 +22,9 @@ static bool is_provisioning = false; /**<Provision flags> */
 
 static model_sensor_data_t _client_model_state;
 
+static cJSON *aggregate_json = NULL;
+static esp_timer_handle_t aggregate_timer;
+
 // Definicao do Configuration Server Model
 static esp_ble_mesh_cfg_srv_t config_server = {
     .relay = ESP_BLE_MESH_RELAY_DISABLED,
@@ -145,6 +148,8 @@ static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model
 static void configure_heartbeat_subscription(uint16_t src_addr, uint16_t dst_addr, uint8_t period_log);
 
 static void mqtt_data_callback(char *data, uint16_t length);
+static void timer_callback(void *arg);
+static void start_aggregation_timer();
 
 static void set_mac_address();
 static void set_ble_mesh_addr();
@@ -340,20 +345,15 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
 
             ESP_LOG_BUFFER_HEX(TAG, param->client_recv_publish_msg.msg, param->client_recv_publish_msg.length);
 
-            char rsc[8];
-            sprintf(rsc, " 0x%04x", param->client_recv_publish_msg.ctx->addr);
-
             model_sensor_data_t received_data;
             parse_received_data(param, &received_data);
 
-            strcat(received_data.device_name, rsc);
+            cJSON *json_data = convert_model_sensor_to_json(&received_data, param->client_recv_publish_msg.ctx->recv_rssi);
 
-            char *json_data = convert_model_sensor_to_json(&received_data, param->client_recv_publish_msg.ctx->recv_rssi);
+            start_aggregation_timer();
+            cJSON *clients = cJSON_GetObjectItem(aggregate_json, _client_model_state.device_name);
 
-            mqtt_data_publish_callback("Send Data", json_data, 0);
-
-            free(json_data);
-
+            cJSON_AddItemToObject(clients, received_data.device_name, json_data);
             break;
 
         default:
@@ -385,9 +385,13 @@ static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model
     memcpy(parsed_data, (model_sensor_data_t *)recv_param->client_recv_publish_msg.msg, recv_param->client_recv_publish_msg.length);
 
     ESP_LOGW("PARSED_DATA", "Device Name = %s", parsed_data->device_name);
+    ESP_LOGW("PARSED_DATA", "Mac address = %s", parsed_data->mac_addr);
+    ESP_LOGW("PARSED_DATA", "Mesh address = %0x", parsed_data->mesh_addr);
     ESP_LOGW("PARSED_DATA", "Temperature = %f", parsed_data->temperature);
     ESP_LOGW("PARSED_DATA", "Humidity    = %f", parsed_data->humidity);
     ESP_LOGW("PARSED_DATA", "Smoke       = %f", parsed_data->smoke);
+    ESP_LOGW("PARSED_DATA", "Is Flame       = %d", parsed_data->isFlame);
+    ESP_LOGW("PARSED_DATA", "Feedback       = %s", parsed_data->feedback);
 }
 
 static void ble_mesh_get_dev_uuid(uint8_t *dev_uuid)
@@ -487,10 +491,12 @@ esp_err_t ble_mesh_device_init_client(void)
     }
 
     // Thiết lập tên thiết bị cho các thiết bị chưa được provision
-    esp_ble_mesh_set_unprovisioned_device_name(BLE_MESH_DEVICE_NAME);
+    esp_ble_mesh_set_unprovisioned_device_name(_client_model_state.device_name);
 
     // Bật provisioning cho thiết bị Mesh (advertising và GATT)
     esp_ble_mesh_node_prov_enable(ESP_BLE_MESH_PROV_ADV | ESP_BLE_MESH_PROV_GATT);
+
+    set_ble_mesh_addr();
 
     ESP_LOGI(TAG, "BLE Mesh Node initialized");
 
@@ -517,10 +523,20 @@ static void set_mac_address()
         ESP_LOGE(TAG, "Aborting");
         abort();
     }
+
     uint8_t index = 0;
     for (uint8_t i = 0; i < 6; i++)
     {
-        index += sprintf(&_client_model_state.mac_addr[index], "%02x", base_mac_addr[i]);
+        int written = snprintf(&_client_model_state.mac_addr[index],
+                               sizeof(_client_model_state.mac_addr) - index,
+                               "%02x",
+                               base_mac_addr[i]);
+        if (written < 0 || index + written >= sizeof(_client_model_state.mac_addr))
+        {
+            ESP_LOGE(TAG, "MAC address buffer overflow");
+            abort();
+        }
+        index += written;
     }
     ESP_LOGI(TAG, "macId = %s", _client_model_state.mac_addr);
 }
@@ -533,7 +549,7 @@ static void set_ble_mesh_addr()
 static void set_provision_name()
 {
     char device_name_with_mac[20];
-    snprintf(device_name_with_mac, sizeof(device_name_with_mac), "Client_%s",
+    snprintf(device_name_with_mac, sizeof(device_name_with_mac), "CLIENT_%s",
              _client_model_state.mac_addr);
     strcpy(_client_model_state.device_name, device_name_with_mac);
     ESP_LOGI(TAG, "Device Name: %s", _client_model_state.device_name);
@@ -619,5 +635,32 @@ static void mqtt_data_callback(char *data, uint16_t length)
     if (control_sensor.status == 1)
     {
         ble_mesh_custom_sensor_client_model_message_get(control_sensor.addr);
+    }
+}
+
+static void timer_callback(void *arg)
+{
+    if (aggregate_json && cJSON_GetObjectItem(aggregate_json, _client_model_state.device_name))
+    {
+        char *json_str = cJSON_Print(aggregate_json);
+        mqtt_data_publish_callback("Send Data", json_str, 0);
+        free(json_str);
+    }
+    cJSON_Delete(aggregate_json);
+    aggregate_json = NULL;
+}
+
+static void start_aggregation_timer()
+{
+    if (!aggregate_json)
+    {
+        aggregate_json = cJSON_CreateObject();
+        cJSON_AddItemToObject(aggregate_json, _client_model_state.device_name, cJSON_CreateObject());
+
+        const esp_timer_create_args_t timer_args = {
+            .callback = &timer_callback,
+            .name = "aggregate_timer"};
+        esp_timer_create(&timer_args, &aggregate_timer);
+        esp_timer_start_once(aggregate_timer, 10000000); // 10 seconds
     }
 }

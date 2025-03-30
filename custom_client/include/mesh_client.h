@@ -14,25 +14,26 @@
 #include <stdio.h>
 #include <string.h>
 #include <sdkconfig.h>
+#include <inttypes.h>
+#include <cJSON.h>
 
 #include "esp_ble_mesh_common_api.h"
 #include "esp_ble_mesh_provisioning_api.h"
 #include "esp_ble_mesh_networking_api.h"
 #include "esp_ble_mesh_config_model_api.h"
 #include "esp_ble_mesh_generic_model_api.h"
+#include "esp_ble_mesh_local_data_operation_api.h"
 
 #include "esp_bt.h"
 #include "esp_bt_main.h"
 #include "esp_bt_device.h"
 #include "esp_ble_mesh_defs.h"
 
-#include "esp_log.h"
-#include "custom_sensor_model_defs.h"
-#include <cJSON.h>
-#include "mqtt.h"
-#include "esp_ble_mesh_local_data_operation_api.h"
-#include <inttypes.h>
 #include "esp_mac.h"
+#include "esp_timer.h"
+#include "esp_log.h"
+#include "mqtt.h"
+#include "custom_sensor_model_defs.h"
 
 /**
  * @brief Initializes BLE Mesh stack, initializing Models and it's callback functions

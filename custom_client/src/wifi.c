@@ -147,7 +147,7 @@ esp_err_t get_wifi_configuration()
     {
         ESP_LOGI(TAG, "WIFI SSID: %s", (char *)wifi_cfg.sta.ssid);
         ESP_LOGI(TAG, "WIFI Password: %s", (char *)wifi_cfg.sta.password);
-        if ((strlen((char *)wifi_cfg.sta.ssid) == 0) || (strlen((char *)wifi_cfg.sta.password) == 0)) // Kiểm tra SSID có rỗng không
+        if ((strlen((char *)wifi_cfg.sta.ssid) == 0)) // Kiểm tra SSID có rỗng không
         {
             ESP_LOGW(TAG, "No Wi-Fi credentials stored!");
             return ESP_FAIL; // Trả về lỗi để trigger SmartConfig

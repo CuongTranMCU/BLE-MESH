@@ -8,7 +8,10 @@
     "board.h": "c",
     "mesh_client.h": "c",
     "freertos.h": "c",
-    "esp_ble_mesh_common_api.h": "c"
+    "esp_ble_mesh_common_api.h": "c",
+    "cstring": "cpp",
+    "esp_bt_main.h": "c",
+    "esp_ble_mesh_defs.h": "c"
   },
   "idf.adapterTargetName": "esp32c6",
   "idf.openOcdConfigs": ["board/esp32c6-ftdi.cfg"],

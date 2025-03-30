@@ -13,17 +13,27 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <sdkconfig.h>
+#include <inttypes.h>
 
 #include "esp_ble_mesh_common_api.h"
 #include "esp_ble_mesh_provisioning_api.h"
 #include "esp_ble_mesh_networking_api.h"
 #include "esp_ble_mesh_config_model_api.h"
 #include "esp_ble_mesh_generic_model_api.h"
-
 #include "custom_sensor_model_defs.h"
 
-//! Ver onde colocar essa fila
+#include "esp_bt.h"
+#include "esp_bt_main.h"
+#include "esp_bt_device.h"
+#include "esp_ble_mesh_defs.h"
+#include "esp_ble_mesh_networking_api.h"
+#include "esp_ble_mesh_local_data_operation_api.h"
+
+#include "esp_log.h"
+#include "esp_mac.h"
 #include "freertos/queue.h"
+#include "board.h"
 
 extern QueueHandle_t ble_mesh_received_data_queue;
 extern QueueHandle_t received_data_from_sensor_queue;

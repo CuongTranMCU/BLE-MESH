@@ -39,11 +39,13 @@
 typedef struct __attribute__((packed))
 {
     char device_name[20];
-
+    char mac_addr[13];
+    uint16_t mesh_addr;
     float temperature;
     float humidity;
     float smoke;
-    uint8_t feedback;
+    bool isFlame;
+    char feedback[20];
 } model_sensor_data_t;
 
 #endif // __CUSTOM_SENSOR_MODEL_DEFS_H__

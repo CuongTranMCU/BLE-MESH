@@ -15,12 +15,15 @@
 #include "MP2.h"
 
 static const char *TAG = "MESH-SERVER-EXAMPLE";
+static const char *MP2 = "MP2";
+static const char *FLAME = "FLAME-SENSOR";
 
 QueueHandle_t ble_mesh_received_data_queue = NULL;
 QueueHandle_t received_data_from_sensor_queue = NULL;
 
 #define BUZZER_PIN 21
 #define FLAME_SENSOR_GPIO GPIO_NUM_10 // Change this to your GPIO pin
+
 static flame_sensor_handle_t handle;
 
 static void read_received_items(void *arg)
@@ -55,19 +58,20 @@ static void read_data_from_sensors(void *arg)
         ESP_LOGI(TAG, "Task initializing...");
 
         int ret = readDHT();
+        errorHandler(ret);
         float hum = getHumidity();
         float temp = getTemperature();
         float smokePpm = MP2_GetSmokePPM();
+        bool flame_detected;
 
         _received_data.temperature = temp;
         _received_data.humidity = hum;
         _received_data.smoke = smokePpm;
+        _received_data.isFlame = _received_data.isFlame;
 
         ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
         ESP_LOGI(TAG, "    Humidity   : %f", _received_data.humidity);
         ESP_LOGI(TAG, "    Smoke      : %f", _received_data.smoke);
-
-        bool flame_detected;
 
         if (flame_sensor_read(&handle, &flame_detected) == ESP_OK)
         {
@@ -80,7 +84,7 @@ static void read_data_from_sensors(void *arg)
 
         xQueueSendToBack(received_data_from_sensor_queue, &_received_data, portMAX_DELAY);
         get_data_from_sensors();
-        vTaskDelay(5000 / portTICK_PERIOD_MS);
+        vTaskDelay(1000 * 120 / portTICK_PERIOD_MS);
     }
 }
 
@@ -141,7 +145,9 @@ void app_main(void)
 
     ESP_ERROR_CHECK(flame_sensor_init(&config, &handle));
 
+    // SMOKE
     Init_MP2();
+    ESP_LOGI(TAG, "Starting MP2 Task\n\n");
 
     board_init();
 

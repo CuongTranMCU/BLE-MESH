@@ -122,41 +122,32 @@ void mqtt_data_publish_callback(char *topic, char *data, int length)
     }
 }
 
-char *convert_model_sensor_to_json(model_sensor_data_t *received_data, int rssi)
+cJSON *convert_model_sensor_to_json(model_sensor_data_t *received_data, int rssi)
 {
-    // create a new cJSON object
-    cJSON *json = cJSON_CreateObject();
-    if (json == NULL)
-    {
-        printf("Error: Failed to create JSON object.\n");
-        return NULL;
-    }
 
     // create a nested JSON object for the device
     cJSON *device_data = cJSON_CreateObject();
     if (device_data == NULL)
     {
         printf("Error: Failed to create nested JSON object.\n");
-        cJSON_Delete(json);
         return NULL;
     }
 
+    char mesh_addr_str[7];
+    snprintf(mesh_addr_str, sizeof(mesh_addr_str), "0x%04X", received_data->mesh_addr);
+
+    char mac_addr[15] = "0x";
+    strcat(mac_addr, received_data->mac_addr);
     // add sensor data to the nested object
+    cJSON_AddStringToObject(device_data, "MacAddress", mac_addr);
+    cJSON_AddStringToObject(device_data, "MeshAddress", mesh_addr_str);
     cJSON_AddNumberToObject(device_data, "humidity", received_data->humidity);
     cJSON_AddNumberToObject(device_data, "temperature", received_data->temperature);
     cJSON_AddNumberToObject(device_data, "smoke", received_data->smoke);
     cJSON_AddNumberToObject(device_data, "rssi", rssi);
+    cJSON_AddStringToObject(device_data, "feedback", received_data->feedback);
 
-    // add the nested object to the main JSON object with the device name as the key
-    cJSON_AddItemToObject(json, received_data->device_name, device_data);
-
-    // convert the cJSON object to a JSON string
-    char *json_str = cJSON_Print(json);
-
-    // free the JSON object
-    cJSON_Delete(json);
-
-    return json_str;
+    return device_data;
 }
 
 control_sensor_model_t convert_json_to_control_model_sensor(char *data)

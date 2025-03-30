@@ -50,7 +50,11 @@
 #define LED_B GPIO_NUM_8
 #endif
 
-// LED status macros
+// Define RGB LED pins
+#define LED_RED_GPIO GPIO_NUM_20
+#define LED_GREEN_GPIO GPIO_NUM_19
+#define LED_BLUE_GPIO GPIO_NUM_18
+//
 #define LED_ON 1
 #define LED_OFF 0
 
@@ -85,4 +89,7 @@ typedef enum states
 
 // Function declarations
 void board_init(void);
+void led_indicate_not_provisioned(void);
+void led_indicate_provisioned(void);
+void led_off(void);
 #endif
