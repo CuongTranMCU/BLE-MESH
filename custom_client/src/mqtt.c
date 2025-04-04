@@ -139,8 +139,8 @@ cJSON *convert_model_sensor_to_json(model_sensor_data_t *received_data, int rssi
     char mac_addr[15] = "0x";
     strcat(mac_addr, received_data->mac_addr);
     // add sensor data to the nested object
-    cJSON_AddStringToObject(device_data, "MacAddress", mac_addr);
-    cJSON_AddStringToObject(device_data, "MeshAddress", mesh_addr_str);
+    cJSON_AddStringToObject(device_data, "macAddress", mac_addr);
+    cJSON_AddStringToObject(device_data, "meshAddress", mesh_addr_str);
     cJSON_AddNumberToObject(device_data, "humidity", received_data->humidity);
     cJSON_AddNumberToObject(device_data, "temperature", received_data->temperature);
     cJSON_AddNumberToObject(device_data, "smoke", received_data->smoke);
