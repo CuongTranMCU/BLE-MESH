@@ -1,3 +1,4 @@
+
 #include "driver/adc.h"
 #include "esp_log.h"
 #include "esp_err.h"
@@ -8,9 +9,9 @@
 #define ADC_CHANNEL ADC1_CHANNEL_1 // Example: GPIO34
 #define ADC_WIDTH ADC_WIDTH_BIT_12
 #define ADC_ATTEN ADC_ATTEN_DB_11
-#define DEFAULT_VREF 1100          // Default reference voltage in mV
-#define RL 10.0f                   // Load resistor value in kΩ
-#define CAL_PPM 100.0f             // Calibration PPM value
+#define DEFAULT_VREF 1100 // Default reference voltage in mV
+#define RL 10.0f          // Load resistor value in kΩ
+#define CAL_PPM 100.0f    // Calibration PPM value
 
 // Cấu hình ADC (thay đổi các giá trị này cho phù hợp với phần cứng của bạn)
 #define ADC_CHANNEL ADC1_CHANNEL_1

@@ -4,11 +4,16 @@
     "esp_log.h": "c",
     "custom_sensor_model_defs.h": "c",
     "*.inc": "cpp",
-    "random": "c"
+    "mesh_device_app.h": "c",
+    "board.h": "c",
+    "mesh_client.h": "c",
+    "freertos.h": "c",
+    "esp_ble_mesh_common_api.h": "c",
+    "cstring": "cpp",
+    "esp_bt_main.h": "c",
+    "esp_ble_mesh_defs.h": "c"
   },
   "idf.adapterTargetName": "esp32c6",
-  "idf.openOcdConfigs": [
-    "board/esp32c6-ftdi.cfg"
-  ],
+  "idf.openOcdConfigs": ["board/esp32c6-ftdi.cfg"],
   "idf.portWin": "COM9"
 }
