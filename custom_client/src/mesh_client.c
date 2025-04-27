@@ -661,6 +661,6 @@ static void start_aggregation_timer()
             .callback = &timer_callback,
             .name = "aggregate_timer"};
         esp_timer_create(&timer_args, &aggregate_timer);
-        esp_timer_start_once(aggregate_timer, 10000000); // 10 seconds
+        esp_timer_start_once(aggregate_timer, 5000000); // 10 seconds
     }
 }

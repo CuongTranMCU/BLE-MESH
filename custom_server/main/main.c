@@ -84,7 +84,7 @@ static void read_data_from_sensors(void *arg)
 
         xQueueSendToBack(received_data_from_sensor_queue, &_received_data, portMAX_DELAY);
         get_data_from_sensors();
-        vTaskDelay(1000 * 120 / portTICK_PERIOD_MS);
+        vTaskDelay(1000 * 5 / portTICK_PERIOD_MS);
     }
 }
 

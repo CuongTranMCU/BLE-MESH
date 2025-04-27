@@ -19,7 +19,7 @@
 #include "mesh_device_app.h"
 /* Signal Wi-Fi events on this event-group */
 
-#define MAX_RETRY 3
+#define MAX_RETRY 5
 static void event_handler(void *arg, esp_event_base_t event_base,
                           int32_t event_id, void *event_data);
 

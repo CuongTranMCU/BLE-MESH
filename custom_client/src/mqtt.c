@@ -67,12 +67,12 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     }
 }
 
-void mqtt_app_start(void)
+void mqtt_app_start(char *uri)
 {
     const esp_mqtt_client_config_t mqtt_cfg = {
         .broker.address.uri = EXAMPLE_ESP_MQQT_BORKER_URI,
         .broker.address.port = EXAMPLE_ESP_MQQT_BORKER_PORT,
-        .credentials.username = EXAMPLE_ESP_MQQT_CREDENTIALS_USERNAME,
+        .broker.verification.skip_cert_common_name_check = true,
     };
 
     ESP_LOGI(TAG, "[APP] Free memory: %ld bytes", esp_get_free_heap_size());

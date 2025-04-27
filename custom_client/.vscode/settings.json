@@ -1,19 +1,9 @@
 {
-  "C_Cpp.intelliSenseEngine": "default",
-  "files.associations": {
-    "esp_log.h": "c",
-    "custom_sensor_model_defs.h": "c",
-    "*.inc": "cpp",
-    "mesh_device_app.h": "c",
-    "board.h": "c",
-    "mesh_client.h": "c",
-    "freertos.h": "c",
-    "esp_ble_mesh_common_api.h": "c",
-    "cstring": "cpp",
-    "esp_bt_main.h": "c",
-    "esp_ble_mesh_defs.h": "c"
+  "idf.customExtraVars": {
+    "OPENOCD_SCRIPTS": "f:\\app\\Esp_idf\\.espressif\\tools\\openocd-esp32\\v0.12.0-esp32-20230921/openocd-esp32/share/openocd/scripts",
+    "IDF_CCACHE_ENABLE": "1",
+    "ESP_ROM_ELF_DIR": "f:\\app\\Esp_idf\\.espressif\\tools\\esp-rom-elfs\\20230320/",
+    "IDF_TARGET": "esp32c6"
   },
-  "idf.adapterTargetName": "esp32c6",
-  "idf.openOcdConfigs": ["board/esp32c6-ftdi.cfg"],
-  "idf.portWin": "COM9"
+  "idf.openOcdConfigs": ["board/esp32c6-ftdi.cfg"]
 }
