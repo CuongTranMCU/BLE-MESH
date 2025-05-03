@@ -8,14 +8,9 @@
 #include <cJSON.h>
 #include <esp_log.h>
 
-#define EXAMPLE_ESP_MQQT_BORKER_URI "mqtt://192.168.1.255"
-#define EXAMPLE_ESP_MQQT_BORKER_PORT 1883
-#define EXAMPLE_ESP_MQQT_BORKER_TRANSPORT MQTT_TRANSPORT_OVER_TCP
-#define EXAMPLE_ESP_MQQT_CREDENTIALS_USERNAME "i5IA8Ld0YDnlv3fMJtQyWKKVOOZfNYXQr8zKKHBOBirJ2y4B46NXBu7cUxEk885u"
-
 typedef void (*mqtt_data_pt_t)(char *data, uint16_t length);
 
-void mqtt_app_start(char *uri);
+void mqtt_app_start(const char *uri, uint32_t port, const char *username, const char *password);
 void mqtt_data_pt_set_callback(void *cb);
 void mqtt_data_publish_callback(char *topic, char *data, int length);
 esp_mqtt_client_handle_t mqtt_get_global_client(void);

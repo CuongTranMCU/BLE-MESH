@@ -9,7 +9,15 @@ static TaskHandle_t smartconfig_task_handle = NULL;
 static int retry_count = 0;
 
 static const char *TAG = "smartconfig_example";
-static char ip_str[20];
+static uint8_t ssid[32] = {0};
+static uint8_t password[64] = {0};
+static uint8_t rvd_data[64] = {0};
+
+static char *mqtt_uri;
+uint32_t mqtt_broker_port;
+static char *mqtt_username;
+static char *mqtt_password;
+static void wifi_set_mqtt_config(uint8_t *rvd_data);
 
 static void event_handler(void *arg, esp_event_base_t event_base,
                           int32_t event_id, void *event_data)
@@ -56,16 +64,10 @@ static void event_handler(void *arg, esp_event_base_t event_base,
         ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
         ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
 
-        // Lưu IP address
-        snprintf(ip_str, sizeof(ip_str), IPSTR, IP2STR(&event->ip_info.gw));
-
-        char mqtt_url[50]; // Cấp phát đủ bộ nhớ cho chuỗi "mqtt://" và IP address
-        snprintf(mqtt_url, sizeof(mqtt_url), "mqtt://%s", ip_str);
-        ESP_LOGI(TAG, "MQTT URL: %s", mqtt_url);
         check_wifi_connection();
         xEventGroupSetBits(s_wifi_event_group, CONNECTED_BIT);
 
-        mqtt_app_start(mqtt_url);
+        mqtt_app_start(mqtt_uri, mqtt_broker_port, mqtt_username, mqtt_password);
     }
     else if (event_base == SC_EVENT && event_id == SC_EVENT_SCAN_DONE)
     {
@@ -81,9 +83,6 @@ static void event_handler(void *arg, esp_event_base_t event_base,
 
         smartconfig_event_got_ssid_pswd_t *evt = (smartconfig_event_got_ssid_pswd_t *)event_data;
         wifi_config_t wifi_config;
-        uint8_t ssid[32] = {0};
-        uint8_t password[64] = {0};
-        uint8_t rvd_data[64] = {0};
 
         bzero(&wifi_config, sizeof(wifi_config_t));
         memcpy(wifi_config.sta.ssid, evt->ssid, sizeof(wifi_config.sta.ssid));
@@ -102,12 +101,12 @@ static void event_handler(void *arg, esp_event_base_t event_base,
         {
             ESP_ERROR_CHECK(esp_smartconfig_get_rvd_data(rvd_data, sizeof(rvd_data)));
             ESP_LOGI(TAG, "RVD_DATA:");
-            for (int i = 0; i < 64; i++)
+            for (int i = 0; i < sizeof(rvd_data); i++)
             {
                 printf("%c", rvd_data[i]);
             }
             printf("\n");
-            printf("Length of rvd data: %d\n", sizeof(rvd_data));
+            wifi_set_mqtt_config(rvd_data); // Gọi hàm để xử lý rvd_data
         }
 
         ESP_ERROR_CHECK(esp_wifi_disconnect());
@@ -143,6 +142,58 @@ static void smartconfig_example_task(void *parm)
             vTaskDelete(NULL);
         }
     }
+}
+
+static void wifi_set_mqtt_config(uint8_t *rvd_data)
+{
+    char rvd_str[65];              // 64 byte + 1 cho ký tự NULL
+    memcpy(rvd_str, rvd_data, 64); // Sao chép 64 byte từ rvd_data
+    rvd_str[64] = '\0';            // Đảm bảo chuỗi kết thúc bằng NULL
+
+    char *token;
+
+    // Tách uri
+    token = strtok(rvd_str, ";");
+    if (token != NULL)
+    {
+        mqtt_uri = strdup(token);
+    }
+
+    // Tách port
+    token = strtok(NULL, ";");
+    if (token != NULL)
+    {
+        mqtt_broker_port = strtoul(token, NULL, 10);
+    }
+
+    // Tách username
+    token = strtok(NULL, ";");
+    if (token != NULL)
+    {
+        mqtt_username = strdup(token);
+    }
+    else
+    {
+        mqtt_username = NULL;
+    }
+
+    // Tách password
+    token = strtok(NULL, ";");
+    if (token != NULL)
+    {
+        mqtt_password = strdup(token);
+    }
+    else
+    {
+        mqtt_password = NULL;
+    }
+
+    // In ra để kiểm tra
+    ESP_LOGI(TAG, "MQTT Config - URI: %s, Port: %lu,  Username: %s, Password: %s",
+             mqtt_uri ? mqtt_uri : "(null)",
+             mqtt_broker_port,
+             mqtt_username ? mqtt_username : "(null)",
+             mqtt_password ? mqtt_password : "(null)");
 }
 
 esp_err_t get_wifi_configuration()

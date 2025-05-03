@@ -67,16 +67,23 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     }
 }
 
-void mqtt_app_start(char *uri)
+void mqtt_app_start(const char *uri, uint32_t port, const char *username, const char *password)
 {
-    const esp_mqtt_client_config_t mqtt_cfg = {
-        .broker.address.uri = EXAMPLE_ESP_MQQT_BORKER_URI,
-        .broker.address.port = EXAMPLE_ESP_MQQT_BORKER_PORT,
+    esp_mqtt_client_config_t mqtt_cfg = {
+        .broker.address.uri = uri,
+        .broker.address.port = port,
+        .credentials.username = username,
+        .credentials.authentication.password = password,
         .broker.verification.skip_cert_common_name_check = true,
     };
 
     ESP_LOGI(TAG, "[APP] Free memory: %ld bytes", esp_get_free_heap_size());
     global_client = esp_mqtt_client_init(&mqtt_cfg);
+    if (global_client == NULL)
+    {
+        ESP_LOGE(TAG, "Failed to initialize MQTT client");
+        return;
+    }
     /* The last argument may be used to pass data to the event handler, in this example mqtt_event_handler */
     esp_mqtt_client_register_event(global_client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
     esp_mqtt_client_start(global_client);

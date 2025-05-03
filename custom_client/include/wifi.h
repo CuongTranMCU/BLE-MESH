@@ -1,8 +1,9 @@
 #ifndef __WIFI_H__
 #define __WIFI_H__
 
-#include <string.h>
-#include <stdlib.h>
+#include <string.h> // Để dùng strtok, strcmp, strdup
+#include <stdlib.h> // Để dùng strtoul
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
