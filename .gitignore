@@ -6,3 +6,5 @@ custom_server/build
 custom_server/.vscode
 custom_server/.devcontainer
 
+gateway/config/serviceAccountKey.json
+gateway/venv
