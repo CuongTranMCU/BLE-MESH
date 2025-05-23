@@ -35,7 +35,7 @@
 #include "freertos/queue.h"
 #include "board.h"
 
-extern QueueHandle_t ble_mesh_received_data_queue;
+extern QueueHandle_t receive_data_control_queue;
 extern QueueHandle_t received_data_from_sensor_queue;
 
 /**
@@ -43,6 +43,9 @@ extern QueueHandle_t received_data_from_sensor_queue;
  *
  */
 esp_err_t ble_mesh_device_init_server(void);
-void server_send_to_client(model_sensor_data_t server_model_state);
+esp_err_t server_send_to_client(const void *raw_data, size_t raw_len, message_type_t type);
+void get_init_control_signal_from_sensors(int buzzer, int led);
 void get_data_from_sensors();
+bool is_server_provisioned(void);
+bool is_server_sent_init_control(void);
 #endif // __MESH_SERVER_H__
