@@ -11,7 +11,6 @@
 #include "mesh_client.h"
 
 #define TAG "MESH_CLIENT"
-
 /*******************************************
  ****** Private Variables Definitions ******
  *******************************************/
@@ -24,6 +23,9 @@ static model_sensor_data_t _client_model_state;
 
 static cJSON *aggregate_json = NULL;
 static esp_timer_handle_t aggregate_timer;
+
+static set_entry_t *sensor_buffer = NULL; // Con trỏ đến Set
+static bool timer_running = false;        // Flag to track if aggregation timer is running
 
 // Definicao do Configuration Server Model
 static esp_ble_mesh_cfg_srv_t config_server = {
@@ -61,6 +63,7 @@ static esp_ble_mesh_model_op_t custom_sensor_op[] = {
 static esp_ble_mesh_client_t custom_sensor_client = {
     .op_pair_size = ARRAY_SIZE(custom_model_op_pair),
     .op_pair = custom_model_op_pair,
+
 };
 
 //! Verificar "Publication Context"
@@ -143,8 +146,9 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
  * @param  parsed_data  Pointer to where the parsed data will be stored
  */
 
-static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model_sensor_data_t *parsed_data);
-
+static message_type_t parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param,
+                                          model_sensor_data_t *out_sensor,
+                                          model_control_data_t *out_control);
 static void configure_heartbeat_subscription(uint16_t src_addr, uint16_t dst_addr, uint8_t period_log);
 
 static void mqtt_data_callback(char *data, uint16_t length);
@@ -154,6 +158,9 @@ static void start_aggregation_timer();
 static void set_mac_address();
 static void set_ble_mesh_addr();
 static void set_provision_name();
+
+static bool add_to_buffer(model_sensor_data_t *data);
+static void clear_buffer();
 /******************************************
  ****** End Private Functions Prototypes ******
  ******************************************/
@@ -345,15 +352,33 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
 
             ESP_LOG_BUFFER_HEX(TAG, param->client_recv_publish_msg.msg, param->client_recv_publish_msg.length);
 
-            model_sensor_data_t received_data;
-            parse_received_data(param, &received_data);
+            model_sensor_data_t sensor_data;
+            model_control_data_t control_data;
 
-            cJSON *json_data = convert_model_sensor_to_json(&received_data, param->client_recv_publish_msg.ctx->recv_rssi);
+            message_type_t type = parse_received_data(param, &sensor_data, &control_data);
 
-            start_aggregation_timer();
-            cJSON *clients = cJSON_GetObjectItem(aggregate_json, _client_model_state.device_name);
+            if (type == MSG_TYPE_SENSOR)
+            {
+                sensor_data.rssi = param->client_recv_publish_msg.ctx->recv_rssi;
 
-            cJSON_AddItemToObject(clients, received_data.device_name, json_data);
+                if (add_to_buffer(&sensor_data))
+                {
+                    start_aggregation_timer();
+                }
+            }
+            else if (type == MSG_TYPE_CONTROL)
+            {
+                // TODO: Handle control message if needed
+                char *json_str = cJSON_Print(convert_model_control_to_json(&control_data));
+                printf("JSON data: %s\n", json_str);
+                mqtt_data_publish_callback("Send Control Data", json_str, strlen(json_str));
+                free(json_str);
+                ESP_LOGI(TAG, "CONTROL message received but not processed further.");
+            }
+            else
+            {
+                ESP_LOGW(TAG, "Unknown or invalid message type received.");
+            }
             break;
 
         default:
@@ -374,24 +399,65 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
     }
 }
 
-static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model_sensor_data_t *parsed_data)
+static message_type_t parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param,
+                                          model_sensor_data_t *out_sensor,
+                                          model_control_data_t *out_control)
 {
-    if (recv_param->client_recv_publish_msg.length < sizeof(parsed_data))
+    uint8_t *msg = recv_param->client_recv_publish_msg.msg;
+    uint16_t len = recv_param->client_recv_publish_msg.length;
+
+    if (len < 1)
     {
-        ESP_LOGE(TAG, "Invalid received message lenght: %d", recv_param->client_recv_publish_msg.length);
-        return;
+        ESP_LOGE(TAG, "Received message too short!");
+        return -1;
     }
 
-    memcpy(parsed_data, (model_sensor_data_t *)recv_param->client_recv_publish_msg.msg, recv_param->client_recv_publish_msg.length);
+    uint8_t type = msg[0];
 
-    ESP_LOGW("PARSED_DATA", "Device Name = %s", parsed_data->device_name);
-    ESP_LOGW("PARSED_DATA", "Mac address = %s", parsed_data->mac_addr);
-    ESP_LOGW("PARSED_DATA", "Mesh address = %0x", parsed_data->mesh_addr);
-    ESP_LOGW("PARSED_DATA", "Temperature = %f", parsed_data->temperature);
-    ESP_LOGW("PARSED_DATA", "Humidity    = %f", parsed_data->humidity);
-    ESP_LOGW("PARSED_DATA", "Smoke       = %f", parsed_data->smoke);
-    ESP_LOGW("PARSED_DATA", "Is Flame       = %d", parsed_data->isFlame);
-    ESP_LOGW("PARSED_DATA", "Feedback       = %s", parsed_data->feedback);
+    switch (type)
+    {
+    case MSG_TYPE_SENSOR:
+        if (len > 1 + sizeof(model_sensor_data_t))
+        {
+            ESP_LOGE(TAG, "Sensor model data length + 1: %d", 1 + sizeof(model_sensor_data_t));
+            ESP_LOGE(TAG, "Invalid SENSOR data length: %d", len);
+            return -1;
+        }
+
+        memcpy(out_sensor, &msg[1], sizeof(model_sensor_data_t));
+
+        ESP_LOGI("PARSED_SENSOR", "Device Name = %s", out_sensor->device_name);
+        ESP_LOGI("PARSED_SENSOR", "Mac address = %s", out_sensor->mac_addr);
+        ESP_LOGI("PARSED_SENSOR", "Mesh address = %02x", out_sensor->mesh_addr);
+        ESP_LOGI("PARSED_SENSOR", "Temperature = %f", out_sensor->temperature);
+        ESP_LOGI("PARSED_SENSOR", "Humidity    = %f", out_sensor->humidity);
+        ESP_LOGI("PARSED_SENSOR", "Smoke       = %f", out_sensor->smoke);
+        ESP_LOGI("PARSED_SENSOR", "Is Flame    = %d", out_sensor->isFlame);
+        ESP_LOGI("PARSED_SENSOR", "Feedback    = %s", out_sensor->feedback);
+
+        return MSG_TYPE_SENSOR;
+
+    case MSG_TYPE_CONTROL:
+        if (len > 1 + sizeof(model_control_data_t))
+        {
+            ESP_LOGE(TAG, "Sensor model data length + 1: %d", 1 + sizeof(model_sensor_data_t));
+            ESP_LOGE(TAG, "Invalid CONTROL data length: %d", len);
+            return -1;
+        }
+
+        memcpy(out_control, &msg[1], sizeof(model_control_data_t));
+
+        ESP_LOGI("PARSED_CONTROL", "Device Name  = %s", out_control->device_name);
+        ESP_LOGI("PARSED_CONTROL", "Mesh address = %02x", out_control->mesh_addr);
+        ESP_LOGI("PARSED_CONTROL", "Buzzer       = %d", out_control->buzzer);
+        ESP_LOGI("PARSED_CONTROL", "LED          = %d", out_control->led);
+
+        return MSG_TYPE_CONTROL;
+
+    default:
+        ESP_LOGW(TAG, "Unknown message type: 0x%02x", type);
+        return -1;
+    }
 }
 
 static void ble_mesh_get_dev_uuid(uint8_t *dev_uuid)
@@ -555,9 +621,8 @@ static void set_provision_name()
     ESP_LOGI(TAG, "Device Name: %s", _client_model_state.device_name);
 }
 
-esp_err_t ble_mesh_custom_sensor_client_model_message_set(model_sensor_data_t set_data)
+esp_err_t ble_mesh_custom_sensor_client_model_message_set(void *data, size_t len, uint16_t addr)
 {
-    // set lại dự liệu như set_data đã gửi ở phía server cập nhật lại.
     esp_ble_mesh_msg_ctx_t ctx = {0};
     uint32_t opcode;
     esp_err_t err;
@@ -567,19 +632,24 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_set(model_sensor_data_t se
     ctx.net_idx = 0;
     ctx.app_idx = 0;
 
-    uint16_t publish_addr = custom_sensor_client.model->pub->publish_addr;
-    ctx.addr = publish_addr;
-
-    // ctx.addr = ESP_BLE_MESH_ADDR_ALL_NODES;
-    //  ctx.addr = ESP_BLE_MESH_GROUP_PUB_ADDR;
-
     ctx.send_ttl = 3;
     ctx.send_rel = false;
 
-    err = esp_ble_mesh_client_model_send_msg(custom_sensor_client.model, &ctx, opcode,
-                                             sizeof(set_data), (uint8_t *)&set_data, 0, false, ROLE_NODE);
+    if (addr == 0)
+    {
 
-    // err = esp_ble_mesh_model_publish(custom_sensor_client.model, opcode, sizeof(set_data), (uint8_t *)&set_data, ROLE_NODE);
+        uint16_t publish_addr = custom_sensor_client.model->pub->publish_addr;
+        ctx.addr = publish_addr;
+    }
+    else
+    {
+        ctx.addr = addr;
+    }
+
+    // ctx.addr = 0x0038;
+
+    err = esp_ble_mesh_client_model_send_msg(custom_sensor_client.model, &ctx, opcode,
+                                             len, data, 0, false, ROLE_NODE);
 
     if (err != ESP_OK)
     {
@@ -631,36 +701,171 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_get(uint16_t addr)
 static void mqtt_data_callback(char *data, uint16_t length)
 {
 
-    control_sensor_model_t control_sensor = convert_json_to_control_model_sensor(data);
-    if (control_sensor.status == 1)
+    int count = 0;
+    model_control_data_t *devices = convert_json_to_control_model_list(data, &count);
+
+    for (int i = 0; i < count; i++)
     {
-        ble_mesh_custom_sensor_client_model_message_get(control_sensor.addr);
+        printf("Device: %s, MeshAddr: 0x%04X, Buzzer: %d, Led: %d\n",
+               devices[i].device_name, devices[i].mesh_addr, devices[i].buzzer, devices[i].led);
+
+        ble_mesh_custom_sensor_client_model_message_set(&devices[i], sizeof(model_control_data_t), devices[i].mesh_addr);
+        vTaskDelay(1000 * 2 / portTICK_PERIOD_MS);
     }
+    free(devices);
 }
 
+// Function to add data to the buffer
+static bool add_to_buffer(model_sensor_data_t *data)
+{
+    set_entry_t *entry;
+
+    // Tìm xem key đã tồn tại chưa
+    HASH_FIND_STR(sensor_buffer, data->mac_addr, entry);
+    if (entry)
+    {
+        // Cập nhật dữ liệu nếu key đã tồn tại
+        memcpy(&entry->data, data, sizeof(model_sensor_data_t));
+        ESP_LOGI(TAG, "Updated data for %s", data->device_name);
+        return true;
+    }
+
+    // Thêm mới nếu key chưa tồn tại
+    entry = (set_entry_t *)malloc(sizeof(set_entry_t));
+    if (entry == NULL)
+    {
+        ESP_LOGE(TAG, "Failed to allocate memory for new entry");
+        return false;
+    }
+    strcpy(entry->mac_addr, data->mac_addr);
+    memcpy(&entry->data, data, sizeof(model_sensor_data_t));
+    HASH_ADD_STR(sensor_buffer, mac_addr, entry);
+    ESP_LOGI(TAG, "Added to set: %s", data->device_name);
+    return true;
+}
+
+// Function to clear the buffer
+static void clear_buffer()
+{
+    set_entry_t *entry, *tmp;
+    HASH_ITER(hh, sensor_buffer, entry, tmp)
+    {
+        HASH_DEL(sensor_buffer, entry);
+        free(entry);
+    }
+    ESP_LOGI(TAG, "Buffer cleared");
+}
+
+// Timer callback function for processing the buffer
 static void timer_callback(void *arg)
 {
-    if (aggregate_json && cJSON_GetObjectItem(aggregate_json, _client_model_state.device_name))
-    {
-        char *json_str = cJSON_Print(aggregate_json);
-        mqtt_data_publish_callback("Send Data", json_str, 0);
-        free(json_str);
-    }
-    cJSON_Delete(aggregate_json);
-    aggregate_json = NULL;
-}
+    ESP_LOGI(TAG, "Timer callback fired, processing buffer");
 
-static void start_aggregation_timer()
-{
+    // Kiểm tra xem Buffer có phần tử nào không
+    if (HASH_COUNT(sensor_buffer) == 0)
+    {
+        ESP_LOGI(TAG, "No data to aggregate");
+        if (aggregate_json)
+        {
+            cJSON_Delete(aggregate_json);
+            aggregate_json = NULL;
+        }
+        timer_running = false;
+        return;
+    }
+
+    // Tạo đối tượng JSON mới nếu chưa tồn tại
     if (!aggregate_json)
     {
         aggregate_json = cJSON_CreateObject();
-        cJSON_AddItemToObject(aggregate_json, _client_model_state.device_name, cJSON_CreateObject());
+        if (!aggregate_json)
+        {
+            ESP_LOGE(TAG, "Failed to create JSON object");
+            timer_running = false;
+            return;
+        }
+    }
 
+    // Thêm dữ liệu của client
+    cJSON *client_data = cJSON_CreateObject();
+    if (client_data)
+    {
+        cJSON_AddItemToObject(aggregate_json, _client_model_state.device_name, client_data);
+    }
+
+    // Duyệt qua từng entry trong Set
+    set_entry_t *entry, *tmp;
+    HASH_ITER(hh, sensor_buffer, entry, tmp)
+    {
+        ESP_LOGI(TAG, "Processing buffer: %s (MAC: %s)", entry->data.device_name, entry->mac_addr);
+
+        // Chuyển dữ liệu cảm biến thành JSON
+        cJSON *json_data = convert_model_sensor_to_json(&entry->data);
+        if (json_data == NULL)
+        {
+            ESP_LOGE(TAG, "Failed to convert sensor data to JSON for %s", entry->data.device_name);
+            continue;
+        }
+
+        // Thêm vào đối tượng JSON tổng hợp với device_name làm key
+        cJSON_AddItemToObject(client_data, entry->data.device_name, json_data);
+    }
+
+    // Chuyển JSON thành chuỗi và gửi qua MQTT
+    char *json_str = cJSON_Print(aggregate_json);
+    printf("JSON data: %s\n", json_str);
+
+    if (json_str)
+    {
+        ESP_LOGI(TAG, "Publishing JSON data to MQTT");
+        mqtt_data_publish_callback("Send Data", json_str, strlen(json_str));
+        free(json_str);
+    }
+    else
+    {
+        ESP_LOGE(TAG, "Failed to print JSON string");
+    }
+
+    // Dọn dẹp
+    cJSON_Delete(aggregate_json);
+    aggregate_json = NULL;
+    clear_buffer();
+    timer_running = false;
+}
+
+// Function to start the aggregation timer
+static void start_aggregation_timer()
+{
+    if (timer_running)
+    {
+        // Timer is already running, no need to start it again
+        ESP_LOGI(TAG, "Aggregation timer already running");
+        return;
+    }
+
+    // Create the timer if it doesn't exist
+    if (aggregate_timer == NULL)
+    {
         const esp_timer_create_args_t timer_args = {
             .callback = &timer_callback,
             .name = "aggregate_timer"};
-        esp_timer_create(&timer_args, &aggregate_timer);
-        esp_timer_start_once(aggregate_timer, 5000000); // 10 seconds
+
+        esp_err_t err = esp_timer_create(&timer_args, &aggregate_timer);
+        if (err != ESP_OK)
+        {
+            ESP_LOGE(TAG, "Failed to create timer: %s", esp_err_to_name(err));
+            return;
+        }
     }
+
+    // Start the timer (5 seconds)
+    esp_err_t err = esp_timer_start_once(aggregate_timer, 5000000); // 5 seconds in microseconds
+    if (err != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Failed to start timer: %s", esp_err_to_name(err));
+        return;
+    }
+
+    timer_running = true;
+    ESP_LOGI(TAG, "Started aggregation timer for 5 seconds");
 }

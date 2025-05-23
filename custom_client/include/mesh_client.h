@@ -34,7 +34,7 @@
 #include "esp_log.h"
 #include "mqtt.h"
 #include "custom_sensor_model_defs.h"
-
+#include "uthash.h"
 /**
  * @brief Initializes BLE Mesh stack, initializing Models and it's callback functions
  *
@@ -45,7 +45,7 @@ esp_err_t ble_mesh_device_init_client(void);
  * @brief Custom Sensor Client Model SET message that
  *        publishes data to ESP_BLE_MESH_GROUP_PUB_ADDR
  */
-esp_err_t ble_mesh_custom_sensor_client_model_message_set(model_sensor_data_t set_data);
+esp_err_t ble_mesh_custom_sensor_client_model_message_set(void *data, size_t len, uint16_t addr);
 
 /**
  * @brief Custom Sensor Client Model GET message that
@@ -54,6 +54,12 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_set(model_sensor_data_t se
  * @note  Received data will be available on Model Callback function
  */
 esp_err_t ble_mesh_custom_sensor_client_model_message_get(uint16_t addr);
+typedef struct
+{
+    char mac_addr[13];        // Key (ví dụ: tên thiết bị)
+    model_sensor_data_t data; // Dữ liệu cảm biến
+    UT_hash_handle hh;        // Cần thiết cho uthash
+} set_entry_t;
 
 bool is_client_provisioned(void);
 #endif // __MESH_CLIENT_H__

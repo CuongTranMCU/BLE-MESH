@@ -3,6 +3,8 @@
   "files.associations": {
     "cstdlib": "c",
     "stdio.h": "c",
-    "string.h": "c"
-  }
+    "string.h": "c",
+    "esp_ble_mesh_local_data_operation_api.h": "c"
+  },
+  "idf.portWin": "COM9"
 }

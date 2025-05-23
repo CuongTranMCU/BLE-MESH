@@ -18,7 +18,7 @@ static const char *TAG = "MESH-SERVER-EXAMPLE";
 static const char *MP2 = "MP2";
 static const char *FLAME = "FLAME-SENSOR";
 
-QueueHandle_t ble_mesh_received_data_queue = NULL;
+QueueHandle_t receive_data_control_queue = NULL;
 QueueHandle_t received_data_from_sensor_queue = NULL;
 
 #define BUZZER_PIN 21
@@ -30,22 +30,22 @@ static void read_received_items(void *arg)
 {
     ESP_LOGI(TAG, "Task initializing...");
 
-    model_sensor_data_t _received_data;
+    model_control_data_t _received_data;
 
     while (1)
     {
         vTaskDelay(500 / portTICK_PERIOD_MS);
 
-        if (xQueueReceive(ble_mesh_received_data_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
+        if (xQueueReceive(receive_data_control_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
         {
-            ESP_LOGI(TAG, "    Device Name: %s", _received_data.device_name);
-            ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
-            ESP_LOGI(TAG, "    Humidity   : %f", _received_data.humidity);
-            ESP_LOGI(TAG, "    Smoke         : %f", _received_data.smoke);
+            ESP_LOGI(TAG, "Device Name: %s", _received_data.device_name);
+            ESP_LOGI(TAG, "Mesh address = %02x", _received_data.mesh_addr);
+            ESP_LOGI(TAG, "Buzzer       = %d", _received_data.buzzer);
+            ESP_LOGI(TAG, "LED          = %d", _received_data.led);
         }
         else
         {
-            ESP_LOGW(TAG, "No data received from ble_mesh_received_data_queue");
+            ESP_LOGW(TAG, "No data received from receive_data_control_queue");
         }
     }
 }
@@ -69,21 +69,22 @@ static void read_data_from_sensors(void *arg)
         _received_data.smoke = smokePpm;
         _received_data.isFlame = _received_data.isFlame;
 
-        ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
-        ESP_LOGI(TAG, "    Humidity   : %f", _received_data.humidity);
-        ESP_LOGI(TAG, "    Smoke      : %f", _received_data.smoke);
+        // ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
+        // ESP_LOGI(TAG, "    Humidity   : %f", _received_data.humidity);
+        // ESP_LOGI(TAG, "    Smoke      : %f", _received_data.smoke);
 
-        if (flame_sensor_read(&handle, &flame_detected) == ESP_OK)
-        {
-            ESP_LOGI(TAG, "Flame %s", flame_detected ? "DETECTED!" : "not detected");
-        }
-        else
-        {
-            ESP_LOGI(TAG, "Flame %s", "Error reading flame sensor");
-        }
+        // if (flame_sensor_read(&handle, &flame_detected) == ESP_OK)
+        // {
+        //     ESP_LOGI(TAG, "Flame %s", flame_detected ? "DETECTED!" : "not detected");
+        // }
+        // else
+        // {
+        //     ESP_LOGI(TAG, "Flame %s", "Error reading flame sensor");
+        // }
 
-        xQueueSendToBack(received_data_from_sensor_queue, &_received_data, portMAX_DELAY);
-        get_data_from_sensors();
+        // xQueueSendToBack(received_data_from_sensor_queue, &_received_data, portMAX_DELAY);
+        // get_data_from_sensors();
+        get_init_control_signal_from_sensors(0, 0);
         vTaskDelay(1000 * 5 / portTICK_PERIOD_MS);
     }
 }
@@ -92,10 +93,10 @@ void app_main(void)
 {
 
     // Xem lại phần này
-    ble_mesh_received_data_queue = xQueueCreate(5, sizeof(model_sensor_data_t));
+    receive_data_control_queue = xQueueCreate(5, sizeof(model_control_data_t));
     received_data_from_sensor_queue = xQueueCreate(5, sizeof(model_sensor_data_t));
 
-    if (ble_mesh_received_data_queue == NULL || received_data_from_sensor_queue == NULL)
+    if (receive_data_control_queue == NULL || received_data_from_sensor_queue == NULL)
     {
         ESP_LOGE(TAG, "Failed to create queues");
         return;

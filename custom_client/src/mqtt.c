@@ -23,8 +23,8 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     {
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
-        // msg_id = esp_mqtt_client_subscribe(client, "ReceiveControl", 0);
-        // ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+        msg_id = esp_mqtt_client_subscribe(client, "ReceiveControl", 0);
+        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
         break;
 
     case MQTT_EVENT_DISCONNECTED:
@@ -69,12 +69,17 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 
 void mqtt_app_start(const char *uri, uint32_t port, const char *username, const char *password)
 {
+    // esp_mqtt_client_config_t mqtt_cfg = {
+    //     .broker.address.uri = uri,
+    //     .broker.address.port = port,
+    //     .credentials.username = username,
+    //     .credentials.authentication.password = password,
+    //     //  .broker.verification.skip_cert_common_name_check = true,
+    // };
+
     esp_mqtt_client_config_t mqtt_cfg = {
-        .broker.address.uri = uri,
-        .broker.address.port = port,
-        .credentials.username = username,
-        .credentials.authentication.password = password,
-        .broker.verification.skip_cert_common_name_check = true,
+        .broker.address.uri = "mqtt://192.168.1.11",
+        .broker.address.port = 1883,
     };
 
     ESP_LOGI(TAG, "[APP] Free memory: %ld bytes", esp_get_free_heap_size());
@@ -129,7 +134,7 @@ void mqtt_data_publish_callback(char *topic, char *data, int length)
     }
 }
 
-cJSON *convert_model_sensor_to_json(model_sensor_data_t *received_data, int rssi)
+cJSON *convert_model_sensor_to_json(model_sensor_data_t *received_data)
 {
 
     // create a nested JSON object for the device
@@ -145,50 +150,132 @@ cJSON *convert_model_sensor_to_json(model_sensor_data_t *received_data, int rssi
 
     char mac_addr[15] = "0x";
     strcat(mac_addr, received_data->mac_addr);
+
     // add sensor data to the nested object
     cJSON_AddStringToObject(device_data, "macAddress", mac_addr);
     cJSON_AddStringToObject(device_data, "meshAddress", mesh_addr_str);
+    cJSON_AddNumberToObject(device_data, "rssi", received_data->rssi);
     cJSON_AddNumberToObject(device_data, "humidity", received_data->humidity);
     cJSON_AddNumberToObject(device_data, "temperature", received_data->temperature);
     cJSON_AddNumberToObject(device_data, "smoke", received_data->smoke);
-    cJSON_AddNumberToObject(device_data, "rssi", rssi);
     cJSON_AddStringToObject(device_data, "feedback", received_data->feedback);
 
     return device_data;
 }
 
-control_sensor_model_t convert_json_to_control_model_sensor(char *data)
+cJSON *convert_model_control_to_json(model_control_data_t *received_data)
 {
-    control_sensor_model_t temp;
-    memset(&temp, 0, sizeof(control_sensor_model_t)); // Khởi tạo struct với giá trị 0
+    if (received_data == NULL)
+    {
+        printf("Error: received_data is NULL.\n");
+        return NULL;
+    }
 
-    cJSON *json = cJSON_Parse(data);
+    // Tạo object chính để chứa key là mesh_addr_str
+    cJSON *root = cJSON_CreateObject();
+    if (root == NULL)
+    {
+        printf("Error: Failed to create JSON root object.\n");
+        return NULL;
+    }
+
+    // Chuyển mesh address sang chuỗi dạng "0x1234"
+    char mesh_addr_str[7];
+    snprintf(mesh_addr_str, sizeof(mesh_addr_str), "0x%04X", received_data->mesh_addr);
+
+    // Tạo object chứa led và buzzer
+    cJSON *json = cJSON_CreateObject();
     if (json == NULL)
     {
-        const char *error_ptr = cJSON_GetErrorPtr();
-        if (error_ptr != NULL)
+        printf("Error: Failed to create device_data object.\n");
+        cJSON_Delete(root);
+        return NULL;
+    }
+    cJSON_AddStringToObject(json, "MeshAddress", mesh_addr_str);
+    cJSON_AddNumberToObject(json, "led", received_data->led);
+    cJSON_AddNumberToObject(json, "buzzer", received_data->buzzer);
+
+    // Thêm device_data vào root với key là mesh_addr_str
+    cJSON_AddItemToObject(root, received_data->device_name, json);
+
+    return root;
+}
+
+model_control_data_t *convert_json_to_control_model_list(const char *data, int *count)
+{
+    cJSON *root = cJSON_Parse(data);
+    if (!root)
+    {
+        printf("JSON parse error\n");
+        return NULL;
+    }
+
+    cJSON *buzzer_obj = cJSON_GetObjectItem(root, "ControlBuzzer");
+    cJSON *led_obj = cJSON_GetObjectItem(root, "ControlLed");
+
+    if (!buzzer_obj || !led_obj)
+    {
+        printf("Missing 'ControlBuzzer' or 'ControlLed' field\n");
+        cJSON_Delete(root);
+        return NULL;
+    }
+
+    model_control_data_t *device_list = NULL;
+    int device_count = 0;
+
+    cJSON *entry = NULL;
+    cJSON_ArrayForEach(entry, buzzer_obj)
+    {
+        const char *device_name = entry->string;
+        cJSON *mesh_addr_str = cJSON_GetObjectItem(entry, "MeshAddress");
+        cJSON *turn_on = cJSON_GetObjectItem(entry, "TurnOn");
+
+        model_control_data_t new_device = {0};
+        strncpy(new_device.device_name, device_name, sizeof(new_device.device_name) - 1);
+        new_device.buzzer = cJSON_IsTrue(turn_on);
+
+        if (mesh_addr_str && mesh_addr_str->valuestring && strlen(mesh_addr_str->valuestring) > 2)
         {
-            printf("Error: %s\n", error_ptr);
+            sscanf(mesh_addr_str->valuestring, "0x%hx", &new_device.mesh_addr);
         }
-        cJSON_Delete(json);
-        return temp;
+
+        new_device.led = 0; // mặc định
+
+        device_list = realloc(device_list, sizeof(model_control_data_t) * (device_count + 1));
+        if (!device_list)
+        {
+            printf("Memory allocation failed\n");
+            cJSON_Delete(root);
+            *count = 0;
+            return NULL;
+        }
+
+        device_list[device_count++] = new_device;
     }
 
-    // access the JSON data
-    cJSON *addr = cJSON_GetObjectItemCaseSensitive(json, "addr");
-    if (cJSON_IsNumber(addr))
+    // Cập nhật LED cho các device có trong ControlLed
+    cJSON_ArrayForEach(entry, led_obj)
     {
-        temp.addr = (uint16_t)addr->valueint;
-        printf("Addr: %u\n", temp.addr);
+        const char *device_name = entry->string;
+        cJSON *mesh_addr_str = cJSON_GetObjectItem(entry, "MeshAddress");
+        cJSON *turn_on = cJSON_GetObjectItem(entry, "TurnOn");
+
+        for (int i = 0; i < device_count; i++)
+        {
+            if (strcmp(device_list[i].device_name, device_name) == 0)
+            {
+                device_list[i].led = cJSON_IsTrue(turn_on) ? 1 : 0;
+
+                if (device_list[i].mesh_addr == 0 && mesh_addr_str && mesh_addr_str->valuestring && strlen(mesh_addr_str->valuestring) > 2)
+                {
+                    sscanf(mesh_addr_str->valuestring, "0x%hx", &device_list[i].mesh_addr);
+                }
+                break;
+            }
+        }
     }
 
-    cJSON *status = cJSON_GetObjectItemCaseSensitive(json, "status");
-    if (cJSON_IsNumber(status))
-    {
-        temp.status = status->valueint;
-        printf("Status: %d\n", temp.status);
-    }
-
-    cJSON_Delete(json);
-    return temp;
+    *count = device_count;
+    cJSON_Delete(root);
+    return device_list;
 }

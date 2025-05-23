@@ -71,6 +71,7 @@ static void event_handler(void *arg, esp_event_base_t event_base,
     }
     else if (event_base == SC_EVENT && event_id == SC_EVENT_SCAN_DONE)
     {
+
         ESP_LOGI(TAG, "Scan done");
     }
     else if (event_base == SC_EVENT && event_id == SC_EVENT_FOUND_CHANNEL)
@@ -87,14 +88,17 @@ static void event_handler(void *arg, esp_event_base_t event_base,
         bzero(&wifi_config, sizeof(wifi_config_t));
         memcpy(wifi_config.sta.ssid, evt->ssid, sizeof(wifi_config.sta.ssid));
         memcpy(wifi_config.sta.password, evt->password, sizeof(wifi_config.sta.password));
+
         wifi_config.sta.bssid_set = evt->bssid_set;
         if (wifi_config.sta.bssid_set == true)
         {
             memcpy(wifi_config.sta.bssid, evt->bssid, sizeof(wifi_config.sta.bssid));
         }
-
+        // Thiết lập chế độ xác thực tối thiểu là WPA2_PSK
+        wifi_config.sta.threshold.authmode = WIFI_AUTH_WPA2_PSK;
         memcpy(ssid, evt->ssid, sizeof(evt->ssid));
         memcpy(password, evt->password, sizeof(evt->password));
+
         ESP_LOGI(TAG, "SSID:%s", ssid);
         ESP_LOGI(TAG, "PASSWORD:%s", password);
         if (evt->type == SC_TYPE_ESPTOUCH_V2)
