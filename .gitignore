@@ -5,4 +5,7 @@ custom_client/.devcontainer
 custom_server/build
 custom_server/.vscode
 custom_server/.devcontainer
+SERVER/venv
+SERVER/config
+
 
