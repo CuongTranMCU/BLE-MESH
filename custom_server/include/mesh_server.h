@@ -13,19 +13,29 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <sdkconfig.h>
+#include <inttypes.h>
 
 #include "esp_ble_mesh_common_api.h"
 #include "esp_ble_mesh_provisioning_api.h"
 #include "esp_ble_mesh_networking_api.h"
 #include "esp_ble_mesh_config_model_api.h"
 #include "esp_ble_mesh_generic_model_api.h"
-
 #include "custom_sensor_model_defs.h"
 
-//! Ver onde colocar essa fila
-#include "freertos/queue.h"
+#include "esp_bt.h"
+#include "esp_bt_main.h"
+#include "esp_bt_device.h"
+#include "esp_ble_mesh_defs.h"
+#include "esp_ble_mesh_networking_api.h"
+#include "esp_ble_mesh_local_data_operation_api.h"
 
-extern QueueHandle_t ble_mesh_received_data_queue;
+#include "esp_log.h"
+#include "esp_mac.h"
+#include "freertos/queue.h"
+#include "board.h"
+
+extern QueueHandle_t receive_data_control_queue;
 extern QueueHandle_t received_data_from_sensor_queue;
 
 /**
@@ -33,10 +43,9 @@ extern QueueHandle_t received_data_from_sensor_queue;
  *
  */
 esp_err_t ble_mesh_device_init_server(void);
-
+esp_err_t server_send_to_client(const void *raw_data, size_t raw_len, message_type_t type);
+void send_control_signal_from_sensors(bool buzzerStatus, bool* ledStatus);
+void send_data_from_sensors();
 bool is_server_provisioned(void);
-void server_send_to_client(model_sensor_data_t server_model_state);
-static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model_sensor_data_t *parsed_data);
-static void get_data_from_sensors();
-void send_heartbeat_from_server(uint8_t count_log, uint8_t period_log);
+bool is_server_sent_init_control(void);
 #endif // __MESH_SERVER_H__

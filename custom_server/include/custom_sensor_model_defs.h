@@ -36,16 +36,31 @@
 /**
  * @brief Device Main Data Structure
  */
+typedef enum
+{
+    MSG_TYPE_SENSOR = 0x01,
+    MSG_TYPE_CONTROL = 0x02,
+} message_type_t;
+
 typedef struct __attribute__((packed))
 {
-    char device_name[20];
-    char mac_addr[6];
-    uint16_t addr;
+    char device_name[30];
+    char mac_addr[13];
+    uint16_t mesh_addr;
     float temperature;
     float humidity;
     float smoke;
     bool isFlame;
-    uint8_t feedback;
+    char feedback[20];
 } model_sensor_data_t;
 
+typedef struct __attribute__((packed))
+{
+    char device_name[30];
+    uint16_t mesh_addr;
+    bool buzzerStatus; // Buzzer status
+    bool ledStatus[3]; // LED status for Red, Green, Blue
+    bool ledError;
+    bool buzzerError;
+} model_control_data_t;
 #endif // __CUSTOM_SENSOR_MODEL_DEFS_H__

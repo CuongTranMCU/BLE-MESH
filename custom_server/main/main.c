@@ -1,19 +1,16 @@
 
 #include <sdkconfig.h>
 #include "nvs_flash.h"
-
 #include "esp_log.h"
-
 #include "mesh_device_app.h"
-
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-
 #include "DHT22.h"
 #include "board.h"
 #include "MP2.h"
 #include "Flame.h"
 #include "mesh_server.h"
+// #include "esp_sleep.h"
 extern model_sensor_data_t _server_model_state;
 static const char *TAG = "MESH-SERVER-EXAMPLE";
 static const char *MP2 = "MP2";
@@ -21,31 +18,24 @@ static const char *FLAME = "FLAME-SENSOR";
 #define BUZZER_PIN 21
 #define FLAME_SENSOR_GPIO GPIO_NUM_10  // Change this to your GPIO pin
 
-QueueHandle_t ble_mesh_received_data_queue = NULL;
+QueueHandle_t receive_data_control_queue = NULL;
 QueueHandle_t received_data_from_sensor_queue = NULL;
 static flame_sensor_handle_t handle;
 
-static void read_received_items(void *arg)
-{
-    ESP_LOGI(TAG, "Task initializing...");
-
-    model_sensor_data_t _received_data;
-
-    while (1)
-    {
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-
-        if (xQueueReceive(ble_mesh_received_data_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
-        {
-            ESP_LOGI(TAG, "    Device Name: %s", _received_data.device_name);
-            ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
-            ESP_LOGI(TAG, "    Humidity   : %f", _received_data.humidity);
-            ESP_LOGI(TAG, "    Smoke      : %f", _received_data.smoke);
-
-        }
+char* check_fire_conditions(model_sensor_data_t *state) {
+    if (state->temperature > 45.0f) {
+        return "Big Fire";
+    }
+    else if ((state->isFlame || state->smoke >= 400.0f) && state->temperature > 37.0f) {
+        return "Fire";
+    }
+    else if (state->isFlame || state->smoke >= 400.0f) {
+        return "Potential Fire";
+    }
+    else {
+        return "No Fire";
     }
 }
-
 static void read_data_from_sensors(void *arg)
 {
     model_sensor_data_t _received_data;
@@ -62,7 +52,6 @@ static void read_data_from_sensors(void *arg)
         _received_data.temperature = temp;
         _received_data.humidity = hum;
         _received_data.smoke = smokePpm;
-
         ESP_LOGI(TAG, "    Temperature: %.2f", _received_data.temperature);
         ESP_LOGI(TAG, "    Humidity   : %.2f", _received_data.humidity);
         ESP_LOGI(TAG, "    Smoke      : %.2f ppm", smokePpm);
@@ -72,20 +61,62 @@ static void read_data_from_sensors(void *arg)
         } else {
             printf("Error reading flame sensor\n");
         }
-        _server_model_state.temperature = _received_data.temperature;
-        _server_model_state.humidity = _received_data.humidity;
-        _server_model_state.isFlame = _received_data.isFlame;
-        server_send_to_client(_server_model_state);
+        strcpy(_received_data.feedback,check_fire_conditions(&_received_data));
+        xQueueSendToBack(received_data_from_sensor_queue, &_received_data, portMAX_DELAY);
+        send_data_from_sensors();
+        if (is_server_sent_init_control() == false)
+        {
+            bool ledStatus[3];
+            ledStatus[0] = gpio_get_level(LED_RED_GPIO); 
+            ledStatus[1] = gpio_get_level(LED_GREEN_GPIO);
+            ledStatus[2] = gpio_get_level(LED_BLUE_GPIO);
+            bool buzzerStatus = gpio_get_level(BUZZER_PIN);
+            send_control_signal_from_sensors(buzzerStatus, ledStatus);
+        }
+
         vTaskDelay(5000 / portTICK_PERIOD_MS);
     }
 }
+// Fixed alarm task for continuous alarming
+// static void alarm_task(void *arg) {
+//     while (1) {
+//         // Using string comparisons instead of switch statement
+//         if (strcmp(_server_model_state.feedback, "Big Fire") == 0) {
+//             gpio_set_level(BUZZER_PIN, 1);
+//             led_off();
+//             gpio_set_level(LED_BLUE_GPIO, 1);
+            
+//             // vTaskDelay(500 / portTICK_PERIOD_MS);
+//             // gpio_set_level(LED_BLUE_GPIO, 0);
+//             // vTaskDelay(500 / portTICK_PERIOD_MS);
+//         }
+//         else if (strcmp(_server_model_state.feedback, "Fire") == 0) {
+//             gpio_set_level(BUZZER_PIN, 1);
+//             led_off();
+//             gpio_set_level(LED_RED_GPIO, 1);
+//             // vTaskDelay(500 / portTICK_PERIOD_MS);
+//             // gpio_set_level(LED_RED_GPIO, 0);
+//             // vTaskDelay(500 / portTICK_PERIOD_MS);
+//         }
+//         else if (strcmp(_server_model_state.feedback, "Potential Fire") == 0) {
+//             led_off();
+//             gpio_set_level(LED_GREEN_GPIO, 1);
+//             // vTaskDelay(500 / portTICK_PERIOD_MS);
+//             // gpio_set_level(LED_GREEN_GPIO, 0);
+//             // vTaskDelay(500 / portTICK_PERIOD_MS);
+//         }
+//         else if (strcmp(_server_model_state.feedback, "No Fire") == 0) {
+//             led_off();
+//             gpio_set_level(BUZZER_PIN, 0);
+//         }
+//     }
+// }
 void app_main(void)
 {
     esp_err_t err;
 
     ESP_LOGI(TAG, "Initializing...");
     gpio_config_t io_conf;
-
     // Configure BUZZER  pin as output
     io_conf.intr_type = GPIO_INTR_DISABLE;
     io_conf.mode = GPIO_MODE_OUTPUT;
@@ -95,9 +126,8 @@ void app_main(void)
     gpio_config(&io_conf);
     gpio_set_direction(BUZZER_PIN, GPIO_MODE_OUTPUT);
     gpio_set_level(BUZZER_PIN, 0);
-
-    // ble_mesh_received_data_queue = xQueueCreate(5, sizeof(model_sensor_data_t));
-    // received_data_from_sensor_queue = xQueueCreate(1, sizeof(model_sensor_data_t));
+    receive_data_control_queue = xQueueCreate(5, sizeof(model_sensor_data_t));
+    received_data_from_sensor_queue = xQueueCreate(1, sizeof(model_sensor_data_t));
 
     err = nvs_flash_init();
     if (err == ESP_ERR_NVS_NO_FREE_PAGES)
@@ -120,14 +150,13 @@ void app_main(void)
     flame_sensor_config_t config = {
         .gpio_pin = FLAME_SENSOR_GPIO
     };
-
     // Initialize flame sensor
     ESP_ERROR_CHECK(flame_sensor_init(&config, &handle));
-
     // SMOKE
     Init_MP2();
     ESP_LOGI(TAG, "Starting MP2 Task\n\n");
-
     // xTaskCreate(read_received_items, "Read queue task", 2048 * 2, (void *)0, 20, NULL); 
-    xTaskCreate(read_data_from_sensors, "Read queue dht22 task", 2048 * 2, (void *)0, 20, NULL);
+    xTaskCreate(read_data_from_sensors, "Read queue task", 2048 * 2, (void *)0, 20, NULL);
+    // xTaskCreate(alarm_task, "Alarm task", 2048 * 2, (void *)0, 20, NULL);
+
 }
