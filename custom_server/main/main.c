@@ -21,6 +21,55 @@ static const char *FLAME = "FLAME-SENSOR";
 QueueHandle_t receive_data_control_queue = NULL;
 QueueHandle_t received_data_from_sensor_queue = NULL;
 static flame_sensor_handle_t handle;
+static void read_received_items(void *arg)
+{
+    ESP_LOGI(TAG, "Task initializing...");
+
+    model_control_data_t _received_data;
+
+    while (1)
+    {
+        vTaskDelay(500 / portTICK_PERIOD_MS);
+        if (xQueueReceive(receive_data_control_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
+        {
+            ESP_LOGI(TAG, "Device Name: %s", _received_data.device_name);
+            ESP_LOGI(TAG, "Mesh address = %02x", _received_data.mesh_addr);
+            ESP_LOGI(TAG, "Buzzer       = %d", _received_data.buzzerStatus);
+            ESP_LOGI(TAG, "LED RED      = %d", _received_data.ledStatus[0]);
+            ESP_LOGI(TAG, "LED GREEN    = %d", _received_data.ledStatus[1]);
+            ESP_LOGI(TAG, "LED BLUE     = %d", _received_data.ledStatus[2]);
+            // Set BUZZER and LEDs
+            led_off();
+            gpio_set_level(BUZZER_PIN, !_received_data.buzzerStatus);
+            gpio_set_level(LED_RED_GPIO, !_received_data.ledStatus[0]);
+            gpio_set_level(LED_GREEN_GPIO, !_received_data.ledStatus[1]);
+            gpio_set_level(LED_BLUE_GPIO, !_received_data.ledStatus[2]);
+            // Check actual GPIO levels against received data
+            bool buzzer_actual = gpio_get_level(BUZZER_PIN);
+            bool led_actual[3] = {
+                gpio_get_level(LED_RED_GPIO),
+                gpio_get_level(LED_GREEN_GPIO),
+                gpio_get_level(LED_BLUE_GPIO)
+            };
+            // Set error flags if there's a mismatch
+            _received_data.buzzerError = (buzzer_actual != _received_data.buzzerStatus);
+            _received_data.ledError = (led_actual[0] != _received_data.ledStatus[0] ||
+                                      led_actual[1] != _received_data.ledStatus[1] ||
+                                      led_actual[2] != _received_data.ledStatus[2]);
+            if (_received_data.buzzerError || _received_data.ledError) {
+                ESP_LOGW(TAG, "Error in received control data: Buzzer Error: %d, LED Error: %d",
+                         _received_data.buzzerError, _received_data.ledError);
+                send_control_signal_from_sensors(buzzer_actual,led_actual,_received_data.buzzerError, _received_data.ledError);
+            } else {
+                ESP_LOGI(TAG, "Control data received successfully with no errors.");
+            }
+        }
+        else
+        {
+            ESP_LOGW(TAG, "No data received from receive_data_control_queue");
+        }
+    }
+}
 
 char* check_fire_conditions(model_sensor_data_t *state) {
     if (state->temperature > 45.0f) {
@@ -63,7 +112,7 @@ static void read_data_from_sensors(void *arg)
         }
         strcpy(_received_data.feedback,check_fire_conditions(&_received_data));
         xQueueSendToBack(received_data_from_sensor_queue, &_received_data, portMAX_DELAY);
-        send_data_from_sensors();
+        // send_data_from_sensors();
         if (is_server_sent_init_control() == false)
         {
             bool ledStatus[3];
@@ -71,9 +120,8 @@ static void read_data_from_sensors(void *arg)
             ledStatus[1] = gpio_get_level(LED_GREEN_GPIO);
             ledStatus[2] = gpio_get_level(LED_BLUE_GPIO);
             bool buzzerStatus = gpio_get_level(BUZZER_PIN);
-            send_control_signal_from_sensors(buzzerStatus, ledStatus);
+            send_control_signal_from_sensors(buzzerStatus, ledStatus,true,false);
         }
-
         vTaskDelay(5000 / portTICK_PERIOD_MS);
     }
 }
@@ -126,7 +174,7 @@ void app_main(void)
     gpio_config(&io_conf);
     gpio_set_direction(BUZZER_PIN, GPIO_MODE_OUTPUT);
     gpio_set_level(BUZZER_PIN, 0);
-    receive_data_control_queue = xQueueCreate(5, sizeof(model_sensor_data_t));
+    receive_data_control_queue = xQueueCreate(1, sizeof(model_control_data_t));
     received_data_from_sensor_queue = xQueueCreate(1, sizeof(model_sensor_data_t));
 
     err = nvs_flash_init();
@@ -155,7 +203,7 @@ void app_main(void)
     // SMOKE
     Init_MP2();
     ESP_LOGI(TAG, "Starting MP2 Task\n\n");
-    // xTaskCreate(read_received_items, "Read queue task", 2048 * 2, (void *)0, 20, NULL); 
+    xTaskCreate(read_received_items, "Read queue task", 2048 * 2, (void *)0, 20, NULL); 
     xTaskCreate(read_data_from_sensors, "Read queue task", 2048 * 2, (void *)0, 20, NULL);
     // xTaskCreate(alarm_task, "Alarm task", 2048 * 2, (void *)0, 20, NULL);
 
