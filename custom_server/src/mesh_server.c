@@ -51,7 +51,6 @@ static esp_ble_mesh_model_op_t custom_sensor_op[] = {
     ESP_BLE_MESH_MODEL_OP(ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_SET, 4), // OP_SET no minimo 4 bytes
     ESP_BLE_MESH_MODEL_OP_END,
 };
-
 static model_sensor_data_t _server_model_state;
 static model_control_data_t _control_model_state;
 //* E agora a definiçao do model
@@ -258,7 +257,7 @@ static void ble_mesh_provisioning_cb(esp_ble_mesh_prov_cb_event_t event,
     case ESP_BLE_MESH_PROV_REGISTER_COMP_EVT:
         ESP_LOGI(TAG, "ESP_BLE_MESH_PROV_REGISTER_COMP_EVT, err_code %d", param->prov_register_comp.err_code);
         // When device starts up, not provisioned
-        led_indicate_not_provisioned();
+        // led_indicate_not_provisioned();
         break;
 
     case ESP_BLE_MESH_NODE_PROV_ENABLE_COMP_EVT:
@@ -280,7 +279,7 @@ static void ble_mesh_provisioning_cb(esp_ble_mesh_prov_cb_event_t event,
         prov_complete(param->node_prov_complete.net_idx, param->node_prov_complete.addr,
                       param->node_prov_complete.flags, param->node_prov_complete.iv_index);
         // When device gets provisioned
-        led_indicate_provisioned();
+        // led_indicate_provisioned();
         break;
 
     case ESP_BLE_MESH_NODE_PROV_RESET_EVT:
@@ -343,21 +342,21 @@ static void ble_mesh_config_server_cb(esp_ble_mesh_cfg_server_cb_event_t event,
         }
     }
 }
-void get_data_from_sensors()
+void send_data_from_sensors()
 {
     model_sensor_data_t _received_data;
     if (xQueueReceive(received_data_from_sensor_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
     {
         ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
         ESP_LOGI(TAG, "    Humidity:    %f", _received_data.humidity);
-        ESP_LOGI(TAG, "    Somke:       %f", _received_data.smoke);
+        ESP_LOGI(TAG, "    Smoke:       %f", _received_data.smoke);
+        ESP_LOGI(TAG, "    Flame:       %d", _received_data.isFlame);
+        ESP_LOGI(TAG, "    Feedback:    %s", _received_data.feedback);
 
         _server_model_state.temperature = _received_data.temperature;
         _server_model_state.humidity = _received_data.humidity;
         _server_model_state.smoke = _received_data.smoke;
         _server_model_state.isFlame = _received_data.isFlame;
-        strcpy(_server_model_state.feedback, "Hello world");
-
         // Call event
         esp_err_t err = server_send_to_client(&_server_model_state, sizeof(_server_model_state), MSG_TYPE_SENSOR);
         if (err != ESP_OK)
@@ -371,28 +370,35 @@ void get_data_from_sensors()
     }
 }
 
-void get_init_control_signal_from_sensors(int buzzer_state, int led_state)
+void send_control_signal_from_sensors(bool buzzerStatus, bool *ledStatus, bool buzzerError, bool ledError)
 {
 
-    if (!is_server_sent_init_control())
+    strcpy(_control_model_state.device_name, _server_model_state.device_name);
+    _control_model_state.mesh_addr = _server_model_state.mesh_addr;
+    _control_model_state.buzzerError = false; // Reset error status
+    _control_model_state.ledError = false;    // Reset error status
+    _control_model_state.buzzerStatus = buzzerStatus;
+    for (int i = 0; i < 3; i++)
     {
-        strcpy(_control_model_state.device_name, _server_model_state.device_name);
-        _control_model_state.mesh_addr = _server_model_state.mesh_addr;
-        _control_model_state.buzzer = buzzer_state;
-        _control_model_state.led = led_state;
+        _control_model_state.ledStatus[i] = ledStatus[i];
+    }
 
-        vTaskDelay(1000 * 5 / portTICK_PERIOD_MS);
-        esp_err_t err = server_send_to_client(&_control_model_state, sizeof(_control_model_state), MSG_TYPE_CONTROL);
+    // ESP_LOGI(TAG, "    BUZZER :%d", _control_model_state.buzzerStatus);
+    // ESP_LOGI(TAG, "    LED RED: %d", _control_model_state.ledStatus[0]);
+    // ESP_LOGI(TAG, "    LED GREEN:%d", _control_model_state.ledStatus[1]);
+    // ESP_LOGI(TAG, "    LED BLUE:%d", _control_model_state.ledStatus[2]);
 
-        if (err != ESP_OK)
-        {
-            ESP_LOGE("Sever send control signal to Client", "Failed to send message, error code: 0x%04x", err);
-        }
-        else
-        {
-            is_server_sending = true;
-            ESP_LOGI("Sever send data to Client", "Message sent successfully to 0x%04x", custom_models[0].pub->publish_addr);
-        }
+    vTaskDelay(1000 * 5 / portTICK_PERIOD_MS);
+    esp_err_t err = server_send_to_client(&_control_model_state, sizeof(_control_model_state), MSG_TYPE_CONTROL);
+
+    if (err != ESP_OK)
+    {
+        ESP_LOGE("Sever send control signal to Client", "Failed to send message, error code: 0x%04x", err);
+    }
+    else
+    {
+        is_server_sending = true;
+        ESP_LOGI("Sever send data to Client", "Message sent successfully to 0x%04x", custom_models[0].pub->publish_addr);
     }
 }
 
@@ -433,6 +439,7 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
             ESP_LOGI(TAG, "OP_SET -- Received HEX message: ");
             ESP_LOG_BUFFER_HEX(TAG, (uint8_t *)param->model_operation.msg, param->model_operation.length);
             parse_received_data(param, (model_sensor_data_t *)&param->model_operation.model->user_data);
+
             break;
 
         default:
@@ -463,7 +470,7 @@ static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model
 {
     if (recv_param->client_recv_publish_msg.length < sizeof(parsed_data))
     {
-        ESP_LOGE(TAG, "Invalid received message lenght: %d", recv_param->client_recv_publish_msg.length);
+        ESP_LOGE(TAG, "Invalid received message length: %d", recv_param->client_recv_publish_msg.length);
         return;
     }
 
@@ -471,9 +478,10 @@ static void parse_received_data(esp_ble_mesh_model_cb_param_t *recv_param, model
 
     ESP_LOGI("PARSED_CONTROL", "Device Name  = %s", parsed_data->device_name);
     ESP_LOGI("PARSED_CONTROL", "Mesh address = %04x", parsed_data->mesh_addr);
-    ESP_LOGI("PARSED_CONTROL", "Buzzer       = %d", parsed_data->buzzer);
-    ESP_LOGI("PARSED_CONTROL", "LED          = %d", parsed_data->led);
-
+    ESP_LOGI("PARSED_CONTROL", "Buzzer       = %d", parsed_data->buzzerStatus);
+    ESP_LOGI("PARSED_CONTROL", "LED RED      = %d", parsed_data->ledStatus[0]);
+    ESP_LOGI("PARSED_CONTROL", "LED GREEN    = %d", parsed_data->ledStatus[1]);
+    ESP_LOGI("PARSED_CONTROL", "LED BLUE     = %d", parsed_data->ledStatus[2]);
     xQueueSendToBack(receive_data_control_queue, parsed_data, portMAX_DELAY);
 }
 

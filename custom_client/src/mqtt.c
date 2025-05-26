@@ -67,20 +67,20 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     }
 }
 
-void mqtt_app_start(const char *uri, uint32_t port, const char *username, const char *password)
+void mqtt_app_start(const mqtt_config_t *config)
 {
-    // esp_mqtt_client_config_t mqtt_cfg = {
-    //     .broker.address.uri = uri,
-    //     .broker.address.port = port,
-    //     .credentials.username = username,
-    //     .credentials.authentication.password = password,
-    //     //  .broker.verification.skip_cert_common_name_check = true,
-    // };
-
     esp_mqtt_client_config_t mqtt_cfg = {
-        .broker.address.uri = "mqtt://192.168.1.11",
-        .broker.address.port = 1883,
+        .broker.address.uri = config->uri,
+        .broker.address.port = config->port,
+        .credentials.username = config->username,
+        .credentials.authentication.password = config->password,
+        //  .broker.verification.skip_cert_common_name_check = true,
     };
+
+    // esp_mqtt_client_config_t mqtt_cfg = {
+    //     .broker.address.uri = "mqtt://192.168.124.73",
+    //     .broker.address.port = 1883,
+    // };
 
     ESP_LOGI(TAG, "[APP] Free memory: %ld bytes", esp_get_free_heap_size());
     global_client = esp_mqtt_client_init(&mqtt_cfg);
@@ -134,6 +134,96 @@ void mqtt_data_publish_callback(char *topic, char *data, int length)
     }
 }
 
+esp_err_t save_mqtt_config(const mqtt_config_t *config)
+{
+    nvs_handle_t nvs_handle;
+    esp_err_t err = nvs_open("mqtt_ns", NVS_READWRITE, &nvs_handle);
+    if (err != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Failed to open NVS: %s", esp_err_to_name(err));
+        return err;
+    }
+
+    // Ghi uri
+    err = nvs_set_str(nvs_handle, "uri", config->uri);
+    if (err != ESP_OK)
+        goto cleanup;
+
+    // Ghi username
+    err = nvs_set_str(nvs_handle, "username", config->username);
+    if (err != ESP_OK)
+        goto cleanup;
+
+    // Ghi password
+    err = nvs_set_str(nvs_handle, "password", config->password);
+    if (err != ESP_OK)
+        goto cleanup;
+
+    // Ghi port
+    err = nvs_set_u32(nvs_handle, "port", config->port);
+    if (err != ESP_OK)
+        goto cleanup;
+
+    // Commit thay đổi
+    err = nvs_commit(nvs_handle);
+    if (err != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Failed to commit NVS: %s", esp_err_to_name(err));
+    }
+
+cleanup:
+    if (err != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Failed to save MQTT config: %s", esp_err_to_name(err));
+    }
+    nvs_close(nvs_handle);
+    return err;
+}
+
+esp_err_t load_mqtt_config(mqtt_config_t *config)
+{
+    nvs_handle_t nvs_handle;
+    esp_err_t err = nvs_open("mqtt_ns", NVS_READONLY, &nvs_handle);
+    if (err != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Failed to open NVS: %s", esp_err_to_name(err));
+        return err;
+    }
+
+    size_t size;
+
+    // Đọc uri
+    size = sizeof(config->uri);
+    err = nvs_get_str(nvs_handle, "uri", config->uri, &size);
+    if (err != ESP_OK)
+        goto cleanup;
+
+    // Đọc username
+    size = sizeof(config->username);
+    err = nvs_get_str(nvs_handle, "username", config->username, &size);
+    if (err != ESP_OK)
+        goto cleanup;
+
+    // Đọc password
+    size = sizeof(config->password);
+    err = nvs_get_str(nvs_handle, "password", config->password, &size);
+    if (err != ESP_OK)
+        goto cleanup;
+
+    // Đọc port
+    err = nvs_get_u32(nvs_handle, "port", &config->port);
+    if (err != ESP_OK)
+        goto cleanup;
+
+cleanup:
+    if (err != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Failed to load MQTT config: %s", esp_err_to_name(err));
+    }
+    nvs_close(nvs_handle);
+    return err;
+}
+
 cJSON *convert_model_sensor_to_json(model_sensor_data_t *received_data)
 {
 
@@ -171,32 +261,53 @@ cJSON *convert_model_control_to_json(model_control_data_t *received_data)
         return NULL;
     }
 
-    // Tạo object chính để chứa key là mesh_addr_str
+    // Tạo root object
     cJSON *root = cJSON_CreateObject();
-    if (root == NULL)
+    if (!root)
     {
-        printf("Error: Failed to create JSON root object.\n");
+        printf("Error: Failed to create root object.\n");
         return NULL;
     }
 
-    // Chuyển mesh address sang chuỗi dạng "0x1234"
+    // Chuyển mesh address sang string "0xXXXX"
     char mesh_addr_str[7];
     snprintf(mesh_addr_str, sizeof(mesh_addr_str), "0x%04X", received_data->mesh_addr);
 
-    // Tạo object chứa led và buzzer
-    cJSON *json = cJSON_CreateObject();
-    if (json == NULL)
+    // ---- ControlBuzzer ----
+    cJSON *control_buzzer = cJSON_CreateObject();
+    cJSON *buzzer_obj = cJSON_CreateObject();
+
+    if (!control_buzzer || !buzzer_obj)
     {
-        printf("Error: Failed to create device_data object.\n");
         cJSON_Delete(root);
+        printf("Error: Failed to create ControlBuzzer object.\n");
         return NULL;
     }
-    cJSON_AddStringToObject(json, "MeshAddress", mesh_addr_str);
-    cJSON_AddNumberToObject(json, "led", received_data->led);
-    cJSON_AddNumberToObject(json, "buzzer", received_data->buzzer);
 
-    // Thêm device_data vào root với key là mesh_addr_str
-    cJSON_AddItemToObject(root, received_data->device_name, json);
+    cJSON_AddStringToObject(buzzer_obj, "MeshAddress", mesh_addr_str);
+    cJSON_AddBoolToObject(buzzer_obj, "TurnOn", received_data->buzzerStatus);
+    cJSON_AddBoolToObject(buzzer_obj, "Error", received_data->buzzerError);
+    cJSON_AddItemToObject(control_buzzer, received_data->device_name, buzzer_obj);
+    cJSON_AddItemToObject(root, "ControlBuzzer", control_buzzer);
+
+    // ---- ControlLed ----
+    cJSON *control_led = cJSON_CreateObject();
+    cJSON *led_obj = cJSON_CreateObject();
+
+    if (!control_led || !led_obj)
+    {
+        cJSON_Delete(root);
+        printf("Error: Failed to create ControlLed object.\n");
+        return NULL;
+    }
+
+    cJSON_AddStringToObject(led_obj, "MeshAddress", mesh_addr_str);
+    cJSON_AddBoolToObject(led_obj, "LedRed", received_data->ledStatus[0]);
+    cJSON_AddBoolToObject(led_obj, "LedGreen", received_data->ledStatus[1]);
+    cJSON_AddBoolToObject(led_obj, "LedBlue", received_data->ledStatus[2]);
+    cJSON_AddBoolToObject(led_obj, "Error", received_data->ledError);
+    cJSON_AddItemToObject(control_led, received_data->device_name, led_obj);
+    cJSON_AddItemToObject(root, "ControlLed", control_led);
 
     return root;
 }
@@ -227,46 +338,64 @@ model_control_data_t *convert_json_to_control_model_list(const char *data, int *
     cJSON_ArrayForEach(entry, buzzer_obj)
     {
         const char *device_name = entry->string;
+        if (!device_name)
+            continue;
+
         cJSON *mesh_addr_str = cJSON_GetObjectItem(entry, "MeshAddress");
         cJSON *turn_on = cJSON_GetObjectItem(entry, "TurnOn");
+        cJSON *error = cJSON_GetObjectItem(entry, "Error");
 
         model_control_data_t new_device = {0};
         strncpy(new_device.device_name, device_name, sizeof(new_device.device_name) - 1);
-        new_device.buzzer = cJSON_IsTrue(turn_on);
+        new_device.buzzerStatus = cJSON_IsTrue(turn_on);
+        new_device.buzzerError = cJSON_IsTrue(error);
+        new_device.ledError = false; // sẽ cập nhật sau nếu có trong ControlLed
+        new_device.ledStatus[0] = 0;
+        new_device.ledStatus[1] = 0;
+        new_device.ledStatus[2] = 0;
 
-        if (mesh_addr_str && mesh_addr_str->valuestring && strlen(mesh_addr_str->valuestring) > 2)
+        if (mesh_addr_str && cJSON_IsString(mesh_addr_str) && strlen(mesh_addr_str->valuestring) > 2)
         {
             sscanf(mesh_addr_str->valuestring, "0x%hx", &new_device.mesh_addr);
         }
 
-        new_device.led = 0; // mặc định
-
-        device_list = realloc(device_list, sizeof(model_control_data_t) * (device_count + 1));
-        if (!device_list)
+        model_control_data_t *temp = realloc(device_list, sizeof(model_control_data_t) * (device_count + 1));
+        if (!temp)
         {
             printf("Memory allocation failed\n");
+            free(device_list);
             cJSON_Delete(root);
             *count = 0;
             return NULL;
         }
 
+        device_list = temp;
         device_list[device_count++] = new_device;
     }
 
-    // Cập nhật LED cho các device có trong ControlLed
+    // Cập nhật trạng thái LED từ ControlLed
     cJSON_ArrayForEach(entry, led_obj)
     {
         const char *device_name = entry->string;
+        if (!device_name)
+            continue;
+
         cJSON *mesh_addr_str = cJSON_GetObjectItem(entry, "MeshAddress");
-        cJSON *turn_on = cJSON_GetObjectItem(entry, "TurnOn");
+        cJSON *led_red = cJSON_GetObjectItem(entry, "LedRed");
+        cJSON *led_green = cJSON_GetObjectItem(entry, "LedGreen");
+        cJSON *led_blue = cJSON_GetObjectItem(entry, "LedBlue");
+        cJSON *error = cJSON_GetObjectItem(entry, "Error");
 
         for (int i = 0; i < device_count; i++)
         {
             if (strcmp(device_list[i].device_name, device_name) == 0)
             {
-                device_list[i].led = cJSON_IsTrue(turn_on) ? 1 : 0;
+                device_list[i].ledStatus[0] = cJSON_IsTrue(led_red);
+                device_list[i].ledStatus[1] = cJSON_IsTrue(led_green);
+                device_list[i].ledStatus[2] = cJSON_IsTrue(led_blue);
+                device_list[i].ledError = cJSON_IsTrue(error);
 
-                if (device_list[i].mesh_addr == 0 && mesh_addr_str && mesh_addr_str->valuestring && strlen(mesh_addr_str->valuestring) > 2)
+                if (device_list[i].mesh_addr == 0 && mesh_addr_str && cJSON_IsString(mesh_addr_str))
                 {
                     sscanf(mesh_addr_str->valuestring, "0x%hx", &device_list[i].mesh_addr);
                 }

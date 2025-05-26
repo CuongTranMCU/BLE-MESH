@@ -3,6 +3,7 @@
   "idf.portWin": "COM5",
   "files.associations": {
     "dht22.h": "c",
-    "mp2.h": "c"
+    "mp2.h": "c",
+    "flame.h": "c"
   }
 }

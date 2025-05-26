@@ -13,10 +13,8 @@ static uint8_t ssid[32] = {0};
 static uint8_t password[64] = {0};
 static uint8_t rvd_data[64] = {0};
 
-static char *mqtt_uri;
-uint32_t mqtt_broker_port;
-static char *mqtt_username;
-static char *mqtt_password;
+static mqtt_config_t mqtt_config;
+
 static void wifi_set_mqtt_config(uint8_t *rvd_data);
 
 static void event_handler(void *arg, esp_event_base_t event_base,
@@ -67,7 +65,39 @@ static void event_handler(void *arg, esp_event_base_t event_base,
         check_wifi_connection();
         xEventGroupSetBits(s_wifi_event_group, CONNECTED_BIT);
 
-        mqtt_app_start(mqtt_uri, mqtt_broker_port, mqtt_username, mqtt_password);
+        esp_err_t err;
+        if (strlen(mqtt_config.uri) > 0)
+        {
+            err = save_mqtt_config(&mqtt_config);
+            if (err != ESP_OK)
+            {
+                ESP_LOGE(TAG, "Failed to save MQTT configuration: %s", esp_err_to_name(err));
+                return;
+            }
+            else
+            {
+                ESP_LOGI(TAG, "MQTT configuration saved successfully");
+            }
+        }
+
+        err = load_mqtt_config(&mqtt_config);
+
+        if (err != ESP_OK)
+        {
+            ESP_LOGE(TAG, "Failed to load MQTT configuration: %s", esp_err_to_name(err));
+        }
+        else
+        {
+            // In ra để kiểm tra
+            ESP_LOGI("Load MQTT Config From NVS", "MQTT Config - URI: %s, Port: %lu, Username: %s, Password: %s",
+                     mqtt_config.uri[0] ? mqtt_config.uri : "(empty)",
+                     mqtt_config.port,
+                     mqtt_config.username[0] ? mqtt_config.username : "(empty)",
+                     mqtt_config.password[0] ? mqtt_config.password : "(empty)");
+
+            ESP_LOGI(TAG, "MQTT configuration loaded successfully");
+            mqtt_app_start(&mqtt_config);
+        }
     }
     else if (event_base == SC_EVENT && event_id == SC_EVENT_SCAN_DONE)
     {
@@ -150,9 +180,17 @@ static void smartconfig_example_task(void *parm)
 
 static void wifi_set_mqtt_config(uint8_t *rvd_data)
 {
-    char rvd_str[65];              // 64 byte + 1 cho ký tự NULL
-    memcpy(rvd_str, rvd_data, 64); // Sao chép 64 byte từ rvd_data
-    rvd_str[64] = '\0';            // Đảm bảo chuỗi kết thúc bằng NULL
+    // Tìm độ dài thực tế của dữ liệu, tối đa 64 byte
+    size_t len = strnlen((char *)rvd_data, 64);
+    if (len == 64 && rvd_data[63] != '\0')
+    {
+        ESP_LOGE(TAG, "rvd_data không được kết thúc bằng null trong 64 byte");
+        return; // Thoát nếu dữ liệu không hợp lệ
+    }
+
+    char rvd_str[len + 1];          // Kích thước động dựa trên len
+    memcpy(rvd_str, rvd_data, len); // Chỉ sao chép phần dữ liệu hợp lệ
+    rvd_str[len] = '\0';            // Đảm bảo kết thúc bằng null
 
     char *token;
 
@@ -160,44 +198,55 @@ static void wifi_set_mqtt_config(uint8_t *rvd_data)
     token = strtok(rvd_str, ";");
     if (token != NULL)
     {
-        mqtt_uri = strdup(token);
+        strncpy(mqtt_config.uri, token, sizeof(mqtt_config.uri) - 1);
+        mqtt_config.uri[sizeof(mqtt_config.uri) - 1] = '\0';
+    }
+    else
+    {
+        mqtt_config.uri[0] = '\0';
     }
 
     // Tách port
     token = strtok(NULL, ";");
     if (token != NULL)
     {
-        mqtt_broker_port = strtoul(token, NULL, 10);
+        mqtt_config.port = strtoul(token, NULL, 10);
+    }
+    else
+    {
+        mqtt_config.port = 0;
     }
 
     // Tách username
     token = strtok(NULL, ";");
     if (token != NULL)
     {
-        mqtt_username = strdup(token);
+        strncpy(mqtt_config.username, token, sizeof(mqtt_config.username) - 1);
+        mqtt_config.username[sizeof(mqtt_config.username) - 1] = '\0';
     }
     else
     {
-        mqtt_username = NULL;
+        mqtt_config.username[0] = '\0';
     }
 
     // Tách password
     token = strtok(NULL, ";");
     if (token != NULL)
     {
-        mqtt_password = strdup(token);
+        strncpy(mqtt_config.password, token, sizeof(mqtt_config.password) - 1);
+        mqtt_config.password[sizeof(mqtt_config.password) - 1] = '\0';
     }
     else
     {
-        mqtt_password = NULL;
+        mqtt_config.password[0] = '\0';
     }
 
-    // In ra để kiểm tra
-    ESP_LOGI(TAG, "MQTT Config - URI: %s, Port: %lu,  Username: %s, Password: %s",
-             mqtt_uri ? mqtt_uri : "(null)",
-             mqtt_broker_port,
-             mqtt_username ? mqtt_username : "(null)",
-             mqtt_password ? mqtt_password : "(null)");
+    // // In ra để kiểm tra
+    // ESP_LOGI(TAG, "MQTT Config - URI: %s, Port: %lu, Username: %s, Password: %s",
+    //          mqtt_config.uri[0] ? mqtt_config.uri : "(empty)",
+    //          mqtt_config.port,
+    //          mqtt_config.username[0] ? mqtt_config.username : "(empty)",
+    //          mqtt_config.password[0] ? mqtt_config.password : "(empty)");
 }
 
 esp_err_t get_wifi_configuration()
@@ -229,11 +278,6 @@ esp_err_t check_wifi_connection()
     {
         ESP_LOGI("WiFiStatus", "Connected to Wi-Fi SSID: %s, Signal Strength: %d", ap_info.ssid, ap_info.rssi);
     }
-    // else
-    // {
-    //     ESP_LOGI("WiFiStatus", "Not connected to any Wi-Fi network.");
-    // }
-
     return err;
 }
 

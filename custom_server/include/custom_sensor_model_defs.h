@@ -59,8 +59,10 @@ typedef struct __attribute__((packed))
 {
     char device_name[30];
     uint16_t mesh_addr;
-    bool buzzer;
-    int led;
+    bool buzzerStatus; // Buzzer status
+    bool ledStatus[3]; // LED status for Red, Green, Blue
+    bool ledError;
+    bool buzzerError;
 } model_control_data_t;
 
 #endif // __CUSTOM_SENSOR_MODEL_DEFS_H__

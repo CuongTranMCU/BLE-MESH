@@ -44,8 +44,8 @@ extern QueueHandle_t received_data_from_sensor_queue;
  */
 esp_err_t ble_mesh_device_init_server(void);
 esp_err_t server_send_to_client(const void *raw_data, size_t raw_len, message_type_t type);
-void get_init_control_signal_from_sensors(int buzzer, int led);
-void get_data_from_sensors();
+void send_control_signal_from_sensors(bool buzzerStatus, bool *ledStatus, bool buzzerError, bool ledError);
+void send_data_from_sensors();
 bool is_server_provisioned(void);
 bool is_server_sent_init_control(void);
 #endif // __MESH_SERVER_H__

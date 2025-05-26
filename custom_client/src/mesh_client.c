@@ -371,7 +371,7 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
                 // TODO: Handle control message if needed
                 char *json_str = cJSON_Print(convert_model_control_to_json(&control_data));
                 printf("JSON data: %s\n", json_str);
-                mqtt_data_publish_callback("Send Control Data", json_str, strlen(json_str));
+                mqtt_data_publish_callback("SendControlData", json_str, strlen(json_str));
                 free(json_str);
                 ESP_LOGI(TAG, "CONTROL message received but not processed further.");
             }
@@ -449,8 +449,12 @@ static message_type_t parse_received_data(esp_ble_mesh_model_cb_param_t *recv_pa
 
         ESP_LOGI("PARSED_CONTROL", "Device Name  = %s", out_control->device_name);
         ESP_LOGI("PARSED_CONTROL", "Mesh address = %02x", out_control->mesh_addr);
-        ESP_LOGI("PARSED_CONTROL", "Buzzer       = %d", out_control->buzzer);
-        ESP_LOGI("PARSED_CONTROL", "LED          = %d", out_control->led);
+        ESP_LOGI("PARSED_CONTROL", "Buzzer       = %d", out_control->buzzerStatus);
+        ESP_LOGI("PARSED_CONTROL", "LedRed       = %d", out_control->ledStatus[0]);
+        ESP_LOGI("PARSED_CONTROL", "LedGreen     = %d", out_control->ledStatus[1]);
+        ESP_LOGI("PARSED_CONTROL", "LedBlue      = %d", out_control->ledStatus[2]);
+        ESP_LOGI("PARSED_CONTROL", "BuzzerError  = %d", out_control->buzzerError);
+        ESP_LOGI("PARSED_CONTROL", "LedError     = %d", out_control->ledError);
 
         return MSG_TYPE_CONTROL;
 
@@ -706,9 +710,15 @@ static void mqtt_data_callback(char *data, uint16_t length)
 
     for (int i = 0; i < count; i++)
     {
-        printf("Device: %s, MeshAddr: 0x%04X, Buzzer: %d, Led: %d\n",
-               devices[i].device_name, devices[i].mesh_addr, devices[i].buzzer, devices[i].led);
-
+        printf("Device: %s, MeshAddr: 0x%04X, Buzzer: %d, LedRed: %d, LedGreen: %d, LedBlue: %d, LedError: %d, BuzzerError: %d\n",
+               devices[i].device_name,
+               devices[i].mesh_addr,
+               devices[i].buzzerStatus,
+               devices[i].ledStatus[0],
+               devices[i].ledStatus[1],
+               devices[i].ledStatus[2],
+               devices[i].ledError,
+               devices[i].buzzerError);
         ble_mesh_custom_sensor_client_model_message_set(&devices[i], sizeof(model_control_data_t), devices[i].mesh_addr);
         vTaskDelay(1000 * 2 / portTICK_PERIOD_MS);
     }
@@ -858,8 +868,8 @@ static void start_aggregation_timer()
         }
     }
 
-    // Start the timer (5 seconds)
-    esp_err_t err = esp_timer_start_once(aggregate_timer, 5000000); // 5 seconds in microseconds
+    // Start the timers
+    esp_err_t err = esp_timer_start_once(aggregate_timer, GATEWAY_UPDATE_PERIOD); // 5 minutes in microseconds
     if (err != ESP_OK)
     {
         ESP_LOGE(TAG, "Failed to start timer: %s", esp_err_to_name(err));
