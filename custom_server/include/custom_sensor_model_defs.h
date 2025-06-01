@@ -49,6 +49,7 @@ typedef struct __attribute__((packed))
     uint16_t mesh_addr;
     float temperature;
     float humidity;
+    int32_t rssi;
     float smoke;
     bool isFlame;
     char feedback[20];

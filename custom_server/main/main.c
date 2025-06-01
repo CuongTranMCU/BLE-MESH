@@ -21,15 +21,16 @@ static const char *FLAME = "FLAME-SENSOR";
 QueueHandle_t receive_data_control_queue = NULL;
 QueueHandle_t received_data_from_sensor_queue = NULL;
 static flame_sensor_handle_t handle;
+static bool alarmEnable = true;
 static void read_received_items(void *arg)
 {
     ESP_LOGI(TAG, "Task initializing...");
 
     model_control_data_t _received_data;
-
+    int count = 0;
     while (1)
     {
-        vTaskDelay(500 / portTICK_PERIOD_MS);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
         if (xQueueReceive(receive_data_control_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
         {
             ESP_LOGI(TAG, "Device Name: %s", _received_data.device_name);
@@ -38,9 +39,11 @@ static void read_received_items(void *arg)
             ESP_LOGI(TAG, "LED RED      = %d", _received_data.ledStatus[0]);
             ESP_LOGI(TAG, "LED GREEN    = %d", _received_data.ledStatus[1]);
             ESP_LOGI(TAG, "LED BLUE     = %d", _received_data.ledStatus[2]);
+            // Disable Alarm
+            alarmEnable = false;
             // Set BUZZER and LEDs
             led_off();
-            gpio_set_level(BUZZER_PIN, !_received_data.buzzerStatus);
+            gpio_set_level(BUZZER_PIN, _received_data.buzzerStatus);
             gpio_set_level(LED_RED_GPIO, !_received_data.ledStatus[0]);
             gpio_set_level(LED_GREEN_GPIO, !_received_data.ledStatus[1]);
             gpio_set_level(LED_BLUE_GPIO, !_received_data.ledStatus[2]);
@@ -66,8 +69,18 @@ static void read_received_items(void *arg)
         }
         else
         {
-            ESP_LOGW(TAG, "No data received from receive_data_control_queue");
+            if (count == 300)
+            {
+                ESP_LOGI(TAG, "No data received from receive_data_control_queue for 5 minutes, resetting alarmEnable to true.");
+                alarmEnable = true; // Reset alarmEnable after 10 seconds of no data
+                count = 0; // Reset count
+            }
+            else
+            {
+                ESP_LOGW(TAG, "No data received from receive_data_control_queue");
+            }
         }
+        count++;
     }
 }
 
@@ -84,6 +97,33 @@ char* check_fire_conditions(model_sensor_data_t *state) {
     else {
         return "No Fire";
     }
+}
+// Fixed alarm task for continuous alarming
+static void alarm_task(model_sensor_data_t _server_model_state) {
+        // Using string comparisons instead of switch statement
+        if (strcmp(_server_model_state.feedback, "Big Fire") == 0 && alarmEnable == true) {
+            gpio_set_level(BUZZER_PIN, 1);
+            led_off();
+            gpio_set_level(LED_BLUE_GPIO, 0);
+            ESP_LOGW("ALARM:", "Big Fire detected! Activating alarm.");
+        }
+        else if (strcmp(_server_model_state.feedback, "Fire") == 0 && alarmEnable == true) {
+            gpio_set_level(BUZZER_PIN, 1);
+            led_off();
+            gpio_set_level(LED_RED_GPIO, 0);
+            ESP_LOGW("ALARM:", "Fire detected! Activating alarm.");
+
+        }
+        else if (strcmp(_server_model_state.feedback, "Potential Fire") == 0 && alarmEnable == true) {
+            led_off();
+            gpio_set_level(LED_GREEN_GPIO, 0);
+            ESP_LOGW("ALARM:", "Potential Fire detected! Activating alarm.");
+        }
+        else if (strcmp(_server_model_state.feedback, "No Fire") == 0 && alarmEnable == true) {
+            led_off();
+            gpio_set_level(BUZZER_PIN, 0);
+            ESP_LOGI("ALARM:", "No Fire detected! Alarm is off.");
+        }
 }
 static void read_data_from_sensors(void *arg)
 {
@@ -111,8 +151,9 @@ static void read_data_from_sensors(void *arg)
             printf("Error reading flame sensor\n");
         }
         strcpy(_received_data.feedback,check_fire_conditions(&_received_data));
+        alarm_task(_received_data);
         xQueueSendToBack(received_data_from_sensor_queue, &_received_data, portMAX_DELAY);
-        // send_data_from_sensors();
+        send_data_from_sensors();
         if (is_server_sent_init_control() == false)
         {
             bool ledStatus[3];
@@ -120,45 +161,12 @@ static void read_data_from_sensors(void *arg)
             ledStatus[1] = gpio_get_level(LED_GREEN_GPIO);
             ledStatus[2] = gpio_get_level(LED_BLUE_GPIO);
             bool buzzerStatus = gpio_get_level(BUZZER_PIN);
-            send_control_signal_from_sensors(buzzerStatus, ledStatus,true,false);
+            send_control_signal_from_sensors(buzzerStatus, ledStatus,false,false);
         }
         vTaskDelay(5000 / portTICK_PERIOD_MS);
     }
 }
-// Fixed alarm task for continuous alarming
-// static void alarm_task(void *arg) {
-//     while (1) {
-//         // Using string comparisons instead of switch statement
-//         if (strcmp(_server_model_state.feedback, "Big Fire") == 0) {
-//             gpio_set_level(BUZZER_PIN, 1);
-//             led_off();
-//             gpio_set_level(LED_BLUE_GPIO, 1);
-            
-//             // vTaskDelay(500 / portTICK_PERIOD_MS);
-//             // gpio_set_level(LED_BLUE_GPIO, 0);
-//             // vTaskDelay(500 / portTICK_PERIOD_MS);
-//         }
-//         else if (strcmp(_server_model_state.feedback, "Fire") == 0) {
-//             gpio_set_level(BUZZER_PIN, 1);
-//             led_off();
-//             gpio_set_level(LED_RED_GPIO, 1);
-//             // vTaskDelay(500 / portTICK_PERIOD_MS);
-//             // gpio_set_level(LED_RED_GPIO, 0);
-//             // vTaskDelay(500 / portTICK_PERIOD_MS);
-//         }
-//         else if (strcmp(_server_model_state.feedback, "Potential Fire") == 0) {
-//             led_off();
-//             gpio_set_level(LED_GREEN_GPIO, 1);
-//             // vTaskDelay(500 / portTICK_PERIOD_MS);
-//             // gpio_set_level(LED_GREEN_GPIO, 0);
-//             // vTaskDelay(500 / portTICK_PERIOD_MS);
-//         }
-//         else if (strcmp(_server_model_state.feedback, "No Fire") == 0) {
-//             led_off();
-//             gpio_set_level(BUZZER_PIN, 0);
-//         }
-//     }
-// }
+
 void app_main(void)
 {
     esp_err_t err;
@@ -203,8 +211,7 @@ void app_main(void)
     // SMOKE
     Init_MP2();
     ESP_LOGI(TAG, "Starting MP2 Task\n\n");
-    xTaskCreate(read_received_items, "Read queue task", 2048 * 2, (void *)0, 20, NULL); 
-    xTaskCreate(read_data_from_sensors, "Read queue task", 2048 * 2, (void *)0, 20, NULL);
-    // xTaskCreate(alarm_task, "Alarm task", 2048 * 2, (void *)0, 20, NULL);
+    xTaskCreate(read_received_items, "ead control queue task", 2048 * 2, (void *)0, 20, NULL); 
+    xTaskCreate(read_data_from_sensors, "Read sensor task", 2048 * 2, (void *)0, 20, NULL);
 
 }
