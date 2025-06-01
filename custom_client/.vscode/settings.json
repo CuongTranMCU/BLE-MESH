@@ -5,7 +5,9 @@
     "stdio.h": "c",
     "string.h": "c",
     "esp_ble_mesh_local_data_operation_api.h": "c",
-    "mqtt.h": "c"
+    "mqtt.h": "c",
+    "sdkconfig.h": "c",
+    "esp_ble_mesh_common_api.h": "c"
   },
   "idf.portWin": "COM9"
 }

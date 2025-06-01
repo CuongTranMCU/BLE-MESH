@@ -248,6 +248,7 @@ cJSON *convert_model_sensor_to_json(model_sensor_data_t *received_data)
     cJSON_AddNumberToObject(device_data, "humidity", received_data->humidity);
     cJSON_AddNumberToObject(device_data, "temperature", received_data->temperature);
     cJSON_AddNumberToObject(device_data, "smoke", received_data->smoke);
+    cJSON_AddBoolToObject(device_data, "isFlame", received_data->isFlame);
     cJSON_AddStringToObject(device_data, "feedback", received_data->feedback);
 
     return device_data;

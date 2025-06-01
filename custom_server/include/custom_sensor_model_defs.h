@@ -14,6 +14,7 @@
 #include <stdio.h>
 
 #include "sdkconfig.h"
+#include <stdbool.h>
 
 #include "esp_ble_mesh_common_api.h"
 
@@ -52,6 +53,7 @@ typedef struct __attribute__((packed))
     float humidity;
     float smoke;
     bool isFlame;
+    int32_t rssi;
     char feedback[20];
 } model_sensor_data_t;
 

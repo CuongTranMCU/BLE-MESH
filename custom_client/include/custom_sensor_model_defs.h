@@ -14,6 +14,7 @@
 #include <stdio.h>
 
 #include "sdkconfig.h"
+#include <stdbool.h>
 
 #include "esp_ble_mesh_common_api.h"
 
@@ -53,8 +54,7 @@ typedef struct __attribute__((packed))
     float smoke;
     bool isFlame;
     int32_t rssi;
-    /**< Feedback answers */
-    char feedback[20]; /*!< Each bit corresponds to an answer: (NEW_DATA | X | X | TEMP_COMF | HIGH_TEMP | SOUND_COMF | LIGHT_COMF | LIGHTNESS) */
+    char feedback[20];
 } model_sensor_data_t;
 
 typedef struct __attribute__((packed))

@@ -347,18 +347,21 @@ void send_data_from_sensors()
     model_sensor_data_t _received_data;
     if (xQueueReceive(received_data_from_sensor_queue, &_received_data, 1000 / portTICK_PERIOD_MS) == pdPASS)
     {
-        ESP_LOGI(TAG, "    Temperature: %f", _received_data.temperature);
-        ESP_LOGI(TAG, "    Humidity:    %f", _received_data.humidity);
-        ESP_LOGI(TAG, "    Smoke:       %f", _received_data.smoke);
-        ESP_LOGI(TAG, "    Flame:       %d", _received_data.isFlame);
-        ESP_LOGI(TAG, "    Feedback:    %s", _received_data.feedback);
 
         _server_model_state.temperature = _received_data.temperature;
         _server_model_state.humidity = _received_data.humidity;
         _server_model_state.smoke = _received_data.smoke;
         _server_model_state.isFlame = _received_data.isFlame;
+        strcpy(_server_model_state.feedback, _received_data.feedback);
+
+        ESP_LOGI(TAG, "    Temperature: %f", _server_model_state.temperature);
+        ESP_LOGI(TAG, "    Humidity:    %f", _server_model_state.humidity);
+        ESP_LOGI(TAG, "    Smoke:       %f", _server_model_state.smoke);
+        ESP_LOGI(TAG, "    Flame:       %d", _server_model_state.isFlame);
+        ESP_LOGI(TAG, "    Feedback:    %s", _server_model_state.feedback);
+
         // Call event
-        esp_err_t err = server_send_to_client(&_server_model_state, sizeof(_server_model_state), MSG_TYPE_SENSOR);
+        esp_err_t err = server_send_to_client(&_server_model_state, sizeof(model_sensor_data_t), MSG_TYPE_SENSOR);
         if (err != ESP_OK)
         {
             ESP_LOGE("Sever send data to Client", "Failed to send message, error code: 0x%04x", err);
@@ -389,7 +392,7 @@ void send_control_signal_from_sensors(bool buzzerStatus, bool *ledStatus, bool b
     // ESP_LOGI(TAG, "    LED BLUE:%d", _control_model_state.ledStatus[2]);
 
     vTaskDelay(1000 * 5 / portTICK_PERIOD_MS);
-    esp_err_t err = server_send_to_client(&_control_model_state, sizeof(_control_model_state), MSG_TYPE_CONTROL);
+    esp_err_t err = server_send_to_client(&_control_model_state, sizeof(model_control_data_t), MSG_TYPE_CONTROL);
 
     if (err != ESP_OK)
     {

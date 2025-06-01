@@ -426,14 +426,14 @@ static message_type_t parse_received_data(esp_ble_mesh_model_cb_param_t *recv_pa
 
         memcpy(out_sensor, &msg[1], sizeof(model_sensor_data_t));
 
-        ESP_LOGI("PARSED_SENSOR", "Device Name = %s", out_sensor->device_name);
-        ESP_LOGI("PARSED_SENSOR", "Mac address = %s", out_sensor->mac_addr);
-        ESP_LOGI("PARSED_SENSOR", "Mesh address = %02x", out_sensor->mesh_addr);
-        ESP_LOGI("PARSED_SENSOR", "Temperature = %f", out_sensor->temperature);
-        ESP_LOGI("PARSED_SENSOR", "Humidity    = %f", out_sensor->humidity);
-        ESP_LOGI("PARSED_SENSOR", "Smoke       = %f", out_sensor->smoke);
-        ESP_LOGI("PARSED_SENSOR", "Is Flame    = %d", out_sensor->isFlame);
-        ESP_LOGI("PARSED_SENSOR", "Feedback    = %s", out_sensor->feedback);
+        ESP_LOGI("PARSED_SENSOR", "Device Name  = %s", out_sensor->device_name);
+        ESP_LOGI("PARSED_SENSOR", "Mac address  = 0x%s", out_sensor->mac_addr);
+        ESP_LOGI("PARSED_SENSOR", "Mesh address = 0x%04x", out_sensor->mesh_addr);
+        ESP_LOGI("PARSED_SENSOR", "Temperature  = %f", out_sensor->temperature);
+        ESP_LOGI("PARSED_SENSOR", "Humidity     = %f", out_sensor->humidity);
+        ESP_LOGI("PARSED_SENSOR", "Smoke        = %f", out_sensor->smoke);
+        ESP_LOGI("PARSED_SENSOR", "Is Flame     = %01d", out_sensor->isFlame);
+        ESP_LOGI("PARSED_SENSOR", "Feedback     = %s", out_sensor->feedback);
 
         return MSG_TYPE_SENSOR;
 
