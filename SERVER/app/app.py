@@ -98,6 +98,13 @@ class StorageManager:
     def save_data(self, data):
         print(f"save_data called! Will write to: {self.cache_file}")
         try:
+            # Add timeline to each server_info if not present
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
+            if isinstance(data, dict):
+                for server_id, server_info in data.items():
+                    if server_id.startswith("SERVER_") and isinstance(server_info, dict):
+                        if "timeline" not in server_info:
+                            server_info["timeline"] = current_time
             with open(self.cache_file, "a") as f:
                 json_data = json.dumps(data) + "\n"
                 f.write(json_data)
@@ -119,7 +126,9 @@ class StorageManager:
                 if not server_id.startswith("SERVER_"):
                     continue
 
-                server_info["timeline"] = current_time
+                # Only set timeline if not already present
+                if "timeline" not in server_info:
+                    server_info["timeline"] = current_time
                 try:
                     server_ref = self.ref.child(server_id)
                     now_data = dict(server_info)
