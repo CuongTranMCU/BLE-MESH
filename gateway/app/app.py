@@ -1,5 +1,6 @@
 import json
 import os
+import threading
 import time
 from datetime import datetime
 import threading
@@ -28,7 +29,7 @@ firebase_ref = db.reference("/Data")
 
 # ============================== Flask App Setup ==============================
 app = Flask(__name__)
-app.config["MQTT_BROKER_URL"] = "localhost"
+app.config["MQTT_BROKER_URL"] = "192.168.1.16"
 app.config["MQTT_BROKER_PORT"] = 1883
 app.config["MQTT_USERNAME"] = ""
 app.config["MQTT_PASSWORD"] = ""
@@ -98,6 +99,15 @@ class StorageManager:
     def save_data(self, data):
         print(f"save_data called! Will write to: {self.cache_file}")
         try:
+            # Add timeline to each server_info if not present
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
+            if isinstance(data, dict):
+                for server_id, server_info in data.items():
+                    if server_id.startswith("SERVER_") and isinstance(
+                        server_info, dict
+                    ):
+                        if "timeline" not in server_info:
+                            server_info["timeline"] = current_time
             with open(self.cache_file, "a") as f:
                 json_data = json.dumps(data) + "\n"
                 f.write(json_data)
@@ -106,19 +116,22 @@ class StorageManager:
             print(f"Error saving to storage: {e}")
 
     def send_to_firebase(self, data):
+        error_occurred = False
         try:
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
             print(f"Processing data for Firebase: {data}")
 
             if not isinstance(data, dict):
                 print("Invalid data format - expected dictionary")
-                return False
+                error_occurred = True
 
             for server_id, server_info in data.items():
                 if not server_id.startswith("SERVER_"):
                     continue
 
-                server_info["timeline"] = current_time
+                # Only set timeline if not already present
+                if "timeline" not in server_info:
+                    server_info["timeline"] = current_time
                 try:
                     server_ref = self.ref.child(server_id)
                     now_data = dict(server_info)
@@ -131,6 +144,7 @@ class StorageManager:
 
                 except Exception as e:
                     print(f"Error updating server {server_id}: {str(e)}")
+                    error_occurred = True
 
             try:
                 latest_list = {
@@ -140,6 +154,11 @@ class StorageManager:
                 print(f"Updated LatestList: {latest_list}")
             except Exception as e:
                 print(f"Error updating LatestList: {str(e)}")
+                error_occurred = True
+
+            if error_occurred:
+                self.save_data(data)
+                return False
 
             return True
 
@@ -161,7 +180,9 @@ class StorageManager:
                 data = json.loads(line.strip())
                 if not self.send_to_firebase(data):
                     all_sent = False
-                    print(f"Failed to send some data from {self.cache_file}, keeping file")
+                    print(
+                        f"Failed to send some data from {self.cache_file}, keeping file"
+                    )
                     break
             if all_sent:
                 self.clear_cache_file()
@@ -171,7 +192,7 @@ class StorageManager:
 
     def clear_cache_file(self):
         try:
-            open(self.cache_file, 'w').close()
+            open(self.cache_file, "w").close()
             print(f"Cleared file: {self.cache_file}")
         except Exception as e:
             print(f"Error clearing file {self.cache_file}: {e}")
@@ -213,12 +234,14 @@ def handle_mqtt_message(client, userdata, message):
             socketio.sleep(0.1)
             earliest_data = batch_manager.get_earliest_from_batch(batch_id)
 
-            if earliest_data:
-                print(f"Processing earliest message from batch #{batch_id}")
-                if not storage_manager.send_to_firebase(earliest_data):
-                    storage_manager.save_data(earliest_data)
+        if earliest_data:
+            print(f"Processing earliest message from batch #{batch_id}")
+            send_ok = storage_manager.send_to_firebase(earliest_data)
+            if send_ok:
+                # Only try to flush cache if the file is not empty
+                if os.path.getsize(storage_manager.cache_file) > 0:
                     storage_manager.try_send_stored_data()
-                socketio.emit("mqtt_message", data=earliest_data)
+            socketio.emit("mqtt_message", data=earliest_data)
         else:
             print("No valid server data found in payload")
 
@@ -279,6 +302,7 @@ def poll_client_control():
             if value != last_value:
                 print("Detected change in /ClientControl, publishing to MQTT...")
                 mqtt.publish("Receive-Data", json.dumps(value))
+                print("Published to MQTT successfully")
                 last_value = value
         except Exception as e:
             print(f"Error polling /ClientControl: {e}")
@@ -287,13 +311,9 @@ def poll_client_control():
 
 # ============================== Main ==============================
 if __name__ == "__main__":
-    # Start the polling thread before running the app
-    polling_thread = threading.Thread(target=poll_client_control, daemon=True)
-    polling_thread.start()
-
-    tokens = [
-        "c-4Ps3BXSs2Hc2OKUZX5hN:APA91bH1LfYXLTrPsaXyybxaqOjwSpLw1iNmxX9WCJt-vBa6gLuoXRH0xahu1nCEVbG-wCJCRe81V8Giuedpra0Lh-NlkzO6tdrn8Rc9IIFI5H9glNaBHwc"
-    ]
-    # sendNotificationWithToken("Hi", "This is my next msg", tokens)
-    # sendNotificationWithTopic("Hi", "This is my next topic msg")
-    socketio.run(app, host="0.0.0.0", port=5000, use_reloader=False, debug=False)
+    try:
+        polling_thread = threading.Thread(target=poll_client_control, daemon=True)
+        polling_thread.start()
+        socketio.run(app, host="0.0.0.0", port=5000, use_reloader=False, debug=False)
+    except Exception as e:
+        print(f"Fatal error in main: {e}")
