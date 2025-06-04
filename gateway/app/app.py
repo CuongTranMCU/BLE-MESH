@@ -3,7 +3,6 @@ import os
 import threading
 import time
 from datetime import datetime
-import threading
 
 import firebase_admin
 from firebase_admin import credentials, db, messaging
@@ -29,7 +28,7 @@ firebase_ref = db.reference("/Data")
 
 # ============================== Flask App Setup ==============================
 app = Flask(__name__)
-app.config["MQTT_BROKER_URL"] = "192.168.1.16"
+app.config["MQTT_BROKER_URL"] = "10.72.72.1"
 app.config["MQTT_BROKER_PORT"] = 1883
 app.config["MQTT_USERNAME"] = ""
 app.config["MQTT_PASSWORD"] = ""
@@ -314,6 +313,6 @@ if __name__ == "__main__":
     try:
         polling_thread = threading.Thread(target=poll_client_control, daemon=True)
         polling_thread.start()
-        socketio.run(app, host="0.0.0.0", port=5000, use_reloader=False, debug=False)
+        socketio.run(app, host="0.0.0.0", port=5000, use_reloader=False, debug=False, allow_unsafe_werkzeug=True)
     except Exception as e:
         print(f"Fatal error in main: {e}")
