@@ -234,12 +234,11 @@ def handle_mqtt_message(client, userdata, message):
             earliest_data = batch_manager.get_earliest_from_batch(batch_id)
 
         if earliest_data:
+            # Always try to flush cache first, before sending current data
+            if os.path.getsize(storage_manager.cache_file) > 0:
+                storage_manager.try_send_stored_data()
             print(f"Processing earliest message from batch #{batch_id}")
             send_ok = storage_manager.send_to_firebase(earliest_data)
-            if send_ok:
-                # Only try to flush cache if the file is not empty
-                if os.path.getsize(storage_manager.cache_file) > 0:
-                    storage_manager.try_send_stored_data()
             socketio.emit("mqtt_message", data=earliest_data)
         else:
             print("No valid server data found in payload")
@@ -313,6 +312,13 @@ if __name__ == "__main__":
     try:
         polling_thread = threading.Thread(target=poll_client_control, daemon=True)
         polling_thread.start()
-        socketio.run(app, host="0.0.0.0", port=5000, use_reloader=False, debug=False, allow_unsafe_werkzeug=True)
+        socketio.run(
+            app,
+            host="0.0.0.0",
+            port=5000,
+            use_reloader=False,
+            debug=False,
+            allow_unsafe_werkzeug=True,
+        )
     except Exception as e:
         print(f"Fatal error in main: {e}")
