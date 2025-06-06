@@ -28,7 +28,7 @@ firebase_ref = db.reference("/Data")
 
 # ============================== Flask App Setup ==============================
 app = Flask(__name__)
-app.config["MQTT_BROKER_URL"] = "10.72.72.1"
+app.config["MQTT_BROKER_URL"] = "localhost"
 app.config["MQTT_BROKER_PORT"] = 1883
 app.config["MQTT_USERNAME"] = ""
 app.config["MQTT_PASSWORD"] = ""
