@@ -7,9 +7,8 @@ User=pi
 WorkingDirectory=/home/pi/Code/BLE-MESH/gateway
 ExecStart=/home/pi/Code/BLE-MESH/gateway/myvenv/bin/python /home/pi/Code/BLE-MESH/gateway/app/app.py
 Restart=always
-
-StandardOutput=append:/home/pi/Code/BLE-MESH/gateway/log/gateway.log
-StandardError=append:/home/pi/Code/BLE-MESH/gateway/log/gateway.log
+StandardOutput=append:/home/pi/Code/BLE-MESH/gateway/log/gateway_output.log
+StandardError=append:/home/pi/Code/BLE-MESH/gateway/log/gateway_error.log
 
 [Install]
 WantedBy=multi-user.target
