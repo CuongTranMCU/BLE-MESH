@@ -3,6 +3,7 @@ import os
 import time
 from datetime import datetime
 import threading
+import copy
 
 import firebase_admin
 from firebase_admin import credentials, db, messaging
@@ -95,40 +96,58 @@ class StorageManager:
         self.cache_file = os.path.join(self.storage_dir, "cache_failed.txt")
         self.ref = firebase_ref
 
+    def get_file_size_kb(self, file_path):
+        """Get file size in KB"""
+        try:
+            if os.path.exists(file_path):
+                size_bytes = os.path.getsize(file_path)
+                size_kb = size_bytes / 1024
+                return size_bytes, size_kb 
+            return 0, 0.0
+        except Exception as e:
+            print(f"Error getting file size: {e}")
+            return 0, 0.0
+        
     def save_data(self, data):
         print(f"save_data called! Will write to: {self.cache_file}")
         try:
-            # Add timeline to each server_info if not present
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
-            if isinstance(data, dict):
-                for server_id, server_info in data.items():
-                    if server_id.startswith("SERVER_") and isinstance(server_info, dict):
-                        if "timeline" not in server_info:
-                            server_info["timeline"] = current_time
+            size_bytes, size_kb = self.get_file_size_kb(self.cache_file)
+            if size_kb >= 500.0:
+                print(f"Cache file is already {size_kb:.2f} KB, skipping write.")
+                return  # Skip writing
             with open(self.cache_file, "a") as f:
                 json_data = json.dumps(data) + "\n"
                 f.write(json_data)
             print(f"Data saved to storage: {self.cache_file}")
         except Exception as e:
             print(f"Error saving to storage: {e}")
+        # Log final size
+        final_size_kb = self.get_file_size_kb(self.cache_file)[1]
+        print(f"Cache size: {final_size_kb:.4f} KB")
+
 
     def send_to_firebase(self, data):
         error_occurred = False
         try:
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
             print(f"Processing data for Firebase: {data}")
 
             if not isinstance(data, dict):
                 print("Invalid data format - expected dictionary")
                 error_occurred = True
+                return False
 
-            for server_id, server_info in data.items():
+            # TẠO DEEP COPY ĐỂ TRÁNH MODIFY DỮ LIỆU GỐC
+            data_copy = copy.deepcopy(data)
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
+
+            for server_id, server_info in data_copy.items():
                 if not server_id.startswith("SERVER_"):
                     continue
 
-                # Only set timeline if not already present
-                if "timeline" not in server_info:
+                # CHỈ CẬP NHẬT TIMELINE NẾU CHƯA CÓ HOẶC RỖNG
+                if "timeline" not in server_info or not server_info["timeline"]:
                     server_info["timeline"] = current_time
+                
                 try:
                     server_ref = self.ref.child(server_id)
                     now_data = dict(server_info)
@@ -145,7 +164,7 @@ class StorageManager:
 
             try:
                 latest_list = {
-                    str(i): server_id for i, server_id in enumerate(data.keys())
+                    str(i): server_id for i, server_id in enumerate(data_copy.keys())
                 }
                 self.ref.parent.child("LatestList").set(latest_list)
                 print(f"Updated LatestList: {latest_list}")
@@ -154,13 +173,18 @@ class StorageManager:
                 error_occurred = True
 
             if error_occurred:
-                self.save_data(data)
+                size_kb = self.get_file_size_kb(self.cache_file)[1]
+                if size_kb < 50.0:
+                    self.save_data(data)
+                else:
+                    print("Cache is full (>=50KB), skipping save.")
                 return False
 
             return True
 
         except Exception as e:
             print(f"Error in send_to_firebase: {str(e)}")
+            # LƯU DỮ LIỆU GỐC
             self.save_data(data)
             return False
 
@@ -172,16 +196,32 @@ class StorageManager:
                 lines = f.readlines()
             if not lines:
                 return
-            all_sent = True
-            for line in lines:
-                data = json.loads(line.strip())
-                if not self.send_to_firebase(data):
-                    all_sent = False
-                    print(f"Failed to send some data from {self.cache_file}, keeping file")
-                    break
-            if all_sent:
+            
+            successfully_sent_lines = []
+            failed_lines = []
+            
+            for i, line in enumerate(lines):
+                try:
+                    data = json.loads(line.strip())
+                    if self.send_to_firebase(data):
+                        successfully_sent_lines.append(i)
+                        print(f"Successfully sent line {i+1} from cache")
+                    else:
+                        failed_lines.append(line)
+                        print(f"Failed to send line {i+1} from cache")
+                except json.JSONDecodeError as e:
+                    print(f"Error parsing line {i+1}: {e}")
+                    failed_lines.append(line)
+            
+            # GHI LẠI CHỈ NHỮNG DÒNG CHƯA GỬI ĐƯỢC
+            if failed_lines:
+                with open(self.cache_file, 'w') as f:
+                    f.writelines(failed_lines)
+                print(f"Kept {len(failed_lines)} failed entries in cache")
+            else:
                 self.clear_cache_file()
-                print(f"Successfully sent all data from {self.cache_file}")
+                print("Successfully sent all cached data")
+                
         except Exception as e:
             print(f"Error processing file {self.cache_file}: {e}")
 
@@ -215,6 +255,8 @@ def handle_mqtt_message(client, userdata, message):
         print(f"Received payload: {json.dumps(payload, indent=2)}")
 
         formatted_data = {}
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
+        
         if isinstance(payload, dict):
             for client_key, client_value in payload.items():
                 if client_key.startswith("CLIENT_") and isinstance(client_value, dict):
@@ -222,20 +264,27 @@ def handle_mqtt_message(client, userdata, message):
                         if server_key.startswith("SERVER_") and isinstance(
                             server_data, dict
                         ):
-                            formatted_data[server_key] = server_data
+                            # THÊM TIMELINE VÀO DỮ LIỆU NGAY KHI NHẬN
+                            server_data_with_time = server_data.copy()
+                            server_data_with_time["timeline"] = current_time
+                            formatted_data[server_key] = server_data_with_time
 
         if formatted_data:
             batch_id = batch_manager.add_message(formatted_data)
             socketio.sleep(0.1)
             earliest_data = batch_manager.get_earliest_from_batch(batch_id)
 
-        if earliest_data:
-            # Always try to flush cache first, before sending current data
-            if os.path.getsize(storage_manager.cache_file) > 0:
-                storage_manager.try_send_stored_data()
-            print(f"Processing earliest message from batch #{batch_id}")
-            send_ok = storage_manager.send_to_firebase(earliest_data)
-            socketio.emit("mqtt_message", data=earliest_data)
+            if earliest_data:
+                # KIỂM TRA VÀ GỬI DỮ LIỆU CACHE TRƯỚC
+                if os.path.exists(storage_manager.cache_file) and os.path.getsize(storage_manager.cache_file) > 0:
+                    storage_manager.try_send_stored_data()
+                    print(f"Attempted to send stored data to Firebase")
+                
+                print(f"Processing earliest message from batch #{batch_id}")
+                send_ok = storage_manager.send_to_firebase(earliest_data)
+                socketio.emit("mqtt_message", data=earliest_data)
+            else:
+                print("No earliest data found from batch")
         else:
             print("No valid server data found in payload")
 

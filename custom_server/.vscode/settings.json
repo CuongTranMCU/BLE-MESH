@@ -19,5 +19,5 @@
     "nvs_flash.h": "c",
     "esp_ble_mesh_networking_api.h": "c"
   },
-  "idf.portWin": "COM15"
+  "idf.portWin": "COM12"
 }

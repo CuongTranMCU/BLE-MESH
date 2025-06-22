@@ -72,7 +72,7 @@ static void read_received_items(void *arg)
             if (count == 300)
             {
                 ESP_LOGI(TAG, "No data received from receive_data_control_queue for 5 minutes, resetting alarmEnable to true.");
-                alarmEnable = true; // Reset alarmEnable after 10 seconds of no data
+                alarmEnable = true; // Reset alarmEnable after 5 minutes
                 count = 0; // Reset count
             }
             else

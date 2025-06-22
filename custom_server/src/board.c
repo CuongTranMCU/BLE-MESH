@@ -7,87 +7,171 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <stdio.h>
-
-#include "driver/gpio.h"
-#include "esp_log.h"
 #include "board.h"
-#include "iot_button.h"
-#include "esp_flash.h"
-#include "esp_err.h"
-#include "esp_system.h"
-#include "mesh_device_app.h"
-#include "nvs_flash.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#define TAG "BOARD"
+
+#define TAG "BUTTON"
+
+void reset_nvs_flash();
+
+void button_press_cb(void *arg);
+void button_release_cb(void *arg);
+void vTimerCallback_800ms(TimerHandle_t xTimer);
+void vTimerCallback_3s();
+
+static void board_button_init(void);
+
+bool buttonPressed = false;
+TickType_t lastClickTime = 0;
+
+int count = 0;
+button_state_t state = INIT_STATE;
+
+TimerHandle_t buttonTimer_800ms = NULL;
+TimerHandle_t buttonTimer_3s = NULL;
 static TaskHandle_t blink_task_handle = NULL;
-#define BUTTON_IO_NUM 9
-#define BUTTON_ACTIVE_LEVEL 0
-struct _led_state led_state[3] = {
-    {LED_OFF, LED_OFF, LED_R, "red"},
-    {LED_OFF, LED_OFF, LED_G, "green"},
-    {LED_OFF, LED_OFF, LED_B, "blue"},
-};
 
-void board_led_operation(uint8_t pin, uint8_t onoff)
+void erase_all_data_in_namespace(const char *namespace)
 {
-    for (int i = 0; i < 3; i++)
+    esp_err_t err = nvs_flash_init();
+    if (err != ESP_OK)
     {
-        if (led_state[i].pin != pin)
-        {
-            continue;
-        }
-        if (onoff == led_state[i].previous)
-        {
-            ESP_LOGW(TAG, "led %s is already %s",
-                     led_state[i].name, (onoff ? "on" : "off"));
-            return;
-        }
-        gpio_set_level(pin, onoff);
-        led_state[i].previous = onoff;
+        ESP_LOGE(TAG, "Failed to initialize NVS: %s", esp_err_to_name(err));
         return;
     }
 
-    ESP_LOGE(TAG, "LED is not found!");
+    // Mở không gian tên mesh_core để xóa dữ liệu
+    nvs_handle_t my_handle;
+    err = nvs_open(namespace, NVS_READWRITE, &my_handle);
+    if (err == ESP_OK)
+    {
+        // Xóa tất cả các entry trong namespace
+        err = nvs_erase_all(my_handle);
+        if (err == ESP_OK)
+        {
+            ESP_LOGI(TAG, "Successfully erased all data in namespace '%s'", namespace);
+        }
+        else
+        {
+            ESP_LOGE(TAG, "Failed to erase all data in namespace '%s': %s", namespace, esp_err_to_name(err));
+        }
+
+        // Đóng handle sau khi xóa
+        nvs_close(my_handle);
+    }
+    else
+    {
+        ESP_LOGE(TAG, "Failed to open NVS namespace '%s': %s", namespace, esp_err_to_name(err));
+    }
 }
 
-static void board_led_init(void)
+void clear_ble_mesh_data()
 {
-    for (int i = 0; i < 3; i++)
+    erase_all_data_in_namespace("mesh_core");
+
+    // Restart esp32c6
+    printf("Restarting now.\n");
+    fflush(stdout);
+    esp_restart();
+}
+
+void reset_nvs_flash()
+{
+    ESP_LOGI("Flash", "Erasing NVS flash...");
+
+    // Deinit trước khi xóa
+    nvs_flash_deinit();
+
+    esp_err_t ret = nvs_flash_erase();
+    if (ret == ESP_OK)
     {
-        gpio_reset_pin(led_state[i].pin);
-        gpio_set_direction(led_state[i].pin, GPIO_MODE_OUTPUT);
-        gpio_set_level(led_state[i].pin, LED_OFF);
-        led_state[i].previous = LED_OFF;
+        ESP_LOGI("Flash", "NVS flash erased successfully!");
+    }
+    else
+    {
+        ESP_LOGE("Flash", "Failed to erase NVS flash: %s", esp_err_to_name(ret));
+    }
+
+    printf("Restarting now.\n");
+    fflush(stdout);
+    esp_restart();
+}
+
+void button_release_cb(void *arg)
+{
+
+    ESP_LOGI(BOARD_TAG, "Button released");
+
+    if (state == LONG_PRESSED)
+    {
+        ESP_LOGI(BOARD_TAG, "Long press detected");
+
+        reset_nvs_flash();
+
+        state = INIT_STATE;
+    }
+    else
+    {
+        if (xTimerStop(buttonTimer_3s, 0) == pdPASS)
+        {
+            if (state < AFTER_800ms)
+            {
+                count += 1;
+            }
+            state = INIT_STATE;
+        }
     }
 }
-static void button_tap_cb(void *arg)
+
+void button_press_cb(void *arg)
 {
-    ESP_LOGI(TAG, "Button tapped, performing flash erase.");
+    ESP_LOGI(BOARD_TAG, "Button pressed");
+    buttonTimer_800ms = xTimerCreate("Timer", pdMS_TO_TICKS(800), pdFALSE, (void *)0, vTimerCallback_800ms);
+    xTimerStart(buttonTimer_800ms, 0);
 
-    // Lấy thông tin phân vùng
-    const esp_partition_t *partition = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_ANY, NULL);
-    if (partition == NULL)
+    buttonTimer_3s = xTimerCreate("Timer", pdMS_TO_TICKS(3000), pdFALSE, NULL, vTimerCallback_3s);
+    state = BEFORE_800ms;
+    xTimerStart(buttonTimer_3s, 0);
+    return;
+}
+
+void vTimerCallback_800ms(TimerHandle_t xTimer)
+{
+    uint32_t ulCount;
+    configASSERT(xTimer);
+    ulCount = (uint32_t)pvTimerGetTimerID(xTimer);
+    if (ulCount == 0)
     {
-        ESP_LOGE(TAG, "Failed to find partition");
-        return;
+        if (count == 1)
+        {
+            ESP_LOGI("BUTTON", "Single click detected");
+        }
+        else if (count == 2)
+        {
+            ESP_LOGI("BUTTON", "Double click detected");
+        }
+        else if (count == 3)
+        {
+            ESP_LOGI("BUTTON", "Triple click detected");
+            clear_ble_mesh_data();
+        }
+    }
+    count = 0;
+
+    if (state == BEFORE_800ms)
+    {
+        state = AFTER_800ms;
     }
 
-    // Kiểm tra kích thước phân vùng và địa chỉ hợp lệ
-    ESP_LOGI(TAG, "Partition address: 0x%08x, size: 0x%08x", partition->address, partition->size);
+    return;
+}
 
-    // Xóa phân vùng được tìm thấy
-    esp_err_t ret = esp_flash_erase_region(esp_flash_default_chip, partition->address, partition->size);
-    if (ret != ESP_OK)
+void vTimerCallback_3s()
+{
+    if (state == AFTER_800ms)
     {
-        ESP_LOGE(TAG, "Failed to erase flash region: %s", esp_err_to_name(ret));
-        return;
+        state = LONG_PRESSED;
     }
-    ESP_LOGI(TAG, "Flash region erased successfully");
-    // Tiếp tục khởi tạo BLE Mesh hoặc các phần khác của hệ thống
-    ble_mesh_device_init();
-    ESP_LOGI(TAG, "BLE Mesh Device has been initialized successfully");
+    return;
 }
 
 static void board_button_init(void)
@@ -95,29 +179,12 @@ static void board_button_init(void)
     button_handle_t btn_handle = iot_button_create(BUTTON_IO_NUM, BUTTON_ACTIVE_LEVEL);
     if (btn_handle)
     {
-        iot_button_set_evt_cb(btn_handle, BUTTON_CB_RELEASE, button_tap_cb, "RELEASE");
+        iot_button_set_evt_cb(btn_handle, BUTTON_CB_PUSH, button_press_cb, "PRESS");
+
+        iot_button_set_evt_cb(btn_handle, BUTTON_CB_RELEASE, button_release_cb, "RELEASE");
     }
 }
-void board_init(void)
-{
-    gpio_config_t io_conf = {
-        .intr_type = GPIO_INTR_DISABLE,
-        .mode = GPIO_MODE_OUTPUT,
-        .pin_bit_mask = (1ULL << LED_RED_GPIO) | 
-                       (1ULL << LED_GREEN_GPIO) | 
-                       (1ULL << LED_BLUE_GPIO),
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .pull_up_en = GPIO_PULLUP_DISABLE
-    };
-    gpio_config(&io_conf);
 
-    // Initially turn off all LEDs
-    led_off();
-
-    board_led_init();
-    //  server gửi => thêm nút nhấn:
-    board_button_init();
-}
 // Turn off all LEDs
 void led_off(void)
 {
@@ -128,14 +195,15 @@ void led_off(void)
 // Blink task for unprovisioned state
 static void led_blink_task(void *arg)
 {
-    while (1) {
+    while (1)
+    {
         // Turn on blue LED
         gpio_set_level(LED_BLUE_GPIO, 1);
-        vTaskDelay(pdMS_TO_TICKS(500));  // On for 0.5 second
-        
+        vTaskDelay(pdMS_TO_TICKS(500)); // On for 0.5 second
+
         // Turn off blue LED
         gpio_set_level(LED_BLUE_GPIO, 0);
-        vTaskDelay(pdMS_TO_TICKS(500));  // Off for 0.5 second
+        vTaskDelay(pdMS_TO_TICKS(500)); // Off for 0.5 second
     }
 }
 
@@ -143,7 +211,8 @@ static void led_blink_task(void *arg)
 void led_indicate_not_provisioned(void)
 {
     // Stop any existing blink task
-    if (blink_task_handle != NULL) {
+    if (blink_task_handle != NULL)
+    {
         vTaskDelete(blink_task_handle);
         blink_task_handle = NULL;
     }
@@ -153,14 +222,15 @@ void led_indicate_not_provisioned(void)
 
     // Create blinking task
     xTaskCreate(led_blink_task, "led_blink", 2048, NULL, 5, &blink_task_handle);
-    ESP_LOGI(TAG, "Started LED blinking for unprovisioned state");
+    ESP_LOGI(BOARD_TAG, "Started LED blinking for unprovisioned state");
 }
 
 // Function to indicate provisioned state (solid green)
 void led_indicate_provisioned(void)
 {
     // Stop blinking task if it exists
-    if (blink_task_handle != NULL) {
+    if (blink_task_handle != NULL)
+    {
         vTaskDelete(blink_task_handle);
         blink_task_handle = NULL;
     }
@@ -170,5 +240,24 @@ void led_indicate_provisioned(void)
 
     // Turn on green LED
     gpio_set_level(LED_GREEN_GPIO, 0);
-    ESP_LOGI(TAG, "LED set to solid green for provisioned state");
+    ESP_LOGI(BOARD_TAG, "LED set to solid green for provisioned state");
+}
+
+void board_init(void)
+{
+
+    gpio_config_t io_conf = {
+        .intr_type = GPIO_INTR_DISABLE,
+        .mode = GPIO_MODE_OUTPUT,
+        .pin_bit_mask = (1ULL << LED_RED_GPIO) |
+                        (1ULL << LED_GREEN_GPIO) |
+                        (1ULL << LED_BLUE_GPIO),
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .pull_up_en = GPIO_PULLUP_DISABLE};
+    gpio_config(&io_conf);
+
+    // Initially turn off all LEDs
+    led_off();
+
+    board_button_init();
 }
