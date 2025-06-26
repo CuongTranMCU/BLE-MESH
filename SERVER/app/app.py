@@ -275,6 +275,9 @@ def handle_mqtt_message(client, userdata, message):
             earliest_data = batch_manager.get_earliest_from_batch(batch_id)
 
             if earliest_data:
+                # Send notification based on feedback
+                process_and_send_notification(earliest_data)
+
                 # KIỂM TRA VÀ GỬI DỮ LIỆU CACHE TRƯỚC
                 if os.path.exists(storage_manager.cache_file) and os.path.getsize(storage_manager.cache_file) > 0:
                     storage_manager.try_send_stored_data()
@@ -314,6 +317,48 @@ def view_batches():
 
 
 # ============================== Firebase Push Notification ==============================
+def get_notification_for_feedback(feedback):
+    """Returns title and message for a given feedback level."""
+    if feedback == "Big Fire":
+        return "Big Fire Alert", "A big fire has been detected! Evacuate immediately!"
+    if feedback == "Fire":
+        return "Fire Alert", "A fire has been detected! Please check the area."
+    if feedback == "Potential Fire":
+        return "Potential Fire Warning", "A potential fire risk has been detected."
+    return None, None
+
+
+def process_and_send_notification(data):
+    """
+    Analyzes data for the highest severity feedback and sends a single notification.
+    """
+    severities = {"Potential Fire": 1, "Fire": 2, "Big Fire": 3}
+    highest_feedback = None
+    max_severity = 0
+
+    if not isinstance(data, dict):
+        return
+
+    for server_data in data.values():
+        if isinstance(server_data, dict):
+            feedback = server_data.get("feedback")
+            current_severity = severities.get(feedback, 0)
+            if current_severity > max_severity:
+                max_severity = current_severity
+                highest_feedback = feedback
+
+    if highest_feedback:
+        title, msg = get_notification_for_feedback(highest_feedback)
+        if title and msg:
+            try:
+                # Firebase data payload must be a dict of strings.
+                data_payload = {"payload": json.dumps(data)}
+                print(f"Sending notification for '{highest_feedback}': '{title}'")
+                sendNotificationWithTopic(title, msg, dataObject=data_payload)
+            except Exception as e:
+                print(f"Error sending notification: {e}")
+
+
 def sendNotificationWithToken(title, msg, registration_token, dataObject=None):
     message = messaging.MulticastMessage(
         notification=messaging.Notification(title=title, body=msg),
