@@ -1,12 +1,16 @@
 [Unit]
 Description=BLE Gateway Flask App
-After=network.target
+After=network-online.target mosquitto.service
+Wants=network-online.target mosquitto.service
 
 [Service]
 User=pi
 WorkingDirectory=/home/pi/Code/BLE-MESH/gateway
 ExecStart=/home/pi/Code/BLE-MESH/gateway/myvenv/bin/python /home/pi/Code/BLE-MESH/gateway/app/app.py
-Restart=always
+Restart=on-failure
+RestartSec=5
+StartLimitIntervalSec=60
+StartLimitBurst=3
 StandardOutput=append:/home/pi/Code/BLE-MESH/gateway/log/gateway_output.log
 StandardError=append:/home/pi/Code/BLE-MESH/gateway/log/gateway_error.log
 
