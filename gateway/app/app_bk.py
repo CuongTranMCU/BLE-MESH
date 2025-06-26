@@ -29,7 +29,7 @@ firebase_ref = db.reference("/Data")
 
 # ============================== Flask App Setup ==============================
 app = Flask(__name__)
-app.config["MQTT_BROKER_URL"] = "192.168.1.9"
+app.config["MQTT_BROKER_URL"] = "raspberrypi.local"
 app.config["MQTT_BROKER_PORT"] = 1883
 app.config["MQTT_USERNAME"] = ""
 app.config["MQTT_PASSWORD"] = ""
@@ -128,7 +128,6 @@ class StorageManager:
     def send_to_firebase(self, data):
         error_occurred = False
         try:
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
             print(f"Processing data for Firebase: {data}")
 
             if not isinstance(data, dict):
@@ -147,6 +146,7 @@ class StorageManager:
                 # CHỈ CẬP NHẬT TIMELINE NẾU CHƯA CÓ HOẶC RỖNG
                 if "timeline" not in server_info or not server_info["timeline"]:
                     server_info["timeline"] = current_time
+
                 try:
                     server_ref = self.ref.child(server_id)
                     now_data = dict(server_info)
@@ -179,25 +179,11 @@ class StorageManager:
                     print("Cache is full (>=50KB), skipping save.")
                 return False
 
-            # Nếu gửi Firebase thành công, emit metrics tại thời điểm này
-            timestamp = datetime.now().strftime("%H:%M:%S")
-            size_kb = self.get_file_size_kb(self.cache_file)[1]
-            message_rate = len(data)  # hoặc len(current_batch)
-            batch_count = batch_manager.batch_counter
-
-            socketio.emit(
-                "admin_metrics",
-                {
-                    "batch_count": batch_count,
-                    "message_rate": message_rate,  # số message trong lần gửi này
-                    "cache_size": round(size_kb, 2),
-                    "uptime": timestamp,  # dùng làm timestamp gửi thay vì uptime
-                },
-            )
             return True
 
         except Exception as e:
             print(f"Error in send_to_firebase: {str(e)}")
+            # LƯU DỮ LIỆU GỐC
             self.save_data(data)
             return False
 
@@ -316,7 +302,7 @@ def handle_mqtt_message(client, userdata, message):
 # ============================== Routes ==============================
 @app.route("/")
 def index():
-    return render_template("gateway_ui.html")
+    return render_template("index.html")
 
 
 @app.route("/batches")
