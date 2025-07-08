@@ -1,0 +1,52 @@
+//buildscript {
+//    ext.kotlin_version = '1.8.10'
+//    repositories {
+//        google()
+//        mavenCentral()
+//    }
+//
+//    dependencies {
+//        // START: FlutterFire Configuration
+//        classpath 'com.google.gms:google-services:4.3.15'
+//        // END: FlutterFire Configuration
+//        classpath 'com.android.tools.build:gradle:8.1.0'
+//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//    }
+//}
+
+buildscript {
+    ext {
+        // Thêm dòng này để định nghĩa phiên bản Kotlin
+        // Sử dụng phiên bản phù hợp với dự án của bạn, 1.8.22 là một lựa chọn phổ biến và ổn định gần đây
+        kotlin_version = '1.8.22'
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal() // Đảm bảo plugin có thể tải từ đây
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.4.0'
+        classpath 'com.google.gms:google-services:4.3.15'
+
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = '../build'
+
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    project.evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
