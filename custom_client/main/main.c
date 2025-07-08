@@ -68,7 +68,7 @@ static void air_sensor_task(void *arg)
             // ble_mesh_custom_sensor_client_model_message_set(device_sensor_data);
             // ble_mesh_custom_sensor_client_model_message_get(0xC005);
             // ble_mesh_custom_sensor_client_model_message_get(0xC001);
-            // ble_mesh_custom_sensor_client_model_message_get(0);
+            // ble_mesh_custom_sensor_client_model_message_get(0xC001);
 
             ticks = 0;
         }
@@ -90,11 +90,11 @@ void app_main(void)
 
     board_init();
 
-    wifi_init();
-    while (check_wifi_connection() != ESP_OK)
-    {
-        vTaskDelay(2000 / portTICK_PERIOD_MS);
-    }
+    // wifi_init();
+    // while (check_wifi_connection() != ESP_OK)
+    // {
+    //     vTaskDelay(2000 / portTICK_PERIOD_MS);
+    // }
 
     err = ble_mesh_device_init();
     if (err)

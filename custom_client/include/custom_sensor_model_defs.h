@@ -30,8 +30,8 @@
 #define ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_SET ESP_BLE_MESH_MODEL_OP_3(0x01, CID_ESP)
 #define ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS ESP_BLE_MESH_MODEL_OP_3(0x02, CID_ESP)
 
-#define ESP_BLE_MESH_GROUP_PUB_ADDR 0xC000
-#define ESP_BLE_MESH_GROUP_GW_SUB_ADDR 0xC001
+#define ESP_BLE_MESH_GROUP_CLIENT_PUB_SERVER_SUB 0xC001
+#define ESP_BLE_MESH_GROUP_SERVER_PUB_CLIENT_SUB 0xC002
 #define ESP_BLE_MESH_ADDR_ALL_NODES 0xFFFF
 
 /**
@@ -48,13 +48,13 @@ typedef struct __attribute__((packed))
 {
     char device_name[30];
     char mac_addr[13];
-    uint16_t mesh_addr;
+    char feedback[20];
     float temperature;
     float humidity;
     float smoke;
-    bool isFlame;
     int32_t rssi;
-    char feedback[20];
+    uint16_t mesh_addr;
+    bool isFlame;
 } model_sensor_data_t;
 
 typedef struct __attribute__((packed))

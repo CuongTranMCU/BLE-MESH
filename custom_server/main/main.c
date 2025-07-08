@@ -151,9 +151,9 @@ static void read_data_from_sensors(void *arg)
         _received_data.temperature = temp;
         _received_data.humidity = hum;
         _received_data.smoke = smokePpm;
-        ESP_LOGI(TAG, "    Temperature: %.2f", _received_data.temperature);
-        ESP_LOGI(TAG, "    Humidity   : %.2f", _received_data.humidity);
-        ESP_LOGI(TAG, "    Smoke      : %.2f ppm", smokePpm);
+        // ESP_LOGI(TAG, "    Temperature: %.2f", _received_data.temperature);
+        // ESP_LOGI(TAG, "    Humidity   : %.2f", _received_data.humidity);
+        // ESP_LOGI(TAG, "    Smoke      : %.2f ppm", smokePpm);
         if (flame_sensor_read(&handle, &flame_detected) == ESP_OK)
         {
             printf("Flame %s\n", flame_detected ? "DETECTED!" : "not detected");

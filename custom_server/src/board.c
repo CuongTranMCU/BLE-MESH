@@ -9,6 +9,8 @@
 
 #include "board.h"
 
+#define TAG "BUTTON"
+
 void reset_nvs_flash();
 
 void button_press_cb(void *arg);
@@ -27,6 +29,50 @@ button_state_t state = INIT_STATE;
 TimerHandle_t buttonTimer_800ms = NULL;
 TimerHandle_t buttonTimer_3s = NULL;
 static TaskHandle_t blink_task_handle = NULL;
+
+void erase_all_data_in_namespace(const char *namespace)
+{
+    esp_err_t err = nvs_flash_init();
+    if (err != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Failed to initialize NVS: %s", esp_err_to_name(err));
+        return;
+    }
+
+    // Mở không gian tên mesh_core để xóa dữ liệu
+    nvs_handle_t my_handle;
+    err = nvs_open(namespace, NVS_READWRITE, &my_handle);
+    if (err == ESP_OK)
+    {
+        // Xóa tất cả các entry trong namespace
+        err = nvs_erase_all(my_handle);
+        if (err == ESP_OK)
+        {
+            ESP_LOGI(TAG, "Successfully erased all data in namespace '%s'", namespace);
+        }
+        else
+        {
+            ESP_LOGE(TAG, "Failed to erase all data in namespace '%s': %s", namespace, esp_err_to_name(err));
+        }
+
+        // Đóng handle sau khi xóa
+        nvs_close(my_handle);
+    }
+    else
+    {
+        ESP_LOGE(TAG, "Failed to open NVS namespace '%s': %s", namespace, esp_err_to_name(err));
+    }
+}
+
+void clear_ble_mesh_data()
+{
+    erase_all_data_in_namespace("mesh_core");
+
+    // Restart esp32c6
+    printf("Restarting now.\n");
+    fflush(stdout);
+    esp_restart();
+}
 
 void reset_nvs_flash()
 {
@@ -106,6 +152,7 @@ void vTimerCallback_800ms(TimerHandle_t xTimer)
         else if (count == 3)
         {
             ESP_LOGI("BUTTON", "Triple click detected");
+            clear_ble_mesh_data();
         }
     }
     count = 0;

@@ -9,6 +9,9 @@
  */
 
 #include "mesh_server.h"
+#include "esp_timer.h" // For esp_timer_get_time()
+static int64_t send_start_time_us = 0;
+static size_t last_sent_bytes = 0;
 
 static const char *TAG = "MESH SERVER";
 
@@ -22,8 +25,8 @@ static uint8_t dev_uuid[16] = {0xdd, 0xdd}; /**< Device UUID */
 
 //* Definicao do Configuration Server Model
 static esp_ble_mesh_cfg_srv_t config_server = {
-    .relay = ESP_BLE_MESH_RELAY_DISABLED,
-    .beacon = ESP_BLE_MESH_BEACON_ENABLED,
+    .relay = 0x01,
+    .beacon = 0x01,
 #if defined(CONFIG_BLE_MESH_FRIEND)
     .friend_state = ESP_BLE_MESH_FRIEND_ENABLED,
 #else
@@ -32,12 +35,13 @@ static esp_ble_mesh_cfg_srv_t config_server = {
 #if defined(CONFIG_BLE_MESH_GATT_PROXY_SERVER)
     .gatt_proxy = ESP_BLE_MESH_GATT_PROXY_ENABLED,
 #else
-    .gatt_proxy = ESP_BLE_MESH_GATT_PROXY_NOT_SUPPORTED,
+    .gatt_proxy = 0x01,
 #endif
-    .default_ttl = 7,
+    .default_ttl = 5,
     /* 3 transmissions with 20ms interval */
-    .net_transmit = ESP_BLE_MESH_TRANSMIT(2, 20),
-    .relay_retransmit = ESP_BLE_MESH_TRANSMIT(2, 20),
+    .net_transmit = ESP_BLE_MESH_TRANSMIT(2, 30),
+    .relay_retransmit = ESP_BLE_MESH_TRANSMIT(2, 30),
+
 };
 
 //* Colocamos o Config Server Model aqui como root model
@@ -151,11 +155,11 @@ bool is_server_sent_init_control(void)
 
 esp_err_t server_send_to_client(const void *raw_data, size_t raw_len, message_type_t type)
 {
-    if (custom_models[0].pub == NULL || custom_models[0].pub->publish_addr == ESP_BLE_MESH_ADDR_UNASSIGNED)
-    {
-        ESP_LOGE(TAG, "Publish address is not configured");
-        return ESP_FAIL;
-    }
+    // if (custom_models[0].pub == NULL || custom_models[0].pub->publish_addr == ESP_BLE_MESH_ADDR_UNASSIGNED)
+    // {
+    //     ESP_LOGE(TAG, "Publish address is not configured");
+    //     return ESP_FAIL;
+    // }
 
     // Tạo payload mới có thêm 1 byte đầu là type
     size_t total_len = raw_len + 1;
@@ -169,15 +173,15 @@ esp_err_t server_send_to_client(const void *raw_data, size_t raw_len, message_ty
     payload[0] = (uint8_t)type;             // Type field
     memcpy(&payload[1], raw_data, raw_len); // Actual data
 
-    esp_ble_mesh_msg_ctx_t ctx = {
-        .addr = custom_models[0].pub->publish_addr,
-        .send_ttl = 5,
-        .net_idx = ESP_BLE_MESH_KEY_PRIMARY,
-        .app_idx = custom_models[0].pub->app_idx,
-    };
+    esp_ble_mesh_msg_ctx_t ctx = {0};
+    ctx.send_ttl = 5;
+    ctx.addr = ESP_BLE_MESH_GROUP_SERVER_PUB_CLIENT_SUB;
+    ctx.srv_send = 0;
+    // printf("Public address: %04X\n", ctx.addr);
 
     uint32_t opcode = ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS;
-
+    send_start_time_us = esp_timer_get_time(); // Start timing
+    last_sent_bytes = total_len;               // Store the size of the payload for logging
     esp_err_t err = esp_ble_mesh_server_model_send_msg(custom_models, &ctx, opcode, total_len, payload);
     free(payload); // luôn giải phóng sau khi gửi
 
@@ -284,6 +288,11 @@ static void ble_mesh_provisioning_cb(esp_ble_mesh_prov_cb_event_t event,
 
     case ESP_BLE_MESH_NODE_PROV_RESET_EVT:
         ESP_LOGI(TAG, "ESP_BLE_MESH_NODE_PROV_RESET_EVT");
+        esp_timer_handle_t reset_timer;
+        esp_timer_create_args_t timer_args = {
+            .callback = &esp_restart};
+        esp_timer_create(&timer_args, &reset_timer);
+        esp_timer_start_once(reset_timer, 1000000); // Delay 1s
         break;
 
     case ESP_BLE_MESH_NODE_SET_UNPROV_DEV_NAME_COMP_EVT:
@@ -309,6 +318,24 @@ static void ble_mesh_config_server_cb(esp_ble_mesh_cfg_server_cb_event_t event,
                      param->value.state_change.appkey_add.net_idx,
                      param->value.state_change.appkey_add.app_idx);
             ESP_LOG_BUFFER_HEX("AppKey", param->value.state_change.appkey_add.app_key, 16);
+
+            // Tự động bind AppKey với Custom Sensor Server Model
+            // esp_err_t err_bind = esp_ble_mesh_node_bind_app_key_to_local_model(
+            //     param->value.state_change.mod_app_bind.element_addr, // Element address
+            //     param->value.state_change.mod_app_bind.company_id,   // Company ID
+            //     param->value.state_change.mod_app_bind.model_id,     // Model ID
+            //     param->value.state_change.appkey_add.app_idx         // AppKey Index
+            // );
+
+            // if (err_bind != ESP_OK)
+            // {
+            //     ESP_LOGE(TAG, "AppKey bind failed (err 0x%04x)", err_bind);
+            // }
+            // else
+            // {
+            //     ESP_LOGI(TAG, "AppKey bind success for model 0x%04x", ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_ID_SERVER);
+            // }
+
             break;
 
         //* Application key bound to Model
@@ -320,6 +347,26 @@ static void ble_mesh_config_server_cb(esp_ble_mesh_cfg_server_cb_event_t event,
                      param->value.state_change.mod_app_bind.company_id,
                      param->value.state_change.mod_app_bind.model_id);
             ESP_LOGI(TAG, "Application key bound to model 0x%06x", param->value.state_change.mod_app_bind.model_id);
+
+            /// ----------------------------------------------------
+            // Đăng ký địa chỉ group
+            esp_err_t err = esp_ble_mesh_model_subscribe_group_addr(
+                param->value.state_change.mod_app_bind.element_addr, // Địa chỉ phần tử (Element Address)
+                param->value.state_change.mod_app_bind.company_id,   // Company ID (CID_ESP nếu là vendor model)
+                param->value.state_change.mod_app_bind.model_id,     // Model ID
+                ESP_BLE_MESH_GROUP_CLIENT_PUB_SERVER_SUB             // Địa chỉ group cần sub (0xC001)
+            );
+
+            if (err != ESP_OK || err == ESP_ERR_INVALID_ARG)
+            {
+                ESP_LOGE(TAG, "Failed to subscribe to group 0x%04x (err: 0x%04x)", ESP_BLE_MESH_GROUP_CLIENT_PUB_SERVER_SUB, err);
+            }
+            else
+            {
+                ESP_LOGI(TAG, "Subscribed model 0x%04x to group 0x%04x",
+                         ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_ID_SERVER, ESP_BLE_MESH_GROUP_CLIENT_PUB_SERVER_SUB);
+            }
+            /// ----------------------------------------------------
             break;
 
         //* Model Subscription group add
@@ -354,6 +401,9 @@ void send_data_from_sensors()
         _server_model_state.isFlame = _received_data.isFlame;
         strcpy(_server_model_state.feedback, _received_data.feedback);
 
+        ESP_LOGI(TAG, "    Device name: %s", _server_model_state.device_name);
+        ESP_LOGI(TAG, "    Mac address: %s", _server_model_state.mac_addr);
+        ESP_LOGI(TAG, "    Mesh address: %04x", _server_model_state.mesh_addr);
         ESP_LOGI(TAG, "    Temperature: %f", _server_model_state.temperature);
         ESP_LOGI(TAG, "    Humidity:    %f", _server_model_state.humidity);
         ESP_LOGI(TAG, "    Smoke:       %f", _server_model_state.smoke);
@@ -427,15 +477,16 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
             }
             // Handle the response message to the client
             //* Responde com o estado atual do Model (OP_STATUS)
-            // model_sensor_data_t response = *(model_sensor_data_t *)param->model_operation.model->user_data;
+            model_sensor_data_t response = *(model_sensor_data_t *)param->model_operation.model->user_data;
 
-            // esp_err_t err = esp_ble_mesh_server_model_send_msg(param->model_operation.model, param->model_operation.ctx,
-            //                 ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS, sizeof(response), (uint8_t *)&response);
-            // if (err) {
-            //     ESP_LOGE(TAG, "%s -- Failed to send response with OPCODE 0x%06x", __func__, ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS);
-            // }
-            // get_data_from_sensors();
-            // send_heartbeat_from_server(0xFF, 3);
+            esp_err_t err = esp_ble_mesh_server_model_send_msg(param->model_operation.model, param->model_operation.ctx,
+                                                               ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS, sizeof(response), (uint8_t *)&response);
+            if (err)
+            {
+                ESP_LOGE(TAG, "%s -- Failed to send response with OPCODE 0x%06x", __func__, ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS);
+            }
+            send_data_from_sensors();
+
             break;
 
         case ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_SET:
@@ -459,7 +510,12 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
         }
         else
         {
-            ESP_LOGI(TAG, "%s -- SEND_COMPLETE -- Send message opcode 0x%08x success", __func__, param->model_send_comp.opcode);
+            int64_t end_time_us = esp_timer_get_time();
+            double elapsed_sec = (end_time_us - send_start_time_us) / 1e6;
+            double data_rate_bps = (last_sent_bytes * 8.0) / elapsed_sec;
+
+            ESP_LOGI(TAG, "SEND COMPLETE: %d bytes in %.8f seconds\n DataRate = %.2f bps",
+                     (int)last_sent_bytes, elapsed_sec, data_rate_bps);
         }
         break;
 
@@ -555,6 +611,9 @@ static void set_mac_address()
         ESP_LOGE(TAG, "Aborting");
         abort();
     }
+
+    base_mac_addr[5] = 'f'; // e66
+    //  base_mac_addr[5] = 'a'; // e61
 
     uint8_t index = 0;
     for (uint8_t i = 0; i < 6; i++)

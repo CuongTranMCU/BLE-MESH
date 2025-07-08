@@ -1,9 +1,7 @@
 {
-  "idf.openOcdConfigs": ["board/esp32c6-ftdi.cfg"],
-  "idf.portWin": "COM5",
-  "files.associations": {
-    "dht22.h": "c",
-    "mp2.h": "c",
-    "flame.h": "c"
+  "C_Cpp.intelliSenseEngine": "default",
+  "idf.portWin": "COM14",
+  "files.watcherExclude": {
+    "**/target": true
   }
 }

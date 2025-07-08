@@ -7,7 +7,11 @@
     "esp_ble_mesh_local_data_operation_api.h": "c",
     "mqtt.h": "c",
     "sdkconfig.h": "c",
-    "esp_ble_mesh_common_api.h": "c"
+    "esp_ble_mesh_common_api.h": "c",
+    "type_traits": "c"
   },
-  "idf.portWin": "COM9"
+  "idf.portWin": "COM9",
+  "files.watcherExclude": {
+    "**/target": true
+  }
 }

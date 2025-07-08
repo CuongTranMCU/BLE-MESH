@@ -29,8 +29,8 @@ static bool timer_running = false;        // Flag to track if aggregation timer 
 
 // Definicao do Configuration Server Model
 static esp_ble_mesh_cfg_srv_t config_server = {
-    .relay = ESP_BLE_MESH_RELAY_DISABLED,
-    .beacon = ESP_BLE_MESH_BEACON_ENABLED,
+    .relay = 0x00,
+    .beacon = 0x01,
 #if defined(CONFIG_BLE_MESH_FRIEND)
     .friend_state = ESP_BLE_MESH_FRIEND_ENABLED,
 #else
@@ -39,12 +39,12 @@ static esp_ble_mesh_cfg_srv_t config_server = {
 #if defined(CONFIG_BLE_MESH_GATT_PROXY_SERVER)
     .gatt_proxy = ESP_BLE_MESH_GATT_PROXY_ENABLED,
 #else
-    .gatt_proxy = ESP_BLE_MESH_GATT_PROXY_NOT_SUPPORTED,
+    .gatt_proxy = 0x01,
 #endif
-    .default_ttl = 7,
+    .default_ttl = 3,
     /* 3 transmissions with 20ms interval */
-    .net_transmit = ESP_BLE_MESH_TRANSMIT(2, 20),
-    .relay_retransmit = ESP_BLE_MESH_TRANSMIT(2, 20),
+    .net_transmit = ESP_BLE_MESH_TRANSMIT(5, 30),
+    .relay_retransmit = ESP_BLE_MESH_TRANSMIT(5, 30),
 };
 
 //* Definicao dos pares GET/STATUS e SET/STATUS(?)
@@ -302,6 +302,38 @@ static void ble_mesh_config_server_cb(esp_ble_mesh_cfg_server_cb_event_t event,
                      param->value.state_change.mod_app_bind.app_idx,
                      param->value.state_change.mod_app_bind.company_id,
                      param->value.state_change.mod_app_bind.model_id);
+
+            /// ----------------------------------------------------
+            // Đăng ký địa chỉ group
+            esp_err_t err = esp_ble_mesh_model_subscribe_group_addr(
+                param->value.state_change.mod_sub_add.element_addr, // Địa chỉ phần tử (Element Address)
+                param->value.state_change.mod_sub_add.company_id,   // Company ID (CID_ESP nếu là vendor model)
+                param->value.state_change.mod_sub_add.model_id,     // Model ID
+                ESP_BLE_MESH_GROUP_SERVER_PUB_CLIENT_SUB            // Địa chỉ group cần sub (0xC002)
+            );
+
+            if (err != ESP_OK)
+            {
+                ESP_LOGE(TAG, "Failed to subscribe to group 0x%04x (err: 0x%04x)", ESP_BLE_MESH_GROUP_SERVER_PUB_CLIENT_SUB, err);
+            }
+            else
+            {
+                ESP_LOGI(TAG, "Subscribed model 0x%04x to group 0x%04x",
+                         ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_ID_CLIENT, ESP_BLE_MESH_GROUP_SERVER_PUB_CLIENT_SUB);
+            }
+            /// ----------------------------------------------------
+            break;
+
+        case ESP_BLE_MESH_MODEL_OP_MODEL_SUB_ADD:
+            ESP_LOGI(TAG, "ESP_BLE_MESH_MODEL_OP_MODEL_SUB_ADD");
+            ESP_LOGI(TAG, "elem_addr 0x%04x, sub_addr 0x%04x, cid 0x%04x, mod_id 0x%04x",
+                     param->value.state_change.mod_sub_add.element_addr,
+                     param->value.state_change.mod_sub_add.sub_addr,
+                     param->value.state_change.mod_sub_add.company_id,
+                     param->value.state_change.mod_sub_add.model_id);
+            ESP_LOGI(TAG, "Model 0x%06x subscribed to Group 0x%04x !",
+                     param->value.state_change.mod_sub_add.model_id,
+                     param->value.state_change.mod_sub_add.sub_addr);
             break;
 
         default:
@@ -371,7 +403,7 @@ static void ble_mesh_custom_sensor_client_model_cb(esp_ble_mesh_model_cb_event_t
                 // TODO: Handle control message if needed
                 char *json_str = cJSON_Print(convert_model_control_to_json(&control_data));
                 printf("JSON data: %s\n", json_str);
-                mqtt_data_publish_callback("SendControlData", json_str, strlen(json_str));
+                mqtt_data_publish_callback("Client-Send-Control", json_str, strlen(json_str));
                 free(json_str);
                 ESP_LOGI(TAG, "CONTROL message received but not processed further.");
             }
@@ -432,7 +464,7 @@ static message_type_t parse_received_data(esp_ble_mesh_model_cb_param_t *recv_pa
         ESP_LOGI("PARSED_SENSOR", "Temperature  = %f", out_sensor->temperature);
         ESP_LOGI("PARSED_SENSOR", "Humidity     = %f", out_sensor->humidity);
         ESP_LOGI("PARSED_SENSOR", "Smoke        = %f", out_sensor->smoke);
-        ESP_LOGI("PARSED_SENSOR", "Is Flame     = %01d", out_sensor->isFlame);
+        ESP_LOGI("PARSED_SENSOR", "Is Flame     = %d", out_sensor->isFlame);
         ESP_LOGI("PARSED_SENSOR", "Feedback     = %s", out_sensor->feedback);
 
         return MSG_TYPE_SENSOR;
@@ -678,6 +710,7 @@ esp_err_t ble_mesh_custom_sensor_client_model_message_get(uint16_t addr)
     if (addr == 0)
     {
         uint16_t publish_addr = custom_sensor_client.model->pub->publish_addr;
+        printf("Public address: %04x\n", publish_addr);
         ctx.addr = publish_addr;
         // ctx.addr = ESP_BLE_MESH_GROUP_PUB_ADDR; //! FIXME: passar o endereco do device pra GET?
     }
@@ -828,7 +861,7 @@ static void timer_callback(void *arg)
     if (json_str)
     {
         ESP_LOGI(TAG, "Publishing JSON data to MQTT");
-        mqtt_data_publish_callback("Send Data", json_str, strlen(json_str));
+        mqtt_data_publish_callback("Client-Send-Data", json_str, strlen(json_str));
         free(json_str);
     }
     else

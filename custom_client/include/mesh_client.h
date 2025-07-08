@@ -36,7 +36,7 @@
 #include "custom_sensor_model_defs.h"
 #include "uthash.h"
 
-#define GATEWAY_UPDATE_PERIOD 300000000 // 5 minutes
+#define GATEWAY_UPDATE_PERIOD 60000000 // 5 minutes
 /**
  * @brief Initializes BLE Mesh stack, initializing Models and it's callback functions
  *

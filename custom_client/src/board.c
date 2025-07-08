@@ -9,7 +9,7 @@
 
 #include "board.h"
 
-#define TAG "WiFiProvision"
+#define TAG "BUTTON"
 
 void retrieve_all_entries_in_nvs();
 void erase_all_data_in_namespace(const char *namespace);
