@@ -90,11 +90,11 @@ void app_main(void)
 
     board_init();
 
-    // wifi_init();
-    // while (check_wifi_connection() != ESP_OK)
-    // {
-    //     vTaskDelay(2000 / portTICK_PERIOD_MS);
-    // }
+    wifi_init();
+    while (check_wifi_connection() != ESP_OK)
+    {
+        vTaskDelay(2000 / portTICK_PERIOD_MS);
+    }
 
     err = ble_mesh_device_init();
     if (err)

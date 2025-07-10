@@ -492,7 +492,8 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
         case ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_SET:
             ESP_LOGI(TAG, "OP_SET -- Received HEX message: ");
             ESP_LOG_BUFFER_HEX(TAG, (uint8_t *)param->model_operation.msg, param->model_operation.length);
-            parse_received_data(param, (model_sensor_data_t *)&param->model_operation.model->user_data);
+            model_control_data_t control_data;
+            parse_received_data(param, &control_data);
 
             break;
 
@@ -612,8 +613,8 @@ static void set_mac_address()
         abort();
     }
 
-    base_mac_addr[5] = 'f'; // e66
-    //  base_mac_addr[5] = 'a'; // e61
+    // base_mac_addr[5] = 'f'; // e66
+    base_mac_addr[5] = 'a'; // e61
 
     uint8_t index = 0;
     for (uint8_t i = 0; i < 6; i++)

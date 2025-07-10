@@ -1,3 +1,4 @@
+
 #include <sdkconfig.h>
 #include "nvs_flash.h"
 #include "esp_log.h"
@@ -73,7 +74,7 @@ static void read_received_items(void *arg)
             if (count == 300)
             {
                 ESP_LOGI(TAG, "No data received from receive_data_control_queue for 5 minutes, resetting alarmEnable to true.");
-                alarmEnable = true; // Reset alarmEnable after 10 seconds of no data
+                alarmEnable = true; // Reset alarmEnable after 5 minutes
                 count = 0;          // Reset count
             }
             else
@@ -91,11 +92,11 @@ char *check_fire_conditions(model_sensor_data_t *state)
     {
         return "Big Fire";
     }
-    else if ((state->isFlame || state->smoke >= 400.0f) && state->temperature > 37.0f)
+    else if (state->isFlame || state->temperature > 37.0f)
     {
         return "Fire";
     }
-    else if (state->isFlame || state->smoke >= 400.0f)
+    else if (state->smoke >= 400.0f)
     {
         return "Potential Fire";
     }
@@ -147,13 +148,17 @@ static void read_data_from_sensors(void *arg)
         float temp = getTemperature();
         float smokePpm = MP2_GetSmokePPM();
         bool flame_detected;
-
+        if (smokePpm > 2000)
+        {
+            smokePpm = 98.0f;
+        }
         _received_data.temperature = temp;
         _received_data.humidity = hum;
         _received_data.smoke = smokePpm;
-        // ESP_LOGI(TAG, "    Temperature: %.2f", _received_data.temperature);
-        // ESP_LOGI(TAG, "    Humidity   : %.2f", _received_data.humidity);
-        // ESP_LOGI(TAG, "    Smoke      : %.2f ppm", smokePpm);
+        ESP_LOGI(TAG, "    Temperature: %.2f", _received_data.temperature);
+        ESP_LOGI(TAG, "    Humidity   : %.2f", _received_data.humidity);
+        ESP_LOGI(TAG, "    Smoke      : %.2f ppm", smokePpm);
+
         if (flame_sensor_read(&handle, &flame_detected) == ESP_OK)
         {
             printf("Flame %s\n", flame_detected ? "DETECTED!" : "not detected");
