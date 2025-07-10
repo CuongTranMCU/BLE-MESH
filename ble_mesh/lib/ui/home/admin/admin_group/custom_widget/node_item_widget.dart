@@ -27,7 +27,7 @@ class NodeItemWidget extends StatelessWidget {
     return Consumer<ControlSignalProvider>(
       builder: (context, controlProvider, child) {
         final controlSignal = controlProvider.getOneNode(deviceName);
-
+        final buzzerSignal = controlSignal?.buzzerSignal;
         return Container(
           height: 100,
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -86,16 +86,16 @@ class NodeItemWidget extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      onPressed: (controlSignal?.buzzerSignal == null)
+                      onPressed: (buzzerSignal == null)
                           ? null
                           : () async {
                               await controlProvider.changeBuzzerSignal(
                                 deviceName: deviceName,
                                 meshAddress: monitorData.meshAddress,
-                                buzzerSignal: false,
+                                buzzerSignal: !buzzerSignal,
                               );
                             },
-                      icon: controlSignal?.buzzerSignal == true
+                      icon: buzzerSignal == true
                           ? Lottie.asset(
                               "assets/images/alarm.json",
                               width: 32,
@@ -107,7 +107,7 @@ class NodeItemWidget extends StatelessWidget {
                               width: 32,
                               height: 32,
                             ),
-                    ),
+                    )
                   ],
                 ),
               ],

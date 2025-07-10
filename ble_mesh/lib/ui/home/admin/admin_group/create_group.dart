@@ -46,64 +46,66 @@ class _CreateGroupState extends State<CreateGroup> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/icons/BLE_mesh.png',
-              width: 150,
-              height: 150,
-              fit: BoxFit.cover,
-              color: IconColor04,
-            ),
-            SizedBox(height: 120),
-            TextField(
-              controller: _floorController,
-              focusNode: _groupFocusNode,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                labelText: "Group name",
-                hintText: "1st Floor",
-                border: InputBorder.none,
-                hintStyle: const TextStyle(color: TextColor01),
-                filled: true,
-                fillColor: isFocused ? FocusedColor : EnabledBorderColor,
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: FocusedBorderColor, width: 2.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: EnabledBorderColor, width: 1.2),
-                ),
-                errorStyle: const TextStyle(color: ErrorTextColor),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/icons/BLE_mesh.png',
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover,
+                color: IconColor04,
               ),
-              style: const TextStyle(color: TextColor01),
-              onEditingComplete: () {
-                FocusScope.of(context).unfocus(); // Hide keyboard
-                print("Editing completed!");
-              },
-              onSubmitted: (String value) {
-                print("OnSubmitted completed!");
-                _navigateToSelectNode();
-              },
-            ),
-            const SizedBox(height: 32),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(200, 50),
-                backgroundColor: ButtonColor01,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+              SizedBox(height: 120),
+              TextField(
+                controller: _floorController,
+                focusNode: _groupFocusNode,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: "Group name",
+                  hintText: "1st Floor",
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(color: TextColor01.withOpacity(0.3)),
+                  filled: true,
+                  fillColor: isFocused ? FocusedColor : EnabledBorderColor,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: const BorderSide(color: FocusedBorderColor, width: 2.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: const BorderSide(color: EnabledBorderColor, width: 1.2),
+                  ),
+                  errorStyle: const TextStyle(color: ErrorTextColor),
                 ),
+                style: const TextStyle(color: TextColor01),
+                onEditingComplete: () {
+                  FocusScope.of(context).unfocus(); // Hide keyboard
+                  print("Editing completed!");
+                },
+                onSubmitted: (String value) {
+                  print("OnSubmitted completed!");
+                  _navigateToSelectNode();
+                },
               ),
-              onPressed: _navigateToSelectNode,
-              child: const Text("Next", style: TextStyle(color: TextColor02, fontWeight: FontWeight.bold)),
-            ),
-          ],
+              const SizedBox(height: 32),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(200, 50),
+                  backgroundColor: ButtonColor01,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: _navigateToSelectNode,
+                child: const Text("Next", style: TextStyle(color: TextColor02, fontWeight: FontWeight.bold)),
+              ),
+            ],
+          ),
         ),
       ),
     );

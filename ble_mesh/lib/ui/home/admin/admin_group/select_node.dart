@@ -48,7 +48,7 @@ class _SelectNodeState extends State<SelectNode> {
         : Scaffold(
             appBar: AppBar(
               title: const Text(
-                "List of BLE Mesh nodes",
+                "List of nodes",
                 style: TextStyle(color: AppTitleColor2, fontSize: 28, fontWeight: FontWeight.bold),
               ),
               centerTitle: true,
@@ -126,14 +126,8 @@ class _SelectNodeState extends State<SelectNode> {
 
       if (mounted) {
         if (widget.isInFloorInfo) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Floor created successfully")),
-          );
           Navigator.pop(context);
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Floor created successfully")),
-          );
           Navigator.popUntil(context, (route) => route.isFirst);
         }
       }
