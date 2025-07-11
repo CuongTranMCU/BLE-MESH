@@ -117,7 +117,9 @@ class StorageManager:
                 json_data = json.dumps(data) + "\n"
                 self.record_size = len(json_data.encode("utf-8"))
                 self.cache_limit_bytes = self.record_size * 12 * 24
-                print(f"Estimated record size: {self.record_size} bytes. Set cache limit: {self.cache_limit_bytes/1024:.2f} KB")
+                print(
+                    f"Estimated record size: {self.record_size} bytes. Set cache limit: {self.cache_limit_bytes/1024:.2f} KB"
+                )
             size_bytes, size_kb = self.get_file_size_kb(self.cache_file)
             if size_bytes >= self.cache_limit_bytes:
                 print(f"Cache file is already {size_kb:.2f} KB, skipping write.")
@@ -235,11 +237,19 @@ class StorageManager:
 
             # Only emit if we actually sent cached data
             if successfully_sent_data:
-                last_sent = successfully_sent_data[-1] if successfully_sent_data else (gateway_input_snapshot if gateway_input_snapshot is not None else {})
-                socketio.emit("firebase_output", {
-                    "output": last_sent,
-                    "cached": successfully_sent_data
-                })
+                last_sent = (
+                    successfully_sent_data[-1]
+                    if successfully_sent_data
+                    else (
+                        gateway_input_snapshot
+                        if gateway_input_snapshot is not None
+                        else {}
+                    )
+                )
+                socketio.emit(
+                    "firebase_output",
+                    {"output": last_sent, "cached": successfully_sent_data},
+                )
 
             # GHI LẠI CHỈ NHỮNG DÒNG CHƯA GỬI ĐƯỢC
             if failed_lines:
@@ -272,6 +282,7 @@ batch_manager = MessageBatchManager()
 # ============================== Internet Connection Status ==============================
 import socket
 
+
 def check_internet(host="8.8.8.8", port=53, timeout=3):
     try:
         socket.setdefaulttimeout(timeout)
@@ -280,7 +291,8 @@ def check_internet(host="8.8.8.8", port=53, timeout=3):
     except Exception:
         return False
 
-@socketio.on('get_connection_status')
+
+@socketio.on("get_connection_status")
 def handle_get_connection_status():
     status = check_internet()
     socketio.emit("connection_status", {"connected": status})
@@ -344,8 +356,12 @@ def handle_mqtt_message(client, userdata, message):
                     socketio.emit("firebase_output", earliest_data)
                 else:
                     # Emit cache size update if failed
-                    size_kb = storage_manager.get_file_size_kb(storage_manager.cache_file)[1]
-                    socketio.emit("cache_size_update", {"cache_size": round(size_kb, 2)})
+                    size_kb = storage_manager.get_file_size_kb(
+                        storage_manager.cache_file
+                    )[1]
+                    socketio.emit(
+                        "cache_size_update", {"cache_size": round(size_kb, 2)}
+                    )
             else:
                 print("No earliest data found from batch")
         else:
@@ -356,18 +372,20 @@ def handle_mqtt_message(client, userdata, message):
     except Exception as e:
         print(f"Error processing message: {e}")
 
+
 # Add a socket event to get the current cache size on demand
-@socketio.on('get_cache_size')
+@socketio.on("get_cache_size")
 def handle_get_cache_size():
     size_kb = storage_manager.get_file_size_kb(storage_manager.cache_file)[1]
     socketio.emit("cache_size_update", {"cache_size": round(size_kb, 2)})
 
-@socketio.on('get_cache_log')
+
+@socketio.on("get_cache_log")
 def handle_get_cache_log():
     lines = []
     try:
         if os.path.exists(storage_manager.cache_file):
-            with open(storage_manager.cache_file, 'r') as f:
+            with open(storage_manager.cache_file, "r") as f:
                 # Read up to 100 lines
                 lines = [line.strip() for _, line in zip(range(100), f) if line.strip()]
     except Exception as e:
@@ -480,6 +498,13 @@ if __name__ == "__main__":
     try:
         polling_thread = threading.Thread(target=poll_client_control, daemon=True)
         polling_thread.start()
-        socketio.run(app, host="0.0.0.0", port=5000, use_reloader=False, debug=False)
+        socketio.run(
+            app,
+            host="0.0.0.0",
+            port=5000,
+            use_reloader=False,
+            debug=False,
+            allow_unsafe_werkzeug=True,
+        )
     except Exception as e:
         print(f"Fatal error in main: {e}")
