@@ -29,12 +29,11 @@ firebase_ref = db.reference("/Data")
 
 # ============================== Flask App Setup ==============================
 app = Flask(__name__)
-app.config["MQTT_BROKER_URL"] = "192.168.1.9"
+app.config["MQTT_BROKER_URL"] = "localhost"
 app.config["MQTT_BROKER_PORT"] = 1883
 app.config["MQTT_USERNAME"] = ""
 app.config["MQTT_PASSWORD"] = ""
 app.config["MQTT_REFRESH_TIME"] = 1.0
-
 mqtt = Mqtt(app)
 mqtt.init_app(app)
 socketio = SocketIO(app)
@@ -93,8 +92,10 @@ class MessageBatchManager:
 class StorageManager:
     def __init__(self, storage_dir, firebase_ref):
         self.storage_dir = storage_dir
-        self.cache_file = os.path.join(self.storage_dir, "cache_failed.txt")
+        self.cache_file = os.path.join(self.storage_dir, "failed_cached.txt")
         self.ref = firebase_ref
+        self.record_size = None  # Will be set after first save
+        self.cache_limit_bytes = 500 * 1024  # Default fallback
 
     def get_file_size_kb(self, file_path):
         """Get file size in KB"""
@@ -111,8 +112,14 @@ class StorageManager:
     def save_data(self, data):
         print(f"save_data called! Will write to: {self.cache_file}")
         try:
+            # Estimate record size if not set
+            if self.record_size is None:
+                json_data = json.dumps(data) + "\n"
+                self.record_size = len(json_data.encode("utf-8"))
+                self.cache_limit_bytes = self.record_size * 12 * 24
+                print(f"Estimated record size: {self.record_size} bytes. Set cache limit: {self.cache_limit_bytes/1024:.2f} KB")
             size_bytes, size_kb = self.get_file_size_kb(self.cache_file)
-            if size_kb >= 500.0:
+            if size_bytes >= self.cache_limit_bytes:
                 print(f"Cache file is already {size_kb:.2f} KB, skipping write.")
                 return  # Skip writing
             with open(self.cache_file, "a") as f:
@@ -201,7 +208,7 @@ class StorageManager:
             self.save_data(data)
             return False
 
-    def try_send_stored_data(self):
+    def try_send_stored_data(self, gateway_input_snapshot=None):
         if not os.path.exists(self.cache_file):
             return
         try:
@@ -210,14 +217,14 @@ class StorageManager:
             if not lines:
                 return
 
-            successfully_sent_lines = []
+            successfully_sent_data = []
             failed_lines = []
 
             for i, line in enumerate(lines):
                 try:
                     data = json.loads(line.strip())
                     if self.send_to_firebase(data):
-                        successfully_sent_lines.append(i)
+                        successfully_sent_data.append(data)
                         print(f"Successfully sent line {i+1} from cache")
                     else:
                         failed_lines.append(line)
@@ -225,6 +232,14 @@ class StorageManager:
                 except json.JSONDecodeError as e:
                     print(f"Error parsing line {i+1}: {e}")
                     failed_lines.append(line)
+
+            # Only emit if we actually sent cached data
+            if successfully_sent_data:
+                last_sent = successfully_sent_data[-1] if successfully_sent_data else (gateway_input_snapshot if gateway_input_snapshot is not None else {})
+                socketio.emit("firebase_output", {
+                    "output": last_sent,
+                    "cached": successfully_sent_data
+                })
 
             # GHI LẠI CHỈ NHỮNG DÒNG CHƯA GỬI ĐƯỢC
             if failed_lines:
@@ -234,6 +249,10 @@ class StorageManager:
             else:
                 self.clear_cache_file()
                 print("Successfully sent all cached data")
+                # Emit cache size and log update to frontend
+                size_kb = self.get_file_size_kb(self.cache_file)[1]
+                socketio.emit("cache_size_update", {"cache_size": round(size_kb, 2)})
+                socketio.emit("cache_log", {"lines": []})
 
         except Exception as e:
             print(f"Error processing file {self.cache_file}: {e}")
@@ -249,6 +268,22 @@ class StorageManager:
 # ============================== Global Instances ==============================
 storage_manager = StorageManager(STORAGE_DIR, firebase_ref)
 batch_manager = MessageBatchManager()
+
+# ============================== Internet Connection Status ==============================
+import socket
+
+def check_internet(host="8.8.8.8", port=53, timeout=3):
+    try:
+        socket.setdefaulttimeout(timeout)
+        socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((host, port))
+        return True
+    except Exception:
+        return False
+
+@socketio.on('get_connection_status')
+def handle_get_connection_status():
+    status = check_internet()
+    socketio.emit("connection_status", {"connected": status})
 
 
 # ============================== MQTT Event Handlers ==============================
@@ -283,6 +318,9 @@ def handle_mqtt_message(client, userdata, message):
                             formatted_data[server_key] = server_data_with_time
 
         if formatted_data:
+            # Emit to UI as Gateway Input
+            socketio.emit("gateway_input", formatted_data)
+
             batch_id = batch_manager.add_message(formatted_data)
             socketio.sleep(0.1)
             earliest_data = batch_manager.get_earliest_from_batch(batch_id)
@@ -301,7 +339,13 @@ def handle_mqtt_message(client, userdata, message):
 
                 print(f"Processing earliest message from batch #{batch_id}")
                 send_ok = storage_manager.send_to_firebase(earliest_data)
-                socketio.emit("mqtt_message", data=earliest_data)
+                if send_ok:
+                    # Emit to UI as Firebase Output (with timeline)
+                    socketio.emit("firebase_output", earliest_data)
+                else:
+                    # Emit cache size update if failed
+                    size_kb = storage_manager.get_file_size_kb(storage_manager.cache_file)[1]
+                    socketio.emit("cache_size_update", {"cache_size": round(size_kb, 2)})
             else:
                 print("No earliest data found from batch")
         else:
@@ -311,6 +355,24 @@ def handle_mqtt_message(client, userdata, message):
         print(f"Error decoding JSON payload: {e}")
     except Exception as e:
         print(f"Error processing message: {e}")
+
+# Add a socket event to get the current cache size on demand
+@socketio.on('get_cache_size')
+def handle_get_cache_size():
+    size_kb = storage_manager.get_file_size_kb(storage_manager.cache_file)[1]
+    socketio.emit("cache_size_update", {"cache_size": round(size_kb, 2)})
+
+@socketio.on('get_cache_log')
+def handle_get_cache_log():
+    lines = []
+    try:
+        if os.path.exists(storage_manager.cache_file):
+            with open(storage_manager.cache_file, 'r') as f:
+                # Read up to 100 lines
+                lines = [line.strip() for _, line in zip(range(100), f) if line.strip()]
+    except Exception as e:
+        print(f"Error reading cache log: {e}")
+    socketio.emit("cache_log", {"lines": lines})
 
 
 # ============================== Routes ==============================
