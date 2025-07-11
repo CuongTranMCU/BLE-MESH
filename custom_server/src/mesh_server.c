@@ -9,6 +9,9 @@
  */
 
 #include "mesh_server.h"
+#include "esp_timer.h"  // For esp_timer_get_time()
+static int64_t send_start_time_us = 0;
+static size_t last_sent_bytes = 0;
 
 static const char *TAG = "MESH SERVER";
 
@@ -36,8 +39,8 @@ static esp_ble_mesh_cfg_srv_t config_server = {
 #endif
     .default_ttl = 3,
     /* 3 transmissions with 20ms interval */
-    .net_transmit = ESP_BLE_MESH_TRANSMIT(2, 20),
-    .relay_retransmit = ESP_BLE_MESH_TRANSMIT(2, 20),
+    .net_transmit = ESP_BLE_MESH_TRANSMIT(2, 30),
+    .relay_retransmit = ESP_BLE_MESH_TRANSMIT(2, 30),
 
 };
 
@@ -170,22 +173,15 @@ esp_err_t server_send_to_client(const void *raw_data, size_t raw_len, message_ty
     payload[0] = (uint8_t)type;             // Type field
     memcpy(&payload[1], raw_data, raw_len); // Actual data
 
-    // esp_ble_mesh_msg_ctx_t ctx = {0};
-
-    // ctx.addr = custom_models[0].pub->publish_addr;
-    // ctx.net_idx = ESP_BLE_MESH_KEY_PRIMARY;
-    // ctx.app_idx = custom_models[0].pub->app_idx;
-    // ctx.send_ttl = 3;
-    // ctx.srv_send = 0;
-
     esp_ble_mesh_msg_ctx_t ctx = {0};
-    ctx.send_ttl = 3;
+    ctx.send_ttl = 5;
     ctx.addr = ESP_BLE_MESH_GROUP_SERVER_PUB_CLIENT_SUB;
     ctx.srv_send = 0;
-    printf("Public address: %04X\n", ctx.addr);
+    // printf("Public address: %04X\n", ctx.addr);
 
     uint32_t opcode = ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_STATUS;
-
+    send_start_time_us = esp_timer_get_time(); // Start timing
+    last_sent_bytes = total_len;  // Store the size of the payload for logging
     esp_err_t err = esp_ble_mesh_server_model_send_msg(custom_models, &ctx, opcode, total_len, payload);
     free(payload); // luôn giải phóng sau khi gửi
 
@@ -355,9 +351,9 @@ static void ble_mesh_config_server_cb(esp_ble_mesh_cfg_server_cb_event_t event,
             /// ----------------------------------------------------
             // Đăng ký địa chỉ group
             esp_err_t err = esp_ble_mesh_model_subscribe_group_addr(
-                param->value.state_change.mod_sub_add.element_addr, // Địa chỉ phần tử (Element Address)
-                param->value.state_change.mod_sub_add.company_id,   // Company ID (CID_ESP nếu là vendor model)
-                param->value.state_change.mod_sub_add.model_id,     // Model ID
+                param->value.state_change.mod_app_bind.element_addr, // Địa chỉ phần tử (Element Address)
+                param->value.state_change.mod_app_bind.company_id,   // Company ID (CID_ESP nếu là vendor model)
+                param->value.state_change.mod_app_bind.model_id,     // Model ID
                 ESP_BLE_MESH_GROUP_CLIENT_PUB_SERVER_SUB             // Địa chỉ group cần sub (0xC001)
             );
 
@@ -496,8 +492,8 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
         case ESP_BLE_MESH_CUSTOM_SENSOR_MODEL_OP_SET:
             ESP_LOGI(TAG, "OP_SET -- Received HEX message: ");
             ESP_LOG_BUFFER_HEX(TAG, (uint8_t *)param->model_operation.msg, param->model_operation.length);
-            parse_received_data(param, (model_sensor_data_t *)&param->model_operation.model->user_data);
-
+            model_control_data_t control_data;
+            parse_received_data(param, &control_data);
             break;
 
         default:
@@ -506,7 +502,7 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
         }
         break;
 
-    //* Evento chamado apos tentar enviar uma msg pra outro lugar
+    // Callback for receiving a message from the client
     case ESP_BLE_MESH_MODEL_SEND_COMP_EVT:
         if (param->model_send_comp.err_code)
         {
@@ -514,7 +510,12 @@ static void ble_mesh_custom_sensor_server_model_cb(esp_ble_mesh_model_cb_event_t
         }
         else
         {
-            ESP_LOGI(TAG, "%s -- SEND_COMPLETE -- Send message opcode 0x%08x success", __func__, param->model_send_comp.opcode);
+            int64_t end_time_us = esp_timer_get_time();
+            double elapsed_sec = (end_time_us - send_start_time_us) / 1e6;
+            double data_rate_bps = (last_sent_bytes * 8.0) / elapsed_sec;
+        
+            ESP_LOGI(TAG, "SEND COMPLETE: %d bytes in %.8f seconds\nDataRate = %.2f bps",
+             (int)last_sent_bytes, elapsed_sec, data_rate_bps);
         }
         break;
 
@@ -612,7 +613,7 @@ static void set_mac_address()
     }
 
     // base_mac_addr[5] = 'f'; // e66
-   // base_mac_addr[5] = 'a'; // e61
+    // base_mac_addr[5] = 'a'; // e61
 
     uint8_t index = 0;
     for (uint8_t i = 0; i < 6; i++)

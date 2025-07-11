@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GatewayWeb</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/gateway_ui.css">
+  </head>
+  <body>
+    <header>
+      <h1>GatewayWeb Admin Dashboard</h1>
+    </header>
+
+    <div class="dashboard">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Gateway Input</h2>
+        </div>
+        <div class="data-container" id="gateway-data">
+          <!-- Gateway messages will appear here -->
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Gateway Output</h2>
+        </div>
+        <div class="data-container" id="firebase-data">
+          <!-- Firebase messages will appear here -->
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-dashboard">
+      <h2>System Metrics</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value" id="cache-size">0</div>
+          <div class="metric-label">Cache Size (KB)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value" id="uptime">00:00:00</div>
+          <div class="metric-label">Uptime</div>
+        </div>
+        <div class="metric-card">
+          <button id="connection-status-btn" style="width:100%;font-size:1.2rem;">Checking...</button>
+          <div class="metric-label">Connection</div>
+        </div>
+      </div>
+    </div>
+    <div class="cache-log-section">
+      <h2>Cached Data Log</h2>
+      <div id="cache-log" class="logs-container"></div>
+    </div>
+
+    <script src="/static/gateway_ui.js"></script>
+  </body>
+</html>

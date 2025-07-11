@@ -1,0 +1,6 @@
+{
+    "cmake.sourceDirectory": "D:/NAM4/KLTN/PRACTICE/BLE-MESH/custom_client",
+    "idf.openOcdConfigs": [
+        "board/esp32c6-ftdi.cfg"
+    ]
+}
